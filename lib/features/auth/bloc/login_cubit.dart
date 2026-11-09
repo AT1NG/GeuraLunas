@@ -50,6 +50,13 @@ class LoginCubit extends Cubit<LoginState> {
 
   final AuthRepository _repository;
 
+  /// The screen can be disposed (by the auth redirect) while a request is in
+  /// flight; late results must not throw.
+  @override
+  void emit(LoginState state) {
+    if (!isClosed) super.emit(state);
+  }
+
   void emailChanged(String value) => emit(state.copyWith(email: value));
 
   void passwordChanged(String value) => emit(state.copyWith(password: value));
@@ -88,6 +95,13 @@ class LoginCubit extends Cubit<LoginState> {
       );
     } on AuthFailure catch (f) {
       emit(state.copyWith(status: SubmitStatus.failure, failure: f));
+    } on Object {
+      emit(
+        state.copyWith(
+          status: SubmitStatus.failure,
+          failure: const UnknownAuthFailure(),
+        ),
+      );
     }
   }
 }

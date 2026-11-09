@@ -46,10 +46,29 @@ void main() {
 
   test('does not overwrite existing profile', () async {
     when(() => ds.exists('u1')).thenAnswer((_) async => true);
+    when(() => ds.setDisplayName(any(), any())).thenAnswer((_) async {});
 
     await repo.ensureProfile(_user);
 
     verifyNever(() => ds.create(any(), any()));
+  });
+
+  test('fills in displayName on an existing profile', () async {
+    when(() => ds.exists('u1')).thenAnswer((_) async => true);
+    when(() => ds.setDisplayName(any(), any())).thenAnswer((_) async {});
+
+    await repo.ensureProfile(_user);
+
+    verify(() => ds.setDisplayName('u1', 'Rani')).called(1);
+    verifyNever(() => ds.create(any(), any()));
+  });
+
+  test('leaves existing profile alone when user has no displayName', () async {
+    when(() => ds.exists('u2')).thenAnswer((_) async => true);
+
+    await repo.ensureProfile(const AppUser(uid: 'u2', email: 'a@b.co'));
+
+    verifyNever(() => ds.setDisplayName(any(), any()));
   });
 
   test('omits displayName when user has none', () async {

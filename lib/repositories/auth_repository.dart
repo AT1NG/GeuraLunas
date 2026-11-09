@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:geuralunas/data/auth_data_source.dart';
 import 'package:geuralunas/domain/auth/app_user.dart';
 import 'package:geuralunas/repositories/auth_failure.dart';
 import 'package:geuralunas/shared/validators.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 abstract interface class AuthRepository {
   Stream<AppUser?> get authStateChanges;
@@ -80,6 +82,10 @@ class AuthRepositoryImpl implements AuthRepository {
       return await action();
     } on FirebaseAuthException catch (e) {
       throw _mapFailure(e.code);
+    } on GoogleSignInException {
+      throw const UnknownAuthFailure();
+    } on PlatformException {
+      throw const UnknownAuthFailure();
     }
   }
 

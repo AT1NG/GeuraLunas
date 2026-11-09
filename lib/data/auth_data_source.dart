@@ -11,7 +11,9 @@ class AuthDataSource {
   final GoogleSignIn _google;
   Future<void>? _googleInit;
 
-  Stream<User?> authStateChanges() => _auth.authStateChanges();
+  /// Also fires when the profile changes (for example the display name set
+  /// right after sign-up), not only on sign-in and sign-out.
+  Stream<User?> authStateChanges() => _auth.userChanges();
 
   Future<void> signInWithEmail(String email, String password) =>
       _auth.signInWithEmailAndPassword(email: email, password: password);
@@ -30,16 +32,30 @@ class AuthDataSource {
 
   /// Returns `false` when the user dismissed the Google account picker.
   Future<bool> signInWithGoogle() async {
-    await (_googleInit ??= _google.initialize());
+    await _ensureGoogleInitialized();
     try {
       final account = await _google.authenticate();
       final idToken = account.authentication.idToken;
+      if (idToken == null) {
+        throw FirebaseAuthException(code: 'missing-id-token');
+      }
       await _auth.signInWithCredential(
         GoogleAuthProvider.credential(idToken: idToken),
       );
       return true;
     } on GoogleSignInException catch (e) {
       if (e.code == GoogleSignInExceptionCode.canceled) return false;
+      rethrow;
+    }
+  }
+
+  Future<void> _ensureGoogleInitialized() async {
+    final init = _googleInit ??= _google.initialize();
+    try {
+      await init;
+    } on Object {
+      // Do not cache a failed initialization: allow the next attempt to retry.
+      _googleInit = null;
       rethrow;
     }
   }

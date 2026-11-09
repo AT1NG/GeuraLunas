@@ -15,7 +15,15 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
 
   @override
   Future<void> ensureProfile(AppUser user) async {
-    if (await _dataSource.exists(user.uid)) return;
+    if (await _dataSource.exists(user.uid)) {
+      // Sign-up creates the account before the display name is set, so the
+      // first profile may have been written without it.
+      final name = user.displayName;
+      if (name != null && name.isNotEmpty) {
+        await _dataSource.setDisplayName(user.uid, name);
+      }
+      return;
+    }
     await _dataSource.create(user.uid, {
       if (user.displayName != null) 'displayName': user.displayName,
       'email': user.email,

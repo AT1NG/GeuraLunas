@@ -39,14 +39,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   final AuthRepository _repository;
   final UserProfileRepository _profiles;
-  String? _ensuredUid;
+  String? _ensuredKey;
 
   Future<void> _onStarted(AuthStarted event, Emitter<AuthState> emit) {
     return emit.forEach<AppUser?>(
       _repository.authStateChanges,
       onData: (user) {
         if (user == null) {
-          _ensuredUid = null;
+          _ensuredKey = null;
           return const AuthState(status: AuthStatus.unauthenticated);
         }
         unawaited(_ensureProfile(user));
@@ -55,15 +55,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  /// Runs once per signed-in uid. A failure never blocks login: it is logged
-  /// and retried the next time the app opens (or the user signs in again).
+  /// Runs once per signed-in uid and display name. A failure never blocks
+  /// login: it is logged and retried the next time the app opens (or the user
+  /// signs in again).
   Future<void> _ensureProfile(AppUser user) async {
-    if (_ensuredUid == user.uid) return;
-    _ensuredUid = user.uid;
+    final key = '${user.uid}|${user.displayName}';
+    if (_ensuredKey == key) return;
+    _ensuredKey = key;
     try {
       await _profiles.ensureProfile(user);
     } on Object catch (error, stackTrace) {
-      _ensuredUid = null;
+      if (_ensuredKey == key) _ensuredKey = null;
       developer.log(
         'ensureProfile failed',
         name: 'AuthBloc',

@@ -13,6 +13,10 @@ class UserProfileDataSource {
   /// Whether the profile document exists on the server or in cache.
   Future<bool> exists(String uid) async => (await _doc(uid).get()).exists;
 
+  /// Sets only the display name, leaving the rest of the profile untouched.
+  Future<void> setDisplayName(String uid, String displayName) =>
+      _doc(uid).set({'displayName': displayName}, SetOptions(merge: true));
+
   /// Writes the profile document.
   Future<void> create(String uid, Map<String, Object?> data) =>
       _doc(uid).set(data);

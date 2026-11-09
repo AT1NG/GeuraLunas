@@ -44,6 +44,13 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
 
   final AuthRepository _repository;
 
+  /// The screen can be disposed (by the auth redirect) while a request is in
+  /// flight; late results must not throw.
+  @override
+  void emit(ForgotPasswordState state) {
+    if (!isClosed) super.emit(state);
+  }
+
   void emailChanged(String value) => emit(state.copyWith(email: value));
 
   Future<void> submit() async {
@@ -58,6 +65,13 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
       emit(state.copyWith(status: SubmitStatus.success));
     } on AuthFailure catch (f) {
       emit(state.copyWith(status: SubmitStatus.failure, failure: f));
+    } on Object {
+      emit(
+        state.copyWith(
+          status: SubmitStatus.failure,
+          failure: const UnknownAuthFailure(),
+        ),
+      );
     }
   }
 }

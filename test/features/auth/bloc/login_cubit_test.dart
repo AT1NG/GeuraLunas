@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:geuralunas/features/auth/bloc/login_cubit.dart';
@@ -52,6 +54,29 @@ void main() {
       ).having((s) => s.failure, 'failure', isA<InvalidCredentials>()),
     ],
   );
+
+  blocTest<LoginCubit, LoginState>(
+    'unexpected error becomes UnknownAuthFailure, not a stuck spinner',
+    setUp: () => when(() => repo.signInWithGoogle()).thenThrow(StateError('x')),
+    build: () => LoginCubit(repo),
+    act: (c) => c.submitGoogle(),
+    expect: () => [
+      status(SubmitStatus.submitting),
+      status(
+        SubmitStatus.failure,
+      ).having((s) => s.failure, 'failure', isA<UnknownAuthFailure>()),
+    ],
+  );
+
+  test('completing after the cubit is closed does not throw', () async {
+    final completer = Completer<bool>();
+    when(() => repo.signInWithGoogle()).thenAnswer((_) => completer.future);
+    final cubit = LoginCubit(repo);
+    final pending = cubit.submitGoogle();
+    await cubit.close();
+    completer.complete(true);
+    await expectLater(pending, completes);
+  });
 
   blocTest<LoginCubit, LoginState>(
     'invalid email does not call repository',

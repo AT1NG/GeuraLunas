@@ -59,6 +59,13 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   final AuthRepository _repository;
 
+  /// The screen can be disposed (by the auth redirect) while a request is in
+  /// flight; late results must not throw.
+  @override
+  void emit(RegisterState state) {
+    if (!isClosed) super.emit(state);
+  }
+
   void nameChanged(String value) => emit(state.copyWith(name: value));
 
   void emailChanged(String value) => emit(state.copyWith(email: value));
@@ -83,6 +90,13 @@ class RegisterCubit extends Cubit<RegisterState> {
       emit(state.copyWith(status: SubmitStatus.success));
     } on AuthFailure catch (f) {
       emit(state.copyWith(status: SubmitStatus.failure, failure: f));
+    } on Object {
+      emit(
+        state.copyWith(
+          status: SubmitStatus.failure,
+          failure: const UnknownAuthFailure(),
+        ),
+      );
     }
   }
 }

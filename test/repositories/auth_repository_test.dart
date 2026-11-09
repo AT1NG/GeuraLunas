@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:geuralunas/data/auth_data_source.dart';
 import 'package:geuralunas/domain/auth/app_user.dart';
 import 'package:geuralunas/repositories/auth_failure.dart';
 import 'package:geuralunas/repositories/auth_repository.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mocktail/mocktail.dart';
 
 class _MockDataSource extends Mock implements AuthDataSource {}
@@ -86,6 +88,24 @@ void main() {
       () => ds.signInWithGoogle(),
     ).thenThrow(FirebaseAuthException(code: 'network-request-failed'));
     await expectLater(repo.signInWithGoogle(), throwsA(isA<NetworkFailure>()));
+  });
+
+  test('non-cancel Google error maps to UnknownAuthFailure', () async {
+    when(() => ds.signInWithGoogle()).thenThrow(
+      const GoogleSignInException(code: GoogleSignInExceptionCode.unknownError),
+    );
+    await expectLater(
+      repo.signInWithGoogle(),
+      throwsA(isA<UnknownAuthFailure>()),
+    );
+  });
+
+  test('platform error maps to UnknownAuthFailure', () async {
+    when(() => ds.signInWithGoogle()).thenThrow(PlatformException(code: 'x'));
+    await expectLater(
+      repo.signInWithGoogle(),
+      throwsA(isA<UnknownAuthFailure>()),
+    );
   });
 
   test('maps firebase user to AppUser', () async {

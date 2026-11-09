@@ -67,6 +67,21 @@ void main() {
   );
 
   blocTest<AuthBloc, AuthState>(
+    'ensures again when the display name arrives after sign-up',
+    setUp: () {
+      when(() => repo.authStateChanges).thenAnswer(
+        (_) => Stream.fromIterable([
+          _user,
+          const AppUser(uid: 'u1', email: 'rani@mail.com', displayName: 'Rani'),
+        ]),
+      );
+    },
+    build: () => AuthBloc(repo, profiles),
+    act: (b) => b.add(const AuthStarted()),
+    verify: (_) => verify(() => profiles.ensureProfile(any())).called(2),
+  );
+
+  blocTest<AuthBloc, AuthState>(
     'login still succeeds when ensureProfile throws',
     setUp: () {
       when(

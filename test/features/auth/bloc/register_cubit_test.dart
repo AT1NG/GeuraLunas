@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:geuralunas/features/auth/bloc/register_cubit.dart';
@@ -36,6 +38,25 @@ void main() {
       ).having((s) => s.failure, 'failure', isA<EmailInUse>()),
     ],
   );
+
+  test('completing after the cubit is closed does not throw', () async {
+    final completer = Completer<void>();
+    when(
+      () => repo.signUpWithEmail(
+        email: any(named: 'email'),
+        password: any(named: 'password'),
+        displayName: any(named: 'displayName'),
+      ),
+    ).thenAnswer((_) => completer.future);
+    final cubit = RegisterCubit(repo)
+      ..nameChanged('Rani')
+      ..emailChanged('rani@mail.com')
+      ..passwordChanged('12345678');
+    final pending = cubit.submit();
+    await cubit.close();
+    completer.complete();
+    await expectLater(pending, completes);
+  });
 
   blocTest<RegisterCubit, RegisterState>(
     'invalid input does not call repository',
