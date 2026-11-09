@@ -1,1 +1,34 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"geuralunas-dev","appId":"1:1080588780296:android:19b164aac5aee87d38a2bd","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"geuralunas-dev","configurations":{"android":"1:1080588780296:android:19b164aac5aee87d38a2bd"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "geuralunas-dev",
+          "appId": "1:1080588780296:android:19b164aac5aee87d38a2bd",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "geuralunas-dev",
+          "configurations": {
+            "android": "1:1080588780296:android:19b164aac5aee87d38a2bd"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "emulators": {
+    "firestore": {
+      "port": 8080
+    },
+    "ui": {
+      "enabled": false
+    },
+    "singleProjectMode": true
+  }
+}
