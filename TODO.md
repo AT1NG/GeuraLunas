@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 2: rencana ada di docs/superpowers/plans/2026-11-09-phase2-debts-payments.md (menunggu persetujuan dan pilihan cara eksekusi). Fase 1: uji manual di emulator selesai kecuali Google Sign-In sukses (butuh akun Google di emulator).
+- Fase 2 Task 2: generator jadwal cicilan (lihat docs/superpowers/plans/2026-11-09-phase2-debts-payments.md).
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -34,7 +34,7 @@
 
 ## Fase 2 — Hutang & pembayaran (US-01 s.d. US-05)
 
-- [ ] Domain: `Money`, kalkulasi bunga, generator jadwal cicilan (+ unit test)
+- [ ] Domain: `Money`, kalkulasi bunga (selesai), generator jadwal cicilan (+ unit test)
 - [ ] Repository dan Bloc hutang
 - [ ] Layar daftar hutang (filter: aku berutang / piutang, aktif / lunas)
 - [ ] Form tambah/ubah hutang (pinjol, cicilan, teman)
@@ -98,4 +98,5 @@
 | 2026-11-09 | Fase 1 review akhir: perbaikan nama hilang setelah daftar, emit pada cubit tertutup, error Google yang membuat spinner macet (124 test hijau) |
 | 2026-11-09 | Fase 1 penutup: rules diperketat (createdAt server, batas panjang) dan di-deploy ke geuralunas-dev; sign-out Google tahan error; splash tak menggantung; test layar HP skala teks 2.0 dan cold start (131 test, 18 test rules) |
 | 2026-11-09 | Fase 1 uji manual di emulator Pixel_API34: onboarding, validasi, pesan salah password, daftar → Beranda, nama di Pengaturan, dokumen profil di Firestore, buka ulang tanpa kilasan login (termasuk mode pesawat), keluar dengan konfirmasi, login ulang. Belum: Google Sign-In sukses |
+| 2026-11-09 | Fase 2 Task 1: model domain hutang (enum, Debt, Installment, Payment) dan rumus total bayar termasuk anuitas; domain 100% |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |
