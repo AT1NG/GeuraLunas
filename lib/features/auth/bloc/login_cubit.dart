@@ -63,7 +63,7 @@ class LoginCubit extends Cubit<LoginState> {
     await _run(
       () async {
         await _repository.signInWithEmail(
-          email: state.email,
+          email: normalizeEmail(state.email),
           password: state.password,
         );
         return true;

@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 1 Task 8: layar auth + redirect (lihat docs/superpowers/plans/2026-11-09-phase1-foundation.md).
+- Fase 1 Task 9: Firestore rules + test emulator (lihat docs/superpowers/plans/2026-11-09-phase1-foundation.md). Utang manual: uji Task 8 di emulator/HP (belum ada device).
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -91,4 +91,5 @@
 | 2026-11-09 | Fase 1 Task 5: project Firebase geuralunas-dev, Auth (Google + email) dan Firestore aktif, google-services.json memuat OAuth client |
 | 2026-11-09 | Fase 1 Task 6: logika auth (validator, AuthRepository, AuthBloc, Login/Register/ForgotPassword cubit; 60 test hijau). UI auth di Task 8 |
 | 2026-11-09 | Fase 1 Task 7: onboarding 3 slide dengan flag tersimpan (shared_preferences), 69 test hijau |
+| 2026-11-09 | Fase 1 Task 8: layar splash/login/daftar/lupa password, redirect berbasis auth+onboarding (102 test hijau). Uji manual di perangkat belum dilakukan; item Auth tetap terbuka sampai tombol keluar (Task 10) |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |

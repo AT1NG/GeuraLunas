@@ -54,7 +54,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     }
     emit(state.copyWith(status: SubmitStatus.submitting, clearFailure: true));
     try {
-      await _repository.sendPasswordReset(state.email);
+      await _repository.sendPasswordReset(normalizeEmail(state.email));
       emit(state.copyWith(status: SubmitStatus.success));
     } on AuthFailure catch (f) {
       emit(state.copyWith(status: SubmitStatus.failure, failure: f));

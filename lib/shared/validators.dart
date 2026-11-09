@@ -24,3 +24,6 @@ ValidationError? validateName(String? v) {
   if ((v?.trim() ?? '').isEmpty) return ValidationError.required;
   return null;
 }
+
+/// Canonical form of an email: trimmed and lower-cased.
+String normalizeEmail(String email) => email.trim().toLowerCase();

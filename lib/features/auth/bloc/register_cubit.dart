@@ -76,7 +76,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(state.copyWith(status: SubmitStatus.submitting, clearFailure: true));
     try {
       await _repository.signUpWithEmail(
-        email: state.email,
+        email: normalizeEmail(state.email),
         password: state.password,
         displayName: state.name,
       );

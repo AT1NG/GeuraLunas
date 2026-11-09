@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geuralunas/data/auth_data_source.dart';
 import 'package:geuralunas/domain/auth/app_user.dart';
 import 'package:geuralunas/repositories/auth_failure.dart';
+import 'package:geuralunas/shared/validators.dart';
 
 abstract interface class AuthRepository {
   Stream<AppUser?> get authStateChanges;
@@ -30,7 +31,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   final AuthDataSource _dataSource;
 
-  static String _normalize(String email) => email.trim().toLowerCase();
+  static String _normalize(String email) => normalizeEmail(email);
 
   @override
   Stream<AppUser?> get authStateChanges =>

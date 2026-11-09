@@ -64,4 +64,113 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get onboardingStart => 'Mulai';
+
+  @override
+  String get authEmail => 'Email';
+
+  @override
+  String get authPassword => 'Password';
+
+  @override
+  String get authName => 'Nama';
+
+  @override
+  String get authOr => 'atau';
+
+  @override
+  String get authShowPassword => 'Tampilkan password';
+
+  @override
+  String get authHidePassword => 'Sembunyikan password';
+
+  @override
+  String get validationRequired => 'Wajib diisi';
+
+  @override
+  String get validationInvalidEmail => 'Format email belum benar';
+
+  @override
+  String get validationPasswordTooShort => 'Minimal 8 karakter';
+
+  @override
+  String get authErrorInvalidCredentials =>
+      'Email atau password belum cocok. Coba cek lagi ya.';
+
+  @override
+  String get authErrorInvalidEmail => 'Format email belum benar.';
+
+  @override
+  String get authErrorEmailInUse =>
+      'Email ini sudah terdaftar. Coba masuk, atau pakai email lain.';
+
+  @override
+  String get authErrorWeakPassword =>
+      'Password terlalu mudah ditebak. Pakai minimal 8 karakter.';
+
+  @override
+  String get authErrorTooManyRequests =>
+      'Terlalu banyak percobaan. Tunggu sebentar lalu coba lagi.';
+
+  @override
+  String get authErrorNetwork =>
+      'Tidak ada koneksi internet. Coba lagi setelah tersambung.';
+
+  @override
+  String get authErrorDifferentCredential =>
+      'Email ini sudah dipakai dengan cara masuk lain. Coba masuk dengan email dan password.';
+
+  @override
+  String get authErrorUnknown =>
+      'Ada yang tidak beres. Coba lagi sebentar lagi.';
+
+  @override
+  String get loginTitle => 'Masuk';
+
+  @override
+  String get loginSubtitle =>
+      'Senang melihatmu lagi. Yuk lanjut beresin hutang.';
+
+  @override
+  String get loginSubmit => 'Masuk';
+
+  @override
+  String get loginGoogle => 'Masuk dengan Google';
+
+  @override
+  String get loginForgot => 'Lupa password?';
+
+  @override
+  String get loginNoAccount => 'Belum punya akun?';
+
+  @override
+  String get loginToRegister => 'Daftar';
+
+  @override
+  String get registerTitle => 'Buat akun';
+
+  @override
+  String get registerSubtitle => 'Mulai catat hutangmu dengan tenang.';
+
+  @override
+  String get registerSubmit => 'Daftar';
+
+  @override
+  String get registerHaveAccount => 'Sudah punya akun?';
+
+  @override
+  String get registerToLogin => 'Masuk';
+
+  @override
+  String get forgotTitle => 'Lupa password';
+
+  @override
+  String get forgotBody =>
+      'Masukkan email akunmu. Kami kirim tautan untuk membuat password baru.';
+
+  @override
+  String get forgotSubmit => 'Kirim tautan';
+
+  @override
+  String get forgotSent =>
+      'Kalau email itu terdaftar, tautan sudah kami kirim. Cek kotak masuk atau folder spam.';
 }

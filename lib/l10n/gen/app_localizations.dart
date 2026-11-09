@@ -201,6 +201,204 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Mulai'**
   String get onboardingStart;
+
+  /// No description provided for @authEmail.
+  ///
+  /// In id, this message translates to:
+  /// **'Email'**
+  String get authEmail;
+
+  /// No description provided for @authPassword.
+  ///
+  /// In id, this message translates to:
+  /// **'Password'**
+  String get authPassword;
+
+  /// No description provided for @authName.
+  ///
+  /// In id, this message translates to:
+  /// **'Nama'**
+  String get authName;
+
+  /// No description provided for @authOr.
+  ///
+  /// In id, this message translates to:
+  /// **'atau'**
+  String get authOr;
+
+  /// No description provided for @authShowPassword.
+  ///
+  /// In id, this message translates to:
+  /// **'Tampilkan password'**
+  String get authShowPassword;
+
+  /// No description provided for @authHidePassword.
+  ///
+  /// In id, this message translates to:
+  /// **'Sembunyikan password'**
+  String get authHidePassword;
+
+  /// No description provided for @validationRequired.
+  ///
+  /// In id, this message translates to:
+  /// **'Wajib diisi'**
+  String get validationRequired;
+
+  /// No description provided for @validationInvalidEmail.
+  ///
+  /// In id, this message translates to:
+  /// **'Format email belum benar'**
+  String get validationInvalidEmail;
+
+  /// No description provided for @validationPasswordTooShort.
+  ///
+  /// In id, this message translates to:
+  /// **'Minimal 8 karakter'**
+  String get validationPasswordTooShort;
+
+  /// No description provided for @authErrorInvalidCredentials.
+  ///
+  /// In id, this message translates to:
+  /// **'Email atau password belum cocok. Coba cek lagi ya.'**
+  String get authErrorInvalidCredentials;
+
+  /// No description provided for @authErrorInvalidEmail.
+  ///
+  /// In id, this message translates to:
+  /// **'Format email belum benar.'**
+  String get authErrorInvalidEmail;
+
+  /// No description provided for @authErrorEmailInUse.
+  ///
+  /// In id, this message translates to:
+  /// **'Email ini sudah terdaftar. Coba masuk, atau pakai email lain.'**
+  String get authErrorEmailInUse;
+
+  /// No description provided for @authErrorWeakPassword.
+  ///
+  /// In id, this message translates to:
+  /// **'Password terlalu mudah ditebak. Pakai minimal 8 karakter.'**
+  String get authErrorWeakPassword;
+
+  /// No description provided for @authErrorTooManyRequests.
+  ///
+  /// In id, this message translates to:
+  /// **'Terlalu banyak percobaan. Tunggu sebentar lalu coba lagi.'**
+  String get authErrorTooManyRequests;
+
+  /// No description provided for @authErrorNetwork.
+  ///
+  /// In id, this message translates to:
+  /// **'Tidak ada koneksi internet. Coba lagi setelah tersambung.'**
+  String get authErrorNetwork;
+
+  /// No description provided for @authErrorDifferentCredential.
+  ///
+  /// In id, this message translates to:
+  /// **'Email ini sudah dipakai dengan cara masuk lain. Coba masuk dengan email dan password.'**
+  String get authErrorDifferentCredential;
+
+  /// No description provided for @authErrorUnknown.
+  ///
+  /// In id, this message translates to:
+  /// **'Ada yang tidak beres. Coba lagi sebentar lagi.'**
+  String get authErrorUnknown;
+
+  /// No description provided for @loginTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Masuk'**
+  String get loginTitle;
+
+  /// No description provided for @loginSubtitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Senang melihatmu lagi. Yuk lanjut beresin hutang.'**
+  String get loginSubtitle;
+
+  /// No description provided for @loginSubmit.
+  ///
+  /// In id, this message translates to:
+  /// **'Masuk'**
+  String get loginSubmit;
+
+  /// No description provided for @loginGoogle.
+  ///
+  /// In id, this message translates to:
+  /// **'Masuk dengan Google'**
+  String get loginGoogle;
+
+  /// No description provided for @loginForgot.
+  ///
+  /// In id, this message translates to:
+  /// **'Lupa password?'**
+  String get loginForgot;
+
+  /// No description provided for @loginNoAccount.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum punya akun?'**
+  String get loginNoAccount;
+
+  /// No description provided for @loginToRegister.
+  ///
+  /// In id, this message translates to:
+  /// **'Daftar'**
+  String get loginToRegister;
+
+  /// No description provided for @registerTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Buat akun'**
+  String get registerTitle;
+
+  /// No description provided for @registerSubtitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Mulai catat hutangmu dengan tenang.'**
+  String get registerSubtitle;
+
+  /// No description provided for @registerSubmit.
+  ///
+  /// In id, this message translates to:
+  /// **'Daftar'**
+  String get registerSubmit;
+
+  /// No description provided for @registerHaveAccount.
+  ///
+  /// In id, this message translates to:
+  /// **'Sudah punya akun?'**
+  String get registerHaveAccount;
+
+  /// No description provided for @registerToLogin.
+  ///
+  /// In id, this message translates to:
+  /// **'Masuk'**
+  String get registerToLogin;
+
+  /// No description provided for @forgotTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Lupa password'**
+  String get forgotTitle;
+
+  /// No description provided for @forgotBody.
+  ///
+  /// In id, this message translates to:
+  /// **'Masukkan email akunmu. Kami kirim tautan untuk membuat password baru.'**
+  String get forgotBody;
+
+  /// No description provided for @forgotSubmit.
+  ///
+  /// In id, this message translates to:
+  /// **'Kirim tautan'**
+  String get forgotSubmit;
+
+  /// No description provided for @forgotSent.
+  ///
+  /// In id, this message translates to:
+  /// **'Kalau email itu terdaftar, tautan sudah kami kirim. Cek kotak masuk atau folder spam.'**
+  String get forgotSent;
 }
 
 class _AppLocalizationsDelegate
