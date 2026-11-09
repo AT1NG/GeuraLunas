@@ -1197,6 +1197,54 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Perubahan terakhir belum bisa disimpan ke server dan dibatalkan. Coba lagi ya.'**
   String get writeRejected;
+
+  /// No description provided for @reminderTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Cicilan jatuh tempo'**
+  String get reminderTitle;
+
+  /// No description provided for @reminderBody.
+  ///
+  /// In id, this message translates to:
+  /// **'Cicilan {name} {amount} jatuh tempo {when}.'**
+  String reminderBody(String name, String amount, String when);
+
+  /// No description provided for @reminderWhenToday.
+  ///
+  /// In id, this message translates to:
+  /// **'hari ini'**
+  String get reminderWhenToday;
+
+  /// No description provided for @reminderWhenTomorrow.
+  ///
+  /// In id, this message translates to:
+  /// **'besok'**
+  String get reminderWhenTomorrow;
+
+  /// No description provided for @reminderWhenInDays.
+  ///
+  /// In id, this message translates to:
+  /// **'dalam {days} hari'**
+  String reminderWhenInDays(int days);
+
+  /// No description provided for @collectionBeforeDue.
+  ///
+  /// In id, this message translates to:
+  /// **'Halo {name}, mau mengingatkan pinjaman {amount} yang jatuh tempo tanggal {date}. Kapan kira-kira bisa dibayar? Terima kasih ya.'**
+  String collectionBeforeDue(String name, String amount, String date);
+
+  /// No description provided for @collectionAfterDue.
+  ///
+  /// In id, this message translates to:
+  /// **'Halo {name}, mau mengingatkan pinjaman {amount} yang jatuh tempo tanggal {date} lalu. Kapan kira-kira bisa dibayar? Terima kasih ya.'**
+  String collectionAfterDue(String name, String amount, String date);
+
+  /// No description provided for @collectionNoDue.
+  ///
+  /// In id, this message translates to:
+  /// **'Halo {name}, mau mengingatkan soal pinjaman {amount}. Kapan kira-kira bisa dibayar? Terima kasih ya.'**
+  String collectionNoDue(String name, String amount);
 }
 
 class _AppLocalizationsDelegate

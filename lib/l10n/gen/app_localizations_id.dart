@@ -624,4 +624,38 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get writeRejected =>
       'Perubahan terakhir belum bisa disimpan ke server dan dibatalkan. Coba lagi ya.';
+
+  @override
+  String get reminderTitle => 'Cicilan jatuh tempo';
+
+  @override
+  String reminderBody(String name, String amount, String when) {
+    return 'Cicilan $name $amount jatuh tempo $when.';
+  }
+
+  @override
+  String get reminderWhenToday => 'hari ini';
+
+  @override
+  String get reminderWhenTomorrow => 'besok';
+
+  @override
+  String reminderWhenInDays(int days) {
+    return 'dalam $days hari';
+  }
+
+  @override
+  String collectionBeforeDue(String name, String amount, String date) {
+    return 'Halo $name, mau mengingatkan pinjaman $amount yang jatuh tempo tanggal $date. Kapan kira-kira bisa dibayar? Terima kasih ya.';
+  }
+
+  @override
+  String collectionAfterDue(String name, String amount, String date) {
+    return 'Halo $name, mau mengingatkan pinjaman $amount yang jatuh tempo tanggal $date lalu. Kapan kira-kira bisa dibayar? Terima kasih ya.';
+  }
+
+  @override
+  String collectionNoDue(String name, String amount) {
+    return 'Halo $name, mau mengingatkan soal pinjaman $amount. Kapan kira-kira bisa dibayar? Terima kasih ya.';
+  }
 }
