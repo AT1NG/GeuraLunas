@@ -23,7 +23,7 @@ void main() {
   testWidgets('context.l10n resolves Indonesian strings', (tester) async {
     late String home;
     await tester.pumpWidget(const App());
-    final context = tester.element(find.byType(Scaffold));
+    final context = tester.element(find.byType(NavigationBar));
     home = context.l10n.navHome;
 
     expect(home, 'Beranda');

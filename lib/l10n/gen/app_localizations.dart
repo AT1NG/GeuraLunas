@@ -124,6 +124,12 @@ abstract class AppLocalizations {
   /// **'Lainnya'**
   String get navMore;
 
+  /// No description provided for @navAdd.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambah'**
+  String get navAdd;
+
   /// No description provided for @addMenuExpense.
   ///
   /// In id, this message translates to:

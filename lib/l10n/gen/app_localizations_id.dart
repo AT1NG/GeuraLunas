@@ -24,6 +24,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get navMore => 'Lainnya';
 
   @override
+  String get navAdd => 'Tambah';
+
+  @override
   String get addMenuExpense => 'Catat pengeluaran';
 
   @override
