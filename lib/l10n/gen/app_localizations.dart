@@ -561,6 +561,234 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'{name}, sisa {amount}, {due}'**
   String debtCardSemantics(String name, String amount, String due);
+
+  /// No description provided for @debtFormNewTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambah hutang'**
+  String get debtFormNewTitle;
+
+  /// No description provided for @debtFormEditTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Ubah hutang'**
+  String get debtFormEditTitle;
+
+  /// No description provided for @formDirectionOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Aku berutang'**
+  String get formDirectionOwe;
+
+  /// No description provided for @formDirectionLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Dia berutang ke aku'**
+  String get formDirectionLent;
+
+  /// No description provided for @formKindPinjol.
+  ///
+  /// In id, this message translates to:
+  /// **'Pinjol'**
+  String get formKindPinjol;
+
+  /// No description provided for @formKindInstallment.
+  ///
+  /// In id, this message translates to:
+  /// **'Cicilan'**
+  String get formKindInstallment;
+
+  /// No description provided for @formKindPersonal.
+  ///
+  /// In id, this message translates to:
+  /// **'Teman'**
+  String get formKindPersonal;
+
+  /// No description provided for @formName.
+  ///
+  /// In id, this message translates to:
+  /// **'Nama pihak (platform, toko, atau teman)'**
+  String get formName;
+
+  /// No description provided for @formPrincipal.
+  ///
+  /// In id, this message translates to:
+  /// **'Pokok pinjaman'**
+  String get formPrincipal;
+
+  /// No description provided for @formInterestTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Bunga'**
+  String get formInterestTitle;
+
+  /// No description provided for @formInterestNone.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanpa bunga'**
+  String get formInterestNone;
+
+  /// No description provided for @formInterestFlatMonthly.
+  ///
+  /// In id, this message translates to:
+  /// **'Flat per bulan'**
+  String get formInterestFlatMonthly;
+
+  /// No description provided for @formInterestFlatDaily.
+  ///
+  /// In id, this message translates to:
+  /// **'Flat per hari'**
+  String get formInterestFlatDaily;
+
+  /// No description provided for @formInterestReducing.
+  ///
+  /// In id, this message translates to:
+  /// **'Anuitas (menurun)'**
+  String get formInterestReducing;
+
+  /// No description provided for @formRate.
+  ///
+  /// In id, this message translates to:
+  /// **'Bunga (% per periode)'**
+  String get formRate;
+
+  /// No description provided for @formAdminFee.
+  ///
+  /// In id, this message translates to:
+  /// **'Biaya admin (opsional)'**
+  String get formAdminFee;
+
+  /// No description provided for @formTenor.
+  ///
+  /// In id, this message translates to:
+  /// **'Jumlah cicilan'**
+  String get formTenor;
+
+  /// No description provided for @formTenorDays.
+  ///
+  /// In id, this message translates to:
+  /// **'Tenor (hari)'**
+  String get formTenorDays;
+
+  /// No description provided for @formFrequencyTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Cicilan setiap'**
+  String get formFrequencyTitle;
+
+  /// No description provided for @formFrequencyMonthly.
+  ///
+  /// In id, this message translates to:
+  /// **'Bulan'**
+  String get formFrequencyMonthly;
+
+  /// No description provided for @formFrequencyWeekly.
+  ///
+  /// In id, this message translates to:
+  /// **'Minggu'**
+  String get formFrequencyWeekly;
+
+  /// No description provided for @formStartDate.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanggal mulai'**
+  String get formStartDate;
+
+  /// No description provided for @formFirstDue.
+  ///
+  /// In id, this message translates to:
+  /// **'Jatuh tempo pertama'**
+  String get formFirstDue;
+
+  /// No description provided for @formFirstDueAuto.
+  ///
+  /// In id, this message translates to:
+  /// **'Otomatis'**
+  String get formFirstDueAuto;
+
+  /// No description provided for @formFirstDueClear.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus tanggal'**
+  String get formFirstDueClear;
+
+  /// No description provided for @formNote.
+  ///
+  /// In id, this message translates to:
+  /// **'Catatan (opsional)'**
+  String get formNote;
+
+  /// No description provided for @formPreviewTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Pratinjau'**
+  String get formPreviewTitle;
+
+  /// No description provided for @formPreviewTotal.
+  ///
+  /// In id, this message translates to:
+  /// **'Total yang harus dibayar: {amount}'**
+  String formPreviewTotal(String amount);
+
+  /// No description provided for @formPreviewRow.
+  ///
+  /// In id, this message translates to:
+  /// **'Cicilan {n}'**
+  String formPreviewRow(int n);
+
+  /// No description provided for @formPreviewMore.
+  ///
+  /// In id, this message translates to:
+  /// **'dan {count} cicilan lainnya'**
+  String formPreviewMore(int count);
+
+  /// No description provided for @formSubmitNew.
+  ///
+  /// In id, this message translates to:
+  /// **'Simpan'**
+  String get formSubmitNew;
+
+  /// No description provided for @formSubmitEdit.
+  ///
+  /// In id, this message translates to:
+  /// **'Simpan perubahan'**
+  String get formSubmitEdit;
+
+  /// No description provided for @formErrorAmount.
+  ///
+  /// In id, this message translates to:
+  /// **'Isi nominal yang benar, lebih dari Rp0.'**
+  String get formErrorAmount;
+
+  /// No description provided for @formErrorNumber.
+  ///
+  /// In id, this message translates to:
+  /// **'Isi angka yang benar.'**
+  String get formErrorNumber;
+
+  /// No description provided for @formErrorBelowPaid.
+  ///
+  /// In id, this message translates to:
+  /// **'Total tidak boleh kurang dari yang sudah dibayar ({amount}).'**
+  String formErrorBelowPaid(String amount);
+
+  /// No description provided for @formSaveFailed.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum bisa menyimpan. Coba lagi sebentar lagi.'**
+  String get formSaveFailed;
+
+  /// No description provided for @formPaidWarning.
+  ///
+  /// In id, this message translates to:
+  /// **'Hutang ini sudah punya pembayaran. Kalau nominal, bunga, atau tenor diubah, jadwal dihitung ulang dan pembayaran yang ada diterapkan lagi ke cicilan.'**
+  String get formPaidWarning;
+
+  /// No description provided for @formNotFound.
+  ///
+  /// In id, this message translates to:
+  /// **'Hutang ini tidak ditemukan. Mungkin sudah dihapus.'**
+  String get formNotFound;
 }
 
 class _AppLocalizationsDelegate

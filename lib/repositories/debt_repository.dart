@@ -6,7 +6,7 @@ import 'package:geuralunas/data/debt_dto.dart';
 import 'package:geuralunas/data/firestore_paths.dart';
 import 'package:geuralunas/domain/debt/debt.dart';
 import 'package:geuralunas/domain/debt/debt_enums.dart';
-import 'package:geuralunas/domain/debt/interest.dart';
+import 'package:geuralunas/domain/debt/debt_plan.dart';
 import 'package:geuralunas/domain/debt/payments.dart';
 import 'package:geuralunas/domain/debt/schedule.dart';
 import 'package:geuralunas/domain/money.dart';
@@ -156,47 +156,17 @@ class DebtRepositoryImpl implements DebtRepository {
   Future<String> addDebt(NewDebt input) async {
     final uid = _currentUid();
     final now = _now();
-    final isDaily = input.interestType == InterestType.flatDaily;
-    final tenor = input.tenorCount;
-
-    final total = calculateTotalPayable(
+    final plan = planDebt(
       principal: input.principal,
       interestType: input.interestType,
       interestRate: input.interestRate,
       adminFee: input.adminFee,
-      periods: tenor ?? 1,
+      frequency: input.frequency,
+      startDate: input.startDate,
+      tenorCount: input.tenorCount,
+      firstDueDate: input.firstDueDate,
     );
-    final frequency = isDaily ? Frequency.once : input.frequency;
-
-    final List<Installment> installments;
-    if (isDaily) {
-      final start = input.startDate;
-      installments = generateSchedule(
-        totalPayable: total,
-        count: 1,
-        frequency: Frequency.once,
-        firstDueDate:
-            input.firstDueDate ??
-            DateTime(start.year, start.month, start.day + (tenor ?? 1)),
-      );
-    } else if (tenor != null) {
-      installments = generateSchedule(
-        totalPayable: total,
-        count: tenor,
-        frequency: frequency,
-        firstDueDate:
-            input.firstDueDate ?? addPeriods(input.startDate, frequency, 1),
-      );
-    } else if (input.firstDueDate != null) {
-      installments = generateSchedule(
-        totalPayable: total,
-        count: 1,
-        frequency: Frequency.once,
-        firstDueDate: input.firstDueDate!,
-      );
-    } else {
-      installments = const [];
-    }
+    final installments = plan.installments;
 
     final id = _dataSource.newDebtId(uid);
     final debt = Debt(
@@ -209,12 +179,12 @@ class DebtRepositoryImpl implements DebtRepository {
       interestType: input.interestType,
       interestRate: input.interestRate,
       adminFee: input.adminFee,
-      tenorCount: tenor,
-      frequency: frequency,
+      tenorCount: input.tenorCount,
+      frequency: plan.frequency,
       startDate: input.startDate,
-      totalPayable: total,
+      totalPayable: plan.totalPayable,
       paidTotal: Money.zero,
-      remaining: total,
+      remaining: plan.totalPayable,
       nextDueDate: nextDueDate(installments),
       status: DebtStatus.active,
       createdAt: now,

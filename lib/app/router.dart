@@ -10,6 +10,7 @@ import 'package:geuralunas/features/auth/view/register_page.dart';
 import 'package:geuralunas/features/auth/view/splash_page.dart';
 import 'package:geuralunas/features/budget/view/budget_page.dart';
 import 'package:geuralunas/features/debts/view/debt_detail_page.dart';
+import 'package:geuralunas/features/debts/view/debt_form_page.dart';
 import 'package:geuralunas/features/debts/view/debts_page.dart';
 import 'package:geuralunas/features/home/view/home_page.dart';
 import 'package:geuralunas/features/more/view/more_page.dart';
@@ -83,6 +84,11 @@ GoRouter createRouter({
       GoRoute(
         path: '/forgot-password',
         builder: (_, _) => const ForgotPasswordPage(),
+      ),
+      GoRoute(path: '/debts/new', builder: (_, _) => const DebtFormPage()),
+      GoRoute(
+        path: '/debts/:id/edit',
+        builder: (_, state) => DebtFormPage(debtId: state.pathParameters['id']),
       ),
       StatefulShellRoute.indexedStack(
         builder: (_, _, shell) => AppShell(navigationShell: shell),

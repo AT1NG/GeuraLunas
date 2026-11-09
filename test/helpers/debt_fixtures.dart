@@ -63,6 +63,34 @@ class FakeDebtRepository implements DebtRepository {
     }();
   }
 
+  /// Set to make `addDebt` and `updateDebt` fail.
+  Object? addError;
+
+  NewDebt? added;
+  Debt? updated;
+  List<Installment>? updatedSchedule;
+
+  @override
+  Future<String> addDebt(NewDebt input) {
+    final error = addError;
+    if (error != null) return Future<String>.error(error);
+    added = input;
+    return Future.value('new-id');
+  }
+
+  @override
+  Future<void> updateDebt(Debt debt, {List<Installment>? schedule}) {
+    final error = addError;
+    if (error != null) return Future<void>.error(error);
+    updated = debt;
+    updatedSchedule = schedule;
+    return Future.value();
+  }
+
+  @override
+  Stream<Debt?> watchDebt(String debtId) =>
+      Stream.value(_debts.where((d) => d.id == debtId).firstOrNull);
+
   @override
   dynamic noSuchMethod(Invocation invocation) => throw UnimplementedError(
     'FakeDebtRepository.${invocation.memberName} is not implemented',

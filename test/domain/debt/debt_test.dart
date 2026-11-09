@@ -85,6 +85,9 @@ void main() {
     test('can clear nullable fields explicitly', () {
       final original = debt(nextDueDate: DateTime(2026, 12));
       expect(original.copyWith(clearNextDueDate: true).nextDueDate, isNull);
+      final withNote = original.copyWith(note: 'x', tenorCount: 3);
+      expect(withNote.copyWith(clearNote: true).note, isNull);
+      expect(withNote.copyWith(clearTenorCount: true).tenorCount, isNull);
     });
   });
 

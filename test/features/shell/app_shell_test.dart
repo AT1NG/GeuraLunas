@@ -94,4 +94,15 @@ void main() {
     );
     expect(find.byKey(const Key('debts-page')), findsOneWidget);
   });
+
+  testWidgets('Tambah hutang in the menu opens the debt form', (tester) async {
+    await _pumpRouter(tester);
+
+    await tester.tap(_navLabel('Tambah'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Tambah hutang'));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('debt-form-page')), findsOneWidget);
+  });
 }

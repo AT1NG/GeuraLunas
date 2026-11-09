@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:geuralunas/l10n/l10n.dart';
+import 'package:go_router/go_router.dart';
 
-/// Shows the quick-add menu. Entries are wired up in later phases; for now
-/// each one just closes the sheet.
+/// Shows the quick-add menu. "Tambah hutang" opens the debt form; the other
+/// entries are wired up in later tasks and for now just close the sheet.
 Future<void> showAddMenu(BuildContext context) {
   return showModalBottomSheet<void>(
     context: context,
@@ -27,7 +30,10 @@ Future<void> showAddMenu(BuildContext context) {
             ListTile(
               leading: const Icon(Icons.request_quote_outlined),
               title: Text(l10n.addMenuDebt),
-              onTap: close,
+              onTap: () {
+                close();
+                unawaited(context.push('/debts/new'));
+              },
             ),
           ],
         ),

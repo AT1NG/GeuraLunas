@@ -264,4 +264,128 @@ class AppLocalizationsId extends AppLocalizations {
   String debtCardSemantics(String name, String amount, String due) {
     return '$name, sisa $amount, $due';
   }
+
+  @override
+  String get debtFormNewTitle => 'Tambah hutang';
+
+  @override
+  String get debtFormEditTitle => 'Ubah hutang';
+
+  @override
+  String get formDirectionOwe => 'Aku berutang';
+
+  @override
+  String get formDirectionLent => 'Dia berutang ke aku';
+
+  @override
+  String get formKindPinjol => 'Pinjol';
+
+  @override
+  String get formKindInstallment => 'Cicilan';
+
+  @override
+  String get formKindPersonal => 'Teman';
+
+  @override
+  String get formName => 'Nama pihak (platform, toko, atau teman)';
+
+  @override
+  String get formPrincipal => 'Pokok pinjaman';
+
+  @override
+  String get formInterestTitle => 'Bunga';
+
+  @override
+  String get formInterestNone => 'Tanpa bunga';
+
+  @override
+  String get formInterestFlatMonthly => 'Flat per bulan';
+
+  @override
+  String get formInterestFlatDaily => 'Flat per hari';
+
+  @override
+  String get formInterestReducing => 'Anuitas (menurun)';
+
+  @override
+  String get formRate => 'Bunga (% per periode)';
+
+  @override
+  String get formAdminFee => 'Biaya admin (opsional)';
+
+  @override
+  String get formTenor => 'Jumlah cicilan';
+
+  @override
+  String get formTenorDays => 'Tenor (hari)';
+
+  @override
+  String get formFrequencyTitle => 'Cicilan setiap';
+
+  @override
+  String get formFrequencyMonthly => 'Bulan';
+
+  @override
+  String get formFrequencyWeekly => 'Minggu';
+
+  @override
+  String get formStartDate => 'Tanggal mulai';
+
+  @override
+  String get formFirstDue => 'Jatuh tempo pertama';
+
+  @override
+  String get formFirstDueAuto => 'Otomatis';
+
+  @override
+  String get formFirstDueClear => 'Hapus tanggal';
+
+  @override
+  String get formNote => 'Catatan (opsional)';
+
+  @override
+  String get formPreviewTitle => 'Pratinjau';
+
+  @override
+  String formPreviewTotal(String amount) {
+    return 'Total yang harus dibayar: $amount';
+  }
+
+  @override
+  String formPreviewRow(int n) {
+    return 'Cicilan $n';
+  }
+
+  @override
+  String formPreviewMore(int count) {
+    return 'dan $count cicilan lainnya';
+  }
+
+  @override
+  String get formSubmitNew => 'Simpan';
+
+  @override
+  String get formSubmitEdit => 'Simpan perubahan';
+
+  @override
+  String get formErrorAmount => 'Isi nominal yang benar, lebih dari Rp0.';
+
+  @override
+  String get formErrorNumber => 'Isi angka yang benar.';
+
+  @override
+  String formErrorBelowPaid(String amount) {
+    return 'Total tidak boleh kurang dari yang sudah dibayar ($amount).';
+  }
+
+  @override
+  String get formSaveFailed => 'Belum bisa menyimpan. Coba lagi sebentar lagi.';
+
+  @override
+  String get formPaidWarning =>
+      'Hutang ini sudah punya pembayaran. Kalau nominal, bunga, atau tenor diubah, jadwal dihitung ulang dan pembayaran yang ada diterapkan lagi ke cicilan.';
+
+  @override
+  String get formNotFound =>
+      'Hutang ini tidak ditemukan. Mungkin sudah dihapus.';
 }
