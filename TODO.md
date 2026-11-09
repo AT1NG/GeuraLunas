@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 2 Task 9: tandai lunas, arsip, hapus + gerbang kualitas Fase 2 (lihat docs/superpowers/plans/2026-11-09-phase2-debts-payments.md). Menunggu persetujuan user: deploy rules Fase 2 ke geuralunas-dev.
+- Fase 3: pengingat jatuh tempo (belum ada rencana implementasi). Menunggu persetujuan user: deploy rules Fase 2 ke geuralunas-dev, lalu uji manual Fase 2 di perangkat (tambah hutang, bayar, batalkan, arsip, hapus, mode pesawat).
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -35,12 +35,12 @@
 ## Fase 2 — Hutang & pembayaran (US-01 s.d. US-05)
 
 - [x] Domain: `Money`, kalkulasi bunga, generator jadwal cicilan (+ unit test; selesai)
-- [ ] Repository dan Bloc hutang (repository + rules selesai; bloc di task layar)
+- [x] Repository dan Bloc hutang (repository, rules, dan cubit per layar)
 - [x] Layar daftar hutang (filter: aku berutang / piutang, aktif / lunas)
 - [x] Form tambah/ubah hutang (pinjol, cicilan, teman)
 - [x] Detail hutang: jadwal, riwayat, progres
 - [x] Catat pembayaran (batch atomik: payment + installment + sisa hutang)
-- [ ] Tandai lunas, arsip, hapus
+- [x] Tandai lunas, arsip, hapus (layar untuk mengembalikan hutang yang diarsipkan menyusul di Fase 6)
 
 ## Fase 3 — Pengingat (US-06, US-07)
 
@@ -106,4 +106,5 @@
 | 2026-11-09 | Fase 2 Task 6: form tambah/ubah hutang dengan pratinjau jadwal, parseAmount, AmountField, planDebt di domain (356 test) |
 | 2026-11-09 | Fase 2 Task 7: detail hutang (progres, jadwal dengan status, riwayat terbaru dulu, tombol Bayar, menu Ubah; 382 test) |
 | 2026-11-09 | Fase 2 Task 8: catat pembayaran (form, pemilih hutang dari menu +, perayaan lunas) dan batalkan pembayaran dari detail (422 test) |
+| 2026-11-09 | Fase 2 Task 9: tandai lunas, arsip, hapus dengan konfirmasi; gerbang kualitas Fase 2 (analyze 0 isu, 443 test, coverage domain 100% / bloc 98% / total 96%, 35 test rules, APK debug) |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |

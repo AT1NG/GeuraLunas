@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geuralunas/app/theme/spacing.dart';
 import 'package:geuralunas/domain/debt/debt.dart';
 import 'package:geuralunas/domain/debt/debt_enums.dart';
+import 'package:geuralunas/features/debts/bloc/debt_actions_cubit.dart';
 import 'package:geuralunas/features/debts/bloc/debt_detail_cubit.dart';
 import 'package:geuralunas/features/debts/widgets/debt_status.dart';
+import 'package:geuralunas/features/payments/view/settled_celebration.dart';
 import 'package:geuralunas/l10n/l10n.dart';
 import 'package:geuralunas/repositories/debt_repository.dart';
 import 'package:geuralunas/shared/formatters/rupiah.dart';
@@ -26,9 +28,14 @@ class DebtDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          DebtDetailCubit(context.read<DebtRepository>(), debtId)..start(),
+    final repository = context.read<DebtRepository>();
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => DebtDetailCubit(repository, debtId)..start(),
+        ),
+        BlocProvider(create: (context) => DebtActionsCubit(repository, debtId)),
+      ],
       child: _DebtDetailView(debtId: debtId),
     );
   }
@@ -39,57 +46,140 @@ class _DebtDetailView extends StatelessWidget {
 
   final String debtId;
 
+  void _onActionResult(BuildContext context, DebtActionsState state) {
+    final l10n = context.l10n;
+    if (state.status == ActionStatus.failure) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.actionFailed)),
+      );
+      return;
+    }
+    switch (state.action) {
+      case DebtAction.markSettled:
+        final debt = context.read<DebtDetailCubit>().state.debt;
+        unawaited(
+          showSettledCelebration(
+            context,
+            isOwe: debt?.direction != DebtDirection.lent,
+          ),
+        );
+      case DebtAction.archive || DebtAction.unarchive || DebtAction.delete:
+        if (context.canPop()) {
+          context.pop();
+        } else {
+          context.go('/debts');
+        }
+      case null:
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return BlocBuilder<DebtDetailCubit, DebtDetailState>(
-      builder: (context, state) {
-        final debt = state.debt;
-        return Scaffold(
-          key: const Key('debt-detail-page'),
-          appBar: AppBar(
-            title: Text(debt?.counterpartyName ?? ''),
-            actions: [
-              if (debt != null)
-                PopupMenuButton<_MenuAction>(
-                  key: const Key('detail-menu'),
-                  tooltip: l10n.detailMenu,
-                  onSelected: (action) {
-                    switch (action) {
-                      case _MenuAction.edit:
-                        unawaited(context.push('/debts/$debtId/edit'));
-                    }
-                  },
-                  itemBuilder: (context) => [
-                    PopupMenuItem(
-                      value: _MenuAction.edit,
-                      child: Text(l10n.detailEdit),
+    return BlocListener<DebtActionsCubit, DebtActionsState>(
+      listenWhen: (previous, current) =>
+          previous.status != current.status &&
+          (current.status == ActionStatus.done ||
+              current.status == ActionStatus.failure),
+      listener: _onActionResult,
+      child: BlocBuilder<DebtDetailCubit, DebtDetailState>(
+        builder: (context, state) {
+          final debt = state.debt;
+          return Scaffold(
+            key: const Key('debt-detail-page'),
+            appBar: AppBar(
+              title: Text(debt?.counterpartyName ?? ''),
+              actions: [
+                if (debt != null)
+                  PopupMenuButton<_MenuAction>(
+                    key: const Key('detail-menu'),
+                    tooltip: l10n.detailMenu,
+                    onSelected: (action) => unawaited(
+                      _handleMenu(context, action, debt),
                     ),
-                  ],
-                ),
-            ],
-          ),
-          body: switch (state.status) {
-            DebtDetailStatus.loading => const Center(
-              child: CircularProgressIndicator(),
+                    itemBuilder: (context) => [
+                      PopupMenuItem(
+                        value: _MenuAction.edit,
+                        child: Text(l10n.detailEdit),
+                      ),
+                      if (debt.status == DebtStatus.active)
+                        PopupMenuItem(
+                          value: _MenuAction.settle,
+                          child: Text(l10n.detailMenuSettle),
+                        ),
+                      if (debt.status != DebtStatus.archived)
+                        PopupMenuItem(
+                          value: _MenuAction.archive,
+                          child: Text(l10n.detailMenuArchive),
+                        ),
+                      PopupMenuItem(
+                        value: _MenuAction.delete,
+                        child: Text(l10n.detailMenuDelete),
+                      ),
+                    ],
+                  ),
+              ],
             ),
-            DebtDetailStatus.failure => _Message(
-              text: l10n.debtsLoadError,
-              messageKey: const Key('detail-error'),
-            ),
-            DebtDetailStatus.notFound => _Message(
-              text: l10n.formNotFound,
-              messageKey: const Key('detail-not-found'),
-            ),
-            DebtDetailStatus.loaded => _Content(state: state, debt: debt!),
-          },
-        );
-      },
+            body: switch (state.status) {
+              DebtDetailStatus.loading => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              DebtDetailStatus.failure => _Message(
+                text: l10n.debtsLoadError,
+                messageKey: const Key('detail-error'),
+              ),
+              DebtDetailStatus.notFound => _Message(
+                text: l10n.formNotFound,
+                messageKey: const Key('detail-not-found'),
+              ),
+              DebtDetailStatus.loaded => _Content(state: state, debt: debt!),
+            },
+          );
+        },
+      ),
     );
+  }
+
+  Future<void> _handleMenu(
+    BuildContext context,
+    _MenuAction action,
+    Debt debt,
+  ) async {
+    final l10n = context.l10n;
+    final actions = context.read<DebtActionsCubit>();
+    switch (action) {
+      case _MenuAction.edit:
+        await context.push('/debts/$debtId/edit');
+      case _MenuAction.settle:
+        final ok = await ConfirmDialog.show(
+          context,
+          title: l10n.actionSettleTitle,
+          body: l10n.actionSettleBody(formatRupiah(debt.remaining)),
+          confirmLabel: l10n.actionSettleConfirm,
+        );
+        if (ok) await actions.markSettled();
+      case _MenuAction.archive:
+        final ok = await ConfirmDialog.show(
+          context,
+          title: l10n.actionArchiveTitle,
+          body: l10n.actionArchiveBody,
+          confirmLabel: l10n.actionArchiveConfirm,
+        );
+        if (ok) await actions.archive();
+      case _MenuAction.delete:
+        final ok = await ConfirmDialog.show(
+          context,
+          title: l10n.actionDeleteTitle,
+          body: l10n.actionDeleteBody,
+          confirmLabel: l10n.actionDeleteConfirm,
+        );
+        if (ok) await actions.delete();
+    }
   }
 }
 
-enum _MenuAction { edit }
+enum _MenuAction { edit, settle, archive, delete }
 
 Future<void> _confirmDelete(BuildContext context, String paymentId) async {
   final l10n = context.l10n;

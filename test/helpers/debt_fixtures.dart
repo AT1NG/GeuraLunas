@@ -103,6 +103,15 @@ class FakeDebtRepository implements DebtRepository {
   /// Set to make `deletePayment` fail.
   Object? deleteError;
 
+  /// Debts archived (or restored) through `setArchived`.
+  final archived = <({String debtId, bool archived})>[];
+
+  /// Ids passed to `deleteDebt`.
+  final deletedDebts = <String>[];
+
+  /// Set to make `setArchived` and `deleteDebt` fail.
+  Object? actionError;
+
   NewDebt? added;
   Debt? updated;
   List<Installment>? updatedSchedule;
@@ -154,6 +163,22 @@ class FakeDebtRepository implements DebtRepository {
     final error = deleteError;
     if (error != null) return Future<void>.error(error);
     deleted.add((debtId: debtId, paymentId: paymentId));
+    return Future.value();
+  }
+
+  @override
+  Future<void> setArchived(String debtId, {required bool archived}) {
+    final error = actionError;
+    if (error != null) return Future<void>.error(error);
+    this.archived.add((debtId: debtId, archived: archived));
+    return Future.value();
+  }
+
+  @override
+  Future<void> deleteDebt(String debtId) {
+    final error = actionError;
+    if (error != null) return Future<void>.error(error);
+    deletedDebts.add(debtId);
     return Future.value();
   }
 

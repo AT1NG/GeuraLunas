@@ -186,5 +186,19 @@
   "paymentDeleteBody": "Sisa hutang akan kembali seperti sebelum pembayaran ini.",
   "paymentDeleteConfirm": "Hapus",
   "paymentDeleteTooltip": "Hapus pembayaran",
-  "paymentDeleteFailed": "Pembayaran belum bisa dihapus. Coba lagi sebentar lagi."
+  "paymentDeleteFailed": "Pembayaran belum bisa dihapus. Coba lagi sebentar lagi.",
+  "detailMenuSettle": "Tandai lunas",
+  "detailMenuArchive": "Arsipkan",
+  "detailMenuDelete": "Hapus",
+  "actionArchiveTitle": "Arsipkan hutang?",
+  "actionArchiveBody": "Hutang tidak tampil lagi di daftar, tetapi datanya tetap tersimpan.",
+  "actionArchiveConfirm": "Arsipkan",
+  "actionDeleteTitle": "Hapus hutang?",
+  "actionDeleteBody": "Hutang beserta jadwal dan riwayat pembayarannya akan dihapus dan tidak bisa dikembalikan.",
+  "actionDeleteConfirm": "Hapus",
+  "actionSettleTitle": "Tandai lunas?",
+  "actionSettleBody": "Kami catat satu pembayaran sebesar sisa ({amount}) pada hari ini.",
+  "@actionSettleBody": {"placeholders": {"amount": {"type": "String"}}},
+  "actionSettleConfirm": "Tandai lunas",
+  "actionFailed": "Belum bisa menyelesaikannya. Coba lagi sebentar lagi."
 }

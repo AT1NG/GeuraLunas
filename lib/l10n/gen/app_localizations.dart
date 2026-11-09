@@ -1107,6 +1107,84 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Pembayaran belum bisa dihapus. Coba lagi sebentar lagi.'**
   String get paymentDeleteFailed;
+
+  /// No description provided for @detailMenuSettle.
+  ///
+  /// In id, this message translates to:
+  /// **'Tandai lunas'**
+  String get detailMenuSettle;
+
+  /// No description provided for @detailMenuArchive.
+  ///
+  /// In id, this message translates to:
+  /// **'Arsipkan'**
+  String get detailMenuArchive;
+
+  /// No description provided for @detailMenuDelete.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus'**
+  String get detailMenuDelete;
+
+  /// No description provided for @actionArchiveTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Arsipkan hutang?'**
+  String get actionArchiveTitle;
+
+  /// No description provided for @actionArchiveBody.
+  ///
+  /// In id, this message translates to:
+  /// **'Hutang tidak tampil lagi di daftar, tetapi datanya tetap tersimpan.'**
+  String get actionArchiveBody;
+
+  /// No description provided for @actionArchiveConfirm.
+  ///
+  /// In id, this message translates to:
+  /// **'Arsipkan'**
+  String get actionArchiveConfirm;
+
+  /// No description provided for @actionDeleteTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus hutang?'**
+  String get actionDeleteTitle;
+
+  /// No description provided for @actionDeleteBody.
+  ///
+  /// In id, this message translates to:
+  /// **'Hutang beserta jadwal dan riwayat pembayarannya akan dihapus dan tidak bisa dikembalikan.'**
+  String get actionDeleteBody;
+
+  /// No description provided for @actionDeleteConfirm.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus'**
+  String get actionDeleteConfirm;
+
+  /// No description provided for @actionSettleTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Tandai lunas?'**
+  String get actionSettleTitle;
+
+  /// No description provided for @actionSettleBody.
+  ///
+  /// In id, this message translates to:
+  /// **'Kami catat satu pembayaran sebesar sisa ({amount}) pada hari ini.'**
+  String actionSettleBody(String amount);
+
+  /// No description provided for @actionSettleConfirm.
+  ///
+  /// In id, this message translates to:
+  /// **'Tandai lunas'**
+  String get actionSettleConfirm;
+
+  /// No description provided for @actionFailed.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum bisa menyelesaikannya. Coba lagi sebentar lagi.'**
+  String get actionFailed;
 }
 
 class _AppLocalizationsDelegate

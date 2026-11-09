@@ -12,3 +12,6 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/) dan
 - Onboarding 3 slide dengan penanda tersimpan.
 - Profil pengguna di Firestore (`users/{uid}`) dengan pengaturan bawaan, dan layar Pengaturan.
 - Security rules Firestore awal dengan 12 test emulator.
+- Hutang dan piutang: tambah (pinjol, cicilan, teman) dengan bunga flat/anuitas dan pratinjau jadwal, ubah, lihat daftar (Aku berutang / Piutang, filter aktif/lunas), detail dengan jadwal dan riwayat, tandai lunas, arsip, dan hapus.
+- Pembayaran: catat dengan nominal, tanggal, dan catatan (sisa dan cicilan terkait ikut diperbarui secara atomik), batalkan pembayaran, dan pesan perayaan saat lunas.
+- Rules Firestore untuk hutang, cicilan, dan pembayaran dengan 35 test emulator.

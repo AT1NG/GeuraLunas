@@ -573,4 +573,48 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get paymentDeleteFailed =>
       'Pembayaran belum bisa dihapus. Coba lagi sebentar lagi.';
+
+  @override
+  String get detailMenuSettle => 'Tandai lunas';
+
+  @override
+  String get detailMenuArchive => 'Arsipkan';
+
+  @override
+  String get detailMenuDelete => 'Hapus';
+
+  @override
+  String get actionArchiveTitle => 'Arsipkan hutang?';
+
+  @override
+  String get actionArchiveBody =>
+      'Hutang tidak tampil lagi di daftar, tetapi datanya tetap tersimpan.';
+
+  @override
+  String get actionArchiveConfirm => 'Arsipkan';
+
+  @override
+  String get actionDeleteTitle => 'Hapus hutang?';
+
+  @override
+  String get actionDeleteBody =>
+      'Hutang beserta jadwal dan riwayat pembayarannya akan dihapus dan tidak bisa dikembalikan.';
+
+  @override
+  String get actionDeleteConfirm => 'Hapus';
+
+  @override
+  String get actionSettleTitle => 'Tandai lunas?';
+
+  @override
+  String actionSettleBody(String amount) {
+    return 'Kami catat satu pembayaran sebesar sisa ($amount) pada hari ini.';
+  }
+
+  @override
+  String get actionSettleConfirm => 'Tandai lunas';
+
+  @override
+  String get actionFailed =>
+      'Belum bisa menyelesaikannya. Coba lagi sebentar lagi.';
 }
