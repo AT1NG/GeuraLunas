@@ -2,7 +2,7 @@
 
 Aplikasi mobile untuk mengatur hutang dan piutang (pinjol, cicilan, hutang ke/dari teman) sekaligus menjaga jatah jajan harian dan mingguan agar pelunasan tetap aman.
 
-**Status:** tahap perencanaan selesai (dokumen), implementasi belum dimulai. Lihat [TODO.md](TODO.md).
+**Status:** Fase 1 (fondasi: navigasi, login, onboarding, pengaturan, rules) selesai di sisi kode. Fase 2 (hutang dan pembayaran) berikutnya. Lihat [TODO.md](TODO.md).
 
 ## Fitur versi pertama
 
@@ -40,6 +40,7 @@ flutter pub get
 flutter run
 flutter analyze
 flutter test
+(cd firebase && npm install && npm test)   # test security rules, butuh Java 17+
 ```
 
 ### Setup Firebase (sekali saja)

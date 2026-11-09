@@ -31,5 +31,9 @@ void main() {
       expect(const Money(2).compareTo(const Money(1)), greaterThan(0));
       expect(const Money(2).compareTo(const Money(2)), 0);
     });
+
+    test('toString shows rupiah', () {
+      expect(const Money(1250000).toString(), 'Money(1250000)');
+    });
   });
 }

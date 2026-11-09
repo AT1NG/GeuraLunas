@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 1 Task 11: green-gate, dokumen (ADR-012), CHANGELOG, lalu review akhir (lihat docs/superpowers/plans/2026-11-09-phase1-foundation.md). Menunggu persetujuan user: deploy rules ke geuralunas-dev; uji manual di perangkat.
+- Fase 2: Domain `Money`, kalkulasi bunga, generator jadwal cicilan (lihat Fase 2 di bawah; belum ada rencana implementasi). Menunggu persetujuan user: deploy rules ke geuralunas-dev; uji manual Fase 1 di perangkat.
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -94,4 +94,5 @@
 | 2026-11-09 | Fase 1 Task 8: layar splash/login/daftar/lupa password, redirect berbasis auth+onboarding (102 test hijau). Uji manual di perangkat belum dilakukan; item Auth tetap terbuka sampai tombol keluar (Task 10) |
 | 2026-11-09 | Fase 1 Task 9: firestore.rules v2 (profil tervalidasi, subkoleksi hanya pemilik) + 12 test emulator |
 | 2026-11-09 | Fase 1 Task 10: profil users/{uid} dibuat saat login pertama (gagal tidak memblokir), layar Pengaturan + keluar dengan konfirmasi, tile Lainnya (110 test hijau) |
+| 2026-11-09 | Fase 1 Task 11: gerbang kualitas (analyze bersih, 113 test, coverage domain 100% / bloc 99% / total 93%), ADR-012, CHANGELOG |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |

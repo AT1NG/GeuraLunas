@@ -69,3 +69,9 @@ Tanggal: 2026-11-09 · Status: diterima
 - **Keputusan:** (1) Denda keterlambatan tidak dihitung otomatis; pengguna mencatat dan menyesuaikan hutangnya sendiri. (2) Pengguna memilih tanggal mulai siklus budget (1–28). (3) Ekspor CSV masuk versi 1 (US-14, Fase 6).
 - **Alasan:** Aturan denda tiap pinjol berbeda-beda; fokus aplikasi adalah pencatatan oleh pengguna. Siklus mengikuti tanggal gajian masing-masing.
 - **Konsekuensi:** Sisa hutang bisa berbeda dari aplikasi pinjol bila ada denda; sediakan penyesuaian sisa manual.
+
+## ADR-012 — Satu lingkungan Firebase di Fase 1, test rules dengan runner JS
+Tanggal: 2026-11-09 · Status: diterima
+- **Keputusan:** (1) Fase 1 hanya memakai project `geuralunas-dev`; flavor Android `dev`/`prod` dan project `geuralunas-prod` ditunda ke Fase 6 (rilis). (2) Security rules diuji dengan emulator Firestore dan runner JavaScript (`firebase/`, `node:test` + `@firebase/rules-unit-testing`), bukan `flutter test`. (3) Aturan lint `public_member_api_docs` dimatikan karena ini aplikasi, bukan package.
+- **Alasan:** Belum ada pengguna nyata, jadi dua lingkungan hanya menambah konfigurasi. Pustaka resmi test rules ada untuk JavaScript; Dart tidak punya padanannya.
+- **Konsekuensi:** Mengerjakan rules butuh Node.js dan Java 17+ (emulator). Sebelum rilis, siapkan project prod dan flavor, lalu terapkan ulang `google-services.json` dan rules.
