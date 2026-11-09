@@ -75,3 +75,9 @@ Tanggal: 2026-11-09 · Status: diterima
 - **Keputusan:** (1) Fase 1 hanya memakai project `geuralunas-dev`; flavor Android `dev`/`prod` dan project `geuralunas-prod` ditunda ke Fase 6 (rilis). (2) Security rules diuji dengan emulator Firestore dan runner JavaScript (`firebase/`, `node:test` + `@firebase/rules-unit-testing`), bukan `flutter test`. (3) Aturan lint `public_member_api_docs` dimatikan karena ini aplikasi, bukan package.
 - **Alasan:** Belum ada pengguna nyata, jadi dua lingkungan hanya menambah konfigurasi. Pustaka resmi test rules ada untuk JavaScript; Dart tidak punya padanannya.
 - **Konsekuensi:** Mengerjakan rules butuh Node.js dan Java 17+ (emulator). Sebelum rilis, siapkan project prod dan flavor, lalu terapkan ulang `google-services.json` dan rules.
+
+## ADR-013 — Tulis lewat WriteBatch dan jangan menunggu commit di UI
+Tanggal: 2026-11-09 · Status: diterima
+- **Keputusan:** Repository hutang membaca keadaan terkini dengan `get()`, menghitung hasilnya di `lib/domain`, lalu menulis semua dokumen terkait dalam satu `WriteBatch` (maksimal 450 operasi per batch). Tidak memakai transaksi. Method tulis memulai `commit()` tetapi tidak menunggunya; layar mengikuti stream lokal, dan penulisan yang ditolak server dilaporkan lewat `DebtRepository.writeErrors`.
+- **Alasan:** Transaksi Firestore butuh koneksi, sedangkan aplikasi harus bisa dipakai offline. `commit()` baru selesai setelah server menjawab, jadi menunggunya membuat layar macet saat offline.
+- **Konsekuensi:** Dua perangkat yang menulis hutang yang sama bersamaan bisa saling menimpa (last write wins); dapat diterima karena satu pengguna per akun. Kegagalan karena rules baru terlihat belakangan lewat `writeErrors`. Menghapus hutang dengan lebih dari 450 dokumen tidak atomik.

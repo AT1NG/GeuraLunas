@@ -36,6 +36,70 @@ service cloud.firestore {
         && (!('settings' in d) || validSettings(d.settings));
     }
 
+    function isInt(v) {
+      return v is int;
+    }
+
+    function optString(d, key, max) {
+      return !(key in d) || (d[key] is string && d[key].size() <= max);
+    }
+
+    function validDebt(d) {
+      return d.keys().hasOnly([
+          'direction', 'kind', 'counterpartyName', 'note', 'principal',
+          'interestType', 'interestRate', 'adminFee', 'tenorCount',
+          'frequency', 'startDate', 'totalPayable', 'paidTotal', 'remaining',
+          'nextDueDate', 'status', 'createdAt', 'updatedAt', 'settledAt'
+        ])
+        && d.keys().hasAll([
+          'direction', 'kind', 'counterpartyName', 'principal',
+          'interestType', 'interestRate', 'adminFee', 'frequency',
+          'startDate', 'totalPayable', 'paidTotal', 'remaining', 'status',
+          'createdAt', 'updatedAt'
+        ])
+        && d.direction in ['owe', 'lent']
+        && d.kind in ['pinjol', 'installment', 'personal']
+        && d.interestType in ['none', 'flat_monthly', 'flat_daily', 'reducing_monthly']
+        && d.frequency in ['monthly', 'weekly', 'once']
+        && d.status in ['active', 'settled', 'archived']
+        && d.counterpartyName is string
+        && d.counterpartyName.size() >= 1 && d.counterpartyName.size() <= 100
+        && optString(d, 'note', 500)
+        && isInt(d.principal) && d.principal > 0
+        && d.interestRate is number && d.interestRate >= 0 && d.interestRate <= 1000
+        && isInt(d.adminFee) && d.adminFee >= 0
+        && (!('tenorCount' in d) || (isInt(d.tenorCount) && d.tenorCount >= 1))
+        && d.startDate is timestamp
+        && isInt(d.totalPayable) && d.totalPayable > 0
+        && isInt(d.paidTotal) && d.paidTotal >= 0 && d.paidTotal <= d.totalPayable
+        && isInt(d.remaining) && d.remaining >= 0 && d.remaining <= d.totalPayable
+        && (!('nextDueDate' in d) || d.nextDueDate is timestamp)
+        && d.createdAt is timestamp
+        && d.updatedAt is timestamp
+        && (!('settledAt' in d) || d.settledAt is timestamp);
+    }
+
+    function validInstallment(d) {
+      return d.keys().hasOnly(['seq', 'dueDate', 'amount', 'paidAmount', 'status', 'paidAt'])
+        && d.keys().hasAll(['seq', 'dueDate', 'amount', 'paidAmount', 'status'])
+        && isInt(d.seq) && d.seq >= 1
+        && d.dueDate is timestamp
+        && isInt(d.amount) && d.amount > 0
+        && isInt(d.paidAmount) && d.paidAmount >= 0 && d.paidAmount <= d.amount
+        && d.status in ['pending', 'partial', 'paid']
+        && (!('paidAt' in d) || d.paidAt is timestamp);
+    }
+
+    function validPayment(d) {
+      return d.keys().hasOnly(['amount', 'paidAt', 'installmentSeq', 'note', 'createdAt'])
+        && d.keys().hasAll(['amount', 'paidAt', 'createdAt'])
+        && isInt(d.amount) && d.amount > 0
+        && d.paidAt is timestamp
+        && (!('installmentSeq' in d) || (isInt(d.installmentSeq) && d.installmentSeq >= 1))
+        && optString(d, 'note', 500)
+        && d.createdAt is timestamp;
+    }
+
     // Profile document: owner only, with field validation on writes.
     match /users/{uid} {
       allow read, delete: if isOwner(uid);
@@ -48,10 +112,28 @@ service cloud.firestore {
         && (!('createdAt' in resource.data)
             || request.resource.data.createdAt == resource.data.createdAt);
 
-      // Subcollections (debts, payments, ...): owner only.
-      // Per-collection validation is added in the phase that introduces each one.
+      match /debts/{debtId} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid) && validDebt(request.resource.data);
+
+        match /installments/{seq} {
+          allow read, delete: if isOwner(uid);
+          allow create, update: if isOwner(uid)
+            && validInstallment(request.resource.data);
+        }
+
+        match /payments/{paymentId} {
+          allow read, delete: if isOwner(uid);
+          allow create, update: if isOwner(uid)
+            && validPayment(request.resource.data);
+        }
+      }
+
+      // Other subcollections (categories, expenses, budgets): owner only until
+      // the phase that introduces each one adds its validation. `debts` has
+      // its own rules above and must not fall through to this looser one.
       match /{sub}/{docId=**} {
-        allow read, write: if isOwner(uid);
+        allow read, write: if isOwner(uid) && sub != 'debts';
       }
     }
   }
