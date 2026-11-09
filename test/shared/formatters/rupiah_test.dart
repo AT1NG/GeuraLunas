@@ -32,4 +32,8 @@ void main() {
       expect(formatDate(DateTime(2026, 11, 9)), '9 Nov 2026');
     });
   });
+
+  test('formats a very large negative amount', () {
+    expect(formatRupiah(const Money(-999999999999)), '-Rp999.999.999.999');
+  });
 }

@@ -10,9 +10,11 @@ class MockAuthRepository extends Mock implements AuthRepository {}
 
 /// In-memory auth repository for app-level tests.
 class FakeAuthRepository implements AuthRepository {
-  FakeAuthRepository({AppUser? initialUser}) {
+  FakeAuthRepository({AppUser? initialUser, bool emitOnListen = true}) {
     _controller = StreamController<AppUser?>.broadcast(
-      onListen: () => _controller.add(_user),
+      onListen: () {
+        if (emitOnListen) _controller.add(_user);
+      },
     );
     _user = initialUser;
   }

@@ -17,8 +17,15 @@ class OnboardingCubit extends Cubit<OnboardingState> {
 
   final OnboardingRepository _repository;
 
-  Future<void> load() async =>
+  /// If the stored flag cannot be read, assume it was not seen: showing
+  /// onboarding once more is better than a splash screen that never ends.
+  Future<void> load() async {
+    try {
       emit(OnboardingState(seen: await _repository.isSeen()));
+    } on Object {
+      emit(const OnboardingState(seen: false));
+    }
+  }
 
   Future<void> complete() async {
     await _repository.markSeen();

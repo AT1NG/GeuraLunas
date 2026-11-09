@@ -31,4 +31,12 @@ void main() {
   test('starts not loaded', () {
     expect(OnboardingCubit(repo).state.seen, isNull);
   });
+
+  blocTest<OnboardingCubit, OnboardingState>(
+    'load falls back to not seen when reading the flag fails',
+    setUp: () => when(() => repo.isSeen()).thenThrow(Exception('disk')),
+    build: () => OnboardingCubit(repo),
+    act: (c) => c.load(),
+    expect: () => [const OnboardingState(seen: false)],
+  );
 }

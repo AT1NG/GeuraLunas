@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -44,7 +46,14 @@ class AuthDataSource {
       );
       return true;
     } on GoogleSignInException catch (e) {
-      if (e.code == GoogleSignInExceptionCode.canceled) return false;
+      if (e.code == GoogleSignInExceptionCode.canceled) {
+        // A wrong SHA-1 or OAuth setup can also surface as "canceled".
+        developer.log(
+          'Google sign-in canceled: ${e.description}',
+          name: 'AuthDataSource',
+        );
+        return false;
+      }
       rethrow;
     }
   }
@@ -65,6 +74,16 @@ class AuthDataSource {
 
   Future<void> signOut() async {
     await _auth.signOut();
-    await _google.signOut();
+    try {
+      await _google.signOut();
+    } on Object catch (error) {
+      // Firebase sign-out already succeeded; clearing Google's cached account
+      // is best effort (it may not be initialized for email-only users).
+      developer.log(
+        'Google signOut failed',
+        name: 'AuthDataSource',
+        error: error,
+      );
+    }
   }
 }

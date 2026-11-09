@@ -64,4 +64,12 @@ void main() {
     expect(await ds.signInWithGoogle(), isFalse);
     expect(calls, 2);
   });
+
+  test('signOut completes even if Google sign-out fails', () async {
+    when(() => auth.signOut()).thenAnswer((_) async {});
+    when(() => google.signOut()).thenThrow(StateError('not initialized'));
+
+    await expectLater(ds.signOut(), completes);
+    verify(() => auth.signOut()).called(1);
+  });
 }

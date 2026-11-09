@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 2: Domain `Money`, kalkulasi bunga, generator jadwal cicilan (belum ada rencana implementasi). Sebelum uji manual di perangkat: setujui dan jalankan deploy rules ke geuralunas-dev (tanpa itu profil users/{uid} gagal dibuat).
+- Fase 2: rencana ada di docs/superpowers/plans/2026-11-09-phase2-debts-payments.md (menunggu persetujuan dan pilihan cara eksekusi). Fase 1: tinggal uji manual di perangkat (lihat docs/TESTING.md bagian 5).
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -29,7 +29,7 @@
 - [x] Tema Material 3 (light/dark), format rupiah, lokalisasi `id`
 - [x] Routing `go_router` dan kerangka navigasi bawah
 - [x] Auth: Google Sign-In dan email+password (daftar, masuk, lupa password, keluar) (kode + test; uji di perangkat belum)
-- [x] Firestore security rules awal dan test dengan emulator (belum di-deploy ke geuralunas-dev)
+- [x] Firestore security rules awal dan test dengan emulator (sudah di-deploy ke geuralunas-dev)
 - [x] Onboarding singkat dan layar pengaturan dasar
 
 ## Fase 2 — Hutang & pembayaran (US-01 s.d. US-05)
@@ -96,4 +96,5 @@
 | 2026-11-09 | Fase 1 Task 10: profil users/{uid} dibuat saat login pertama (gagal tidak memblokir), layar Pengaturan + keluar dengan konfirmasi, tile Lainnya (110 test hijau) |
 | 2026-11-09 | Fase 1 Task 11: gerbang kualitas (analyze bersih, 113 test, coverage domain 100% / bloc 99% / total 93%), ADR-012, CHANGELOG |
 | 2026-11-09 | Fase 1 review akhir: perbaikan nama hilang setelah daftar, emit pada cubit tertutup, error Google yang membuat spinner macet (124 test hijau) |
+| 2026-11-09 | Fase 1 penutup: rules diperketat (createdAt server, batas panjang) dan di-deploy ke geuralunas-dev; sign-out Google tahan error; splash tak menggantung; test layar HP skala teks 2.0 dan cold start (131 test, 18 test rules) |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |

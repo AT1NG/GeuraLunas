@@ -17,19 +17,21 @@ service cloud.firestore {
           && s.reminderTime.matches('^([01][0-9]|2[0-3]):[0-5][0-9]$')))
         && (!('reminderDaysBefore' in s) || (
           s.reminderDaysBefore is list
+          && s.reminderDaysBefore.size() <= 8
           && s.reminderDaysBefore.hasOnly([0, 1, 2, 3, 4, 5, 6, 7])))
         && (!('budgetCycleStartDay' in s) || (
           s.budgetCycleStartDay is int
           && s.budgetCycleStartDay >= 1
           && s.budgetCycleStartDay <= 28))
-        && (!('timezone' in s) || s.timezone is string);
+        && (!('timezone' in s)
+          || (s.timezone is string && s.timezone.size() <= 64));
     }
 
     function validProfile(d) {
       return d.keys().hasOnly(['displayName', 'email', 'createdAt', 'settings'])
         && (!('displayName' in d) || d.displayName == null
-            || d.displayName is string)
-        && (!('email' in d) || d.email is string)
+            || (d.displayName is string && d.displayName.size() <= 100))
+        && (!('email' in d) || (d.email is string && d.email.size() <= 254))
         && (!('createdAt' in d) || d.createdAt is timestamp)
         && (!('settings' in d) || validSettings(d.settings));
     }
@@ -37,7 +39,14 @@ service cloud.firestore {
     // Profile document: owner only, with field validation on writes.
     match /users/{uid} {
       allow read, delete: if isOwner(uid);
-      allow create, update: if isOwner(uid) && validProfile(request.resource.data);
+      // createdAt is set by the server once, and never rewritten.
+      allow create: if isOwner(uid)
+        && validProfile(request.resource.data)
+        && request.resource.data.createdAt == request.time;
+      allow update: if isOwner(uid)
+        && validProfile(request.resource.data)
+        && (!('createdAt' in resource.data)
+            || request.resource.data.createdAt == resource.data.createdAt);
 
       // Subcollections (debts, payments, ...): owner only.
       // Per-collection validation is added in the phase that introduces each one.

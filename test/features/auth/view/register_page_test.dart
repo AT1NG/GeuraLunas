@@ -67,4 +67,35 @@ void main() {
     expect(find.byKey(const Key('auth-error')), findsOneWidget);
     expect(find.textContaining('sudah terdaftar'), findsOneWidget);
   });
+
+  testWidgets('no overflow at text scale 2.0 on a phone; submit reachable', (
+    tester,
+  ) async {
+    tester.view
+      ..physicalSize = const Size(360, 640)
+      ..devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await pumpApp(
+      tester,
+      Builder(
+        builder: (context) => MediaQuery(
+          data: MediaQuery.of(
+            context,
+          ).copyWith(textScaler: const TextScaler.linear(2)),
+          child: RepositoryProvider<AuthRepository>.value(
+            value: repo,
+            child: const RegisterPage(),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('register-submit')),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(tester.takeException(), isNull);
+  });
 }

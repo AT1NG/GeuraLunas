@@ -142,7 +142,7 @@ Berkas: [`firestore.rules`](../firestore.rules). Diuji dengan emulator (`firebas
 
 **Fase 1 (berlaku):**
 - Semua akses ditolak jika belum login atau `request.auth.uid` bukan pemilik `users/{uid}`.
-- Dokumen `users/{uid}` (profil): tulis hanya dengan kunci `displayName`, `email`, `createdAt`, `settings`. Di `settings`: `reminderTime` berformat `HH:mm`, `reminderDaysBefore` daftar bilangan bulat 0–7, `budgetCycleStartDay` bilangan bulat 1–28, `timezone` string.
+- Dokumen `users/{uid}` (profil): tulis hanya dengan kunci `displayName` (≤ 100 karakter), `email` (≤ 254), `createdAt`, `settings`. `createdAt` harus waktu server saat dibuat dan tidak boleh diubah sesudahnya. Di `settings`: `reminderTime` berformat `HH:mm`, `reminderDaysBefore` daftar bilangan bulat 0–7 (maksimal 8 isi), `budgetCycleStartDay` bilangan bulat 1–28, `timezone` string (≤ 64).
 - Subkoleksi `users/{uid}/{koleksi}/...`: hanya pemilik; belum divalidasi per field.
 - Dokumen di luar `users/`: ditolak.
 

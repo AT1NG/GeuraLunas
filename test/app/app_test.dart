@@ -83,4 +83,21 @@ void main() {
 
     expect(find.byKey(const Key('login-page')), findsOneWidget);
   });
+
+  testWidgets('cold start shows splash, never login, until auth is known', (
+    tester,
+  ) async {
+    final auth = FakeAuthRepository(emitOnListen: false);
+    await tester.pumpWidget(_app(auth: auth));
+    await tester.pump();
+
+    expect(find.byKey(const Key('splash-page')), findsOneWidget);
+    expect(find.byKey(const Key('login-page')), findsNothing);
+
+    auth.emit(testUser);
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('login-page')), findsNothing);
+    expect(find.byKey(const Key('home-page')), findsOneWidget);
+  });
 }

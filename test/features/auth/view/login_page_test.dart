@@ -143,11 +143,56 @@ void main() {
     expect(find.text('forgot-stub'), findsOneWidget);
   });
 
-  testWidgets('no overflow at text scale 2.0 and scrollable', (tester) async {
-    await _pump(tester, repo, textScale: 2);
+  testWidgets(
+    'no overflow at text scale 2.0 on a phone; bottom link reachable',
+    (
+      tester,
+    ) async {
+      tester.view
+        ..physicalSize = const Size(360, 640)
+        ..devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      await _pump(tester, repo, textScale: 2);
+      await tester.pumpAndSettle();
+
+      await tester.scrollUntilVisible(
+        find.byKey(const Key('login-to-register')),
+        200,
+        scrollable: find.byType(Scrollable).first,
+      );
+      expect(tester.takeException(), isNull);
+
+      await tester.tap(find.byKey(const Key('login-to-register')));
+      await tester.pumpAndSettle();
+      expect(find.text('register-stub'), findsOneWidget);
+    },
+  );
+
+  testWidgets('buttons are enabled again after Google is cancelled', (
+    tester,
+  ) async {
+    when(() => repo.signInWithGoogle()).thenAnswer((_) async => false);
+    await _pump(tester, repo);
+
+    await tester.tap(find.byKey(const Key('login-google')));
     await tester.pumpAndSettle();
 
-    expect(tester.takeException(), isNull);
-    expect(find.byType(SingleChildScrollView), findsOneWidget);
+    expect(
+      tester
+          .widget<OutlinedButton>(find.byKey(const Key('login-google')))
+          .onPressed,
+      isNotNull,
+    );
+    expect(
+      tester
+          .widget<FilledButton>(
+            find.descendant(
+              of: find.byKey(const Key('login-submit')),
+              matching: find.byType(FilledButton),
+            ),
+          )
+          .onPressed,
+      isNotNull,
+    );
   });
 }
