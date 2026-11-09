@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 3: pengingat jatuh tempo (belum ada rencana implementasi). Menunggu persetujuan user: deploy rules Fase 2 ke geuralunas-dev, lalu uji manual Fase 2 di perangkat (tambah hutang, bayar, batalkan, arsip, hapus, mode pesawat).
+- Fase 3: kode selesai (Task 1-9 kecuali uji manual di emulator dan review akhir cabang). Berikutnya: review akhir, uji manual (butuh akun uji sementara di geuralunas-dev), lalu PR.
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -44,11 +44,11 @@
 
 ## Fase 3 — Pengingat (US-06, US-07)
 
-- [ ] Izin notifikasi (Android 13+) dan exact alarm
-- [ ] Penjadwalan notifikasi lokal dari jadwal cicilan
-- [ ] Jadwal ulang saat data berubah dan setelah reboot
-- [ ] Pengaturan jam dan hari pengingat
-- [ ] Template pesan tagih sopan + bagikan (share)
+- [x] Izin notifikasi (Android 13+) dan exact alarm (kode + test; uji di perangkat belum)
+- [x] Penjadwalan notifikasi lokal dari jadwal cicilan (kode + test; uji di perangkat belum)
+- [x] Jadwal ulang saat data berubah dan setelah reboot (reboot lewat receiver plugin; uji di perangkat belum)
+- [x] Pengaturan jam dan hari pengingat
+- [x] Template pesan tagih sopan + bagikan (share)
 
 ## Fase 4 — Budget & jatah aman (US-08 s.d. US-11)
 
@@ -109,3 +109,4 @@
 | 2026-11-09 | Fase 2 Task 9: tandai lunas, arsip, hapus dengan konfirmasi; gerbang kualitas Fase 2 (analyze 0 isu, 443 test, coverage domain 100% / bloc 98% / total 96%, 35 test rules, APK debug) |
 | 2026-11-09 | Fase 2 review akhir: perbaikan jadwal bulanan yang melorot ke tanggal 28, bunga bulanan vs jadwal mingguan, jatuh tempo hilang saat ubah nominal, tenor dikurangi di bawah cicilan terbayar, penulisan ditolak server kini dilaporkan, tulis hanya cicilan yang berubah, edit nama tidak menimpa data lain (466 test) |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |
+| 2026-11-10 | Fase 3 (US-06, US-07): domain pengingat, teks, pengaturan profil, NotificationDataSource + konfigurasi Android, ReminderRepository serial, ReminderCoordinator, UI pengaturan, tombol Tagih, ADR-014/015 (558 test hijau, analyze bersih, coverage domain 100% / total 95.6%). Uji manual di emulator belum |

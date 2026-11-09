@@ -15,3 +15,5 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/) dan
 - Hutang dan piutang: tambah (pinjol, cicilan, teman) dengan bunga flat/anuitas dan pratinjau jadwal, ubah, lihat daftar (Aku berutang / Piutang, filter aktif/lunas), detail dengan jadwal dan riwayat, tandai lunas, arsip, dan hapus.
 - Pembayaran: catat dengan nominal, tanggal, dan catatan (sisa dan cicilan terkait ikut diperbarui secara atomik), batalkan pembayaran, dan pesan perayaan saat lunas.
 - Rules Firestore untuk hutang, cicilan, dan pembayaran dengan 35 test emulator.
+- Pengingat jatuh tempo (US-06): notifikasi lokal tepat waktu untuk cicilan hutang "aku berutang" (bawaan H-3, H-1, hari-H pukul 09:00), dijadwalkan ulang saat data berubah, saat app dibuka, dan setelah restart; pengaturan jam dan hari di layar Pengaturan, dengan status izin notifikasi dan alarm tepat.
+- Tagih teman (US-07): tombol Tagih di detail piutang aktif membuka teks sopan yang bisa diedit lalu dibagikan lewat share sheet.
