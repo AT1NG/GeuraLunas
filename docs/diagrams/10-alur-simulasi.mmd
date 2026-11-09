@@ -1,0 +1,18 @@
+flowchart TD
+    S(["Mulai simulasi"]) --> A["Pilih hutang owe yang disertakan"]
+    A --> B["Isi dana ekstra per bulan"]
+    B --> C["Jalankan snowball dan avalanche"]
+    C --> D["Bulan berikutnya"]
+    D --> E["Bayar cicilan minimum semua hutang"]
+    E --> F["Dana ekstra ke hutang prioritas: snowball = sisa terkecil, avalanche = bunga tertinggi"]
+    F --> G{"Ada hutang lunas bulan ini?"}
+    G -- "ya" --> G1["Alihkan cicilannya ke prioritas berikutnya"]
+    G -- "tidak" --> H
+    G1 --> H{"Semua lunas?"}
+    H -- "tidak" --> I{"Melebihi batas 600 bulan atau pembayaran tidak menutup bunga?"}
+    I -- "tidak" --> D
+    I -- "ya" --> J["Tandai: tidak pernah lunas"]
+    H -- "ya" --> K["Catat bulan lunas dan total bunga"]
+    J --> L["Tampilkan hasil dan selisih kedua metode"]
+    K --> L
+    L --> Z(["Grafik sisa hutang per bulan"])

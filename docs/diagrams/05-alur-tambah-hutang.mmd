@@ -1,0 +1,15 @@
+flowchart TD
+    S(["Mulai"]) --> A["Pilih arah: aku berutang / piutang"]
+    A --> B["Pilih jenis: pinjol / cicilan / teman"]
+    B --> C["Isi nama pihak, pokok, tanggal mulai"]
+    C --> D{"Jenis teman tanpa bunga dan tenor?"}
+    D -- "ya" --> E["Isi jatuh tempo opsional"]
+    D -- "tidak" --> F["Isi bunga, biaya admin, tenor, frekuensi"]
+    E --> G["Hitung total dan jadwal"]
+    F --> G
+    G --> H["Pratinjau jadwal dan total"]
+    H --> I{"Sesuai?"}
+    I -- "ubah" --> C
+    I -- "simpan" --> J["Tulis atomik: debt + semua installment"]
+    J --> K["Jadwalkan ulang pengingat"]
+    K --> Z(["Selesai - tampil detail"])

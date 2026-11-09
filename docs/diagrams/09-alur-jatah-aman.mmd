@@ -1,0 +1,14 @@
+flowchart TD
+    S(["Buka Beranda"]) --> A["Ambil budget bulan siklus ini"]
+    A --> B{"Pemasukan sudah diisi?"}
+    B -- "belum" --> B1["Ajak isi pemasukan"]
+    B -- "sudah" --> C["Jumlahkan sisa cicilan hutang owe yang jatuh tempo di siklus ini"]
+    C --> D["batas = pemasukan - cicilan - target tabung"]
+    D --> E{"batas negatif?"}
+    E -- "ya" --> E1["Status: cicilan melebihi pemasukan, arahkan ke simulasi"]
+    E -- "tidak" --> F["sisa = batas - total pengeluaran siklus ini"]
+    F --> G["jatah hari ini = floor sisa / sisa hari, minimal 0"]
+    G --> H{"Pengeluaran hari ini melebihi jatah?"}
+    H -- "ya" --> H1["Tampilkan dampak ke jatah hari berikutnya, nada suportif"]
+    H -- "tidak" --> I["Tampilkan jatah hari, minggu, dan bulan"]
+    H1 --> I

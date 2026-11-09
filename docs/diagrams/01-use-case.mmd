@@ -1,0 +1,38 @@
+flowchart LR
+    U(["Pengguna"])
+
+    subgraph Akun
+        A1["Daftar / masuk (US-00)"]
+        A2["Reset password (US-00)"]
+    end
+    subgraph Hutang
+        H1["Tambah hutang (US-01)"]
+        H2["Lihat daftar (US-02)"]
+        H3["Lihat detail (US-03)"]
+        H4["Ubah / arsip / hapus (US-04)"]
+        H5["Catat pembayaran (US-05)"]
+    end
+    subgraph Pengingat
+        R1["Terima pengingat bayar (US-06)"]
+        R2["Kirim pengingat tagih (US-07)"]
+    end
+    subgraph Budget
+        B1["Atur budget bulanan (US-08)"]
+        B2["Catat pengeluaran (US-09)"]
+        B3["Lihat jatah aman (US-10)"]
+        B4["Terima peringatan jatah (US-11)"]
+    end
+    subgraph Analisis
+        S1["Simulasi pelunasan (US-12)"]
+        S2["Lihat grafik (US-13)"]
+        S3["Ekspor CSV (US-14)"]
+    end
+
+    U --- A1 & A2
+    U --- H1 & H2 & H3 & H4 & H5
+    U --- R1 & R2
+    U --- B1 & B2 & B3 & B4
+    U --- S1 & S2 & S3
+    H5 -. "memicu" .-> R1
+    B2 -. "memengaruhi" .-> B3
+    H1 -. "memengaruhi" .-> B3

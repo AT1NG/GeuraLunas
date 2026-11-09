@@ -1,0 +1,33 @@
+flowchart TD
+    SP["Splash"] --> CK{"Sudah masuk?"}
+    CK -- "belum" --> OB["Onboarding"] --> LG["Masuk / Daftar"]
+    LG --> SH
+    CK -- "sudah" --> SH["Shell navigasi bawah"]
+
+    SH --> T1["Beranda"]
+    SH --> T2["Hutang"]
+    SH --> T3["Tombol +"]
+    SH --> T4["Budget"]
+    SH --> T5["Lainnya"]
+
+    T1 --> T1a["Jatah hari ini"]
+    T1 --> T1b["Cicilan terdekat"]
+    T1 --> T1c["Piutang untuk ditagih"]
+
+    T2 --> L1["Daftar: Aku berutang / Piutang"]
+    L1 --> L2["Detail hutang"]
+    L2 --> L3["Form pembayaran"]
+    L1 --> L4["Form hutang"]
+
+    T3 --> Q1["Catat pengeluaran"]
+    T3 --> Q2["Catat pembayaran"]
+    T3 --> Q3["Tambah hutang"]
+
+    T4 --> B1["Ringkasan bulan"]
+    B1 --> B2["Riwayat pengeluaran"]
+    B1 --> B3["Atur budget dan kategori"]
+
+    T5 --> M1["Simulasi pelunasan"]
+    T5 --> M2["Pengaturan"]
+    T5 --> M3["Ekspor CSV"]
+    T5 --> M4["Akun"]

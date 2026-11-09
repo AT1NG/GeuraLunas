@@ -1,0 +1,10 @@
+stateDiagram-v2
+    direction LR
+    state "Hutang" as Debt {
+        [*] --> active
+        active --> settled : remaining = 0
+        settled --> active : pembayaran dihapus
+        active --> archived : diarsipkan
+        settled --> archived : diarsipkan
+        archived --> active : dipulihkan
+    }

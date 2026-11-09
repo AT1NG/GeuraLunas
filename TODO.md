@@ -83,4 +83,5 @@
 | 2026-11-09 | `git init` dan commit awal dokumen |
 | 2026-11-09 | Keputusan: denda manual, siklus budget pilihan user, ekspor CSV masuk (US-14) |
 | 2026-11-09 | `docs/DIAGRAMS.md` dibuat (10 diagram Mermaid) |
+| 2026-11-09 | Diagram dirender ke PNG (`docs/diagrams/`) agar tampil di semua penampil Markdown |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |

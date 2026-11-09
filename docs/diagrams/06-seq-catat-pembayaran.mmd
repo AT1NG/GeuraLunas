@@ -1,0 +1,27 @@
+sequenceDiagram
+    actor U as Pengguna
+    participant V as Form pembayaran
+    participant B as DebtDetailBloc
+    participant R as DebtRepository
+    participant D as Domain
+    participant F as Firestore
+    participant N as ReminderRepository
+
+    U->>V: isi nominal, tanggal, simpan
+    V->>B: PaymentRecorded
+    B->>R: recordPayment
+    R->>D: validasi tidak melebihi sisa
+    alt nominal melebihi sisa
+        D-->>R: ValidationFailure
+        R-->>B: error
+        B-->>V: tampil pesan
+    else valid
+        R->>F: batch atomik: payment + installment + debt
+        F-->>R: berhasil, atau antre bila offline
+        R-->>B: debt terbaru
+        B->>N: reschedule
+        B-->>V: state baru (sisa, progres)
+        opt sisa = 0
+            B-->>V: tampil ucapan lunas
+        end
+    end

@@ -1,0 +1,70 @@
+erDiagram
+    USER ||--o{ DEBT : "punya"
+    USER ||--o{ CATEGORY : "punya"
+    USER ||--o{ EXPENSE : "mencatat"
+    USER ||--o{ BUDGET : "punya per bulan"
+    DEBT ||--o{ INSTALLMENT : "dijadwalkan"
+    DEBT ||--o{ PAYMENT : "dibayar lewat"
+    INSTALLMENT |o--o{ PAYMENT : "dilunasi oleh"
+    CATEGORY ||--o{ EXPENSE : "mengelompokkan"
+    CATEGORY ||--o{ BUDGET : "dibatasi di categoryLimits"
+
+    USER {
+        string uid PK
+        string displayName
+        string email
+        string reminderTime
+        int budgetCycleStartDay
+        string timezone
+    }
+    DEBT {
+        string debtId PK
+        string direction "owe | lent"
+        string kind "pinjol | installment | personal"
+        string counterpartyName
+        int principal
+        string interestType
+        double interestRate
+        int adminFee
+        int tenorCount
+        string frequency
+        int totalPayable
+        int paidTotal
+        int remaining
+        timestamp nextDueDate
+        string status "active | settled | archived"
+    }
+    INSTALLMENT {
+        string seq PK
+        timestamp dueDate
+        int amount
+        int paidAmount
+        string status "pending | partial | paid"
+    }
+    PAYMENT {
+        string paymentId PK
+        int amount
+        timestamp paidAt
+        int installmentSeq FK
+        string note
+    }
+    CATEGORY {
+        string categoryId PK
+        string name
+        string icon
+        string colorHex
+        bool archived
+    }
+    EXPENSE {
+        string expenseId PK
+        int amount
+        string categoryId FK
+        timestamp spentAt
+        string note
+    }
+    BUDGET {
+        string yyyyMM PK
+        int incomeTotal
+        int savingsTarget
+        map categoryLimits
+    }

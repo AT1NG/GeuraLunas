@@ -1,0 +1,10 @@
+stateDiagram-v2
+    direction LR
+    state "Cicilan" as Inst {
+        [*] --> pending
+        pending --> partial : bayar sebagian
+        partial --> paid : bayar sisa
+        pending --> paid : bayar penuh
+        paid --> partial : pembayaran dihapus sebagian
+        paid --> pending : pembayaran dihapus
+    }

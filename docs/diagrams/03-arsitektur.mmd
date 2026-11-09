@@ -1,0 +1,21 @@
+flowchart TB
+    subgraph PRES["Presentation"]
+        V["Halaman dan widget"]
+    end
+    subgraph BLOC["Business Logic"]
+        B["Bloc / Cubit per fitur"]
+    end
+    subgraph REPO["Repository"]
+        R["Auth, Debt, Budget, Reminder repository"]
+    end
+    subgraph DATA["Data"]
+        D1["Firebase Auth"]
+        D2["Cloud Firestore"]
+        D3["Notifikasi lokal"]
+    end
+    DOM["Domain - Dart murni: Money, bunga, jadwal, jatah aman, simulator"]
+
+    V --> B --> R
+    R --> D1 & D2 & D3
+    B --> DOM
+    R --> DOM
