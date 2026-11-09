@@ -4,3 +4,8 @@ analyzer:
   exclude:
     - lib/l10n/gen/**
     - lib/firebase_options.dart
+
+linter:
+  rules:
+    # App, not a published package: doc comments on every public member add noise.
+    public_member_api_docs: false

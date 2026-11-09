@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 1 Task 5: Firebase (butuh langkah manual user) (lihat docs/superpowers/plans/2026-11-09-phase1-foundation.md).
+- Fase 1 Task 7: onboarding (Task 5 Firebase menunggu langkah console user: aktifkan Auth Google+Email dan buat Firestore, lalu jalankan ulang flutterfire configure). Lihat docs/superpowers/plans/2026-11-09-phase1-foundation.md.
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -88,4 +88,5 @@
 | 2026-11-09 | Fase 1 Task 2: Money dan formatter rupiah/tanggal (12 test) |
 | 2026-11-09 | Fase 1 Task 3: tema Material 3, lokalisasi id, helper pumpApp |
 | 2026-11-09 | Fase 1 Task 4: go_router + shell navigasi bawah 5 tab (6 widget test) |
+| 2026-11-09 | Fase 1 Task 6: logika auth (validator, AuthRepository, AuthBloc, Login/Register/ForgotPassword cubit; 60 test hijau). UI auth di Task 8 |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |
