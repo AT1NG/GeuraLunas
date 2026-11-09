@@ -58,11 +58,16 @@ class ReminderCoordinator {
       // The first snapshot is the debts that already exist; only later ones
       // are a change the user made, and only those may ask for permission.
       var first = true;
-      _debtSub = _debtChanges().listen((_) {
-        if (!first) _promptWanted = true;
-        first = false;
-        _schedule();
-      });
+      _debtSub = _debtChanges().listen(
+        (_) {
+          if (!first) _promptWanted = true;
+          first = false;
+          _schedule();
+        },
+        // A failing stream must not crash the app; the next event or the next
+        // resume reschedules.
+        onError: (Object _) {},
+      );
       _schedule();
       final launch = _pendingLaunch;
       if (launch != null) {
