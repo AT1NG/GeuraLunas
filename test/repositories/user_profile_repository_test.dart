@@ -84,6 +84,27 @@ void main() {
             as Map<String, Object?>;
     expect(captured.containsKey('displayName'), isFalse);
   });
+
+  test('concurrent calls never create the profile twice', () async {
+    var created = false;
+    when(() => ds.exists('u1')).thenAnswer((_) async {
+      final seen = created;
+      await Future<void>.delayed(const Duration(milliseconds: 10));
+      return seen;
+    });
+    when(() => ds.create(any(), any())).thenAnswer((_) async {
+      created = true;
+    });
+    when(() => ds.setDisplayName(any(), any())).thenAnswer((_) async {});
+
+    await Future.wait([
+      repo.ensureProfile(const AppUser(uid: 'u1', email: 'rani@mail.com')),
+      repo.ensureProfile(_user),
+    ]);
+
+    verify(() => ds.create('u1', any())).called(1);
+    verify(() => ds.setDisplayName('u1', 'Rani')).called(1);
+  });
 }
 
 class _SettingsHarness {

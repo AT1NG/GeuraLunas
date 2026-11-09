@@ -4,6 +4,9 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/) dan
 
 ## [Belum dirilis]
 
+### Diperbaiki
+- Daftar akun tidak lagi memicu penulisan profil ganda yang ditolak server.
+
 ### Ditambahkan
 - Dokumen perencanaan: README, CLAUDE, TODO, PRD, ARCHITECTURE, DATABASE, UI-UX, TESTING, DECISIONS, DIAGRAMS.
 - Fondasi aplikasi Flutter (Android): tema Material 3 terang/gelap, format rupiah dan tanggal Indonesia, lokalisasi `id`.
