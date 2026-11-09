@@ -789,6 +789,162 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Hutang ini tidak ditemukan. Mungkin sudah dihapus.'**
   String get formNotFound;
+
+  /// No description provided for @detailKindPinjol.
+  ///
+  /// In id, this message translates to:
+  /// **'Pinjol'**
+  String get detailKindPinjol;
+
+  /// No description provided for @detailKindInstallment.
+  ///
+  /// In id, this message translates to:
+  /// **'Cicilan'**
+  String get detailKindInstallment;
+
+  /// No description provided for @detailKindPersonal.
+  ///
+  /// In id, this message translates to:
+  /// **'Pinjaman teman'**
+  String get detailKindPersonal;
+
+  /// No description provided for @detailDirectionOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Aku berutang'**
+  String get detailDirectionOwe;
+
+  /// No description provided for @detailDirectionLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Dia berutang ke aku'**
+  String get detailDirectionLent;
+
+  /// No description provided for @detailKindDirection.
+  ///
+  /// In id, this message translates to:
+  /// **'{kind} · {direction}'**
+  String detailKindDirection(String kind, String direction);
+
+  /// No description provided for @detailRemainingOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Sisa yang harus dibayar'**
+  String get detailRemainingOwe;
+
+  /// No description provided for @detailRemainingLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Sisa yang akan diterima'**
+  String get detailRemainingLent;
+
+  /// No description provided for @detailPaidOf.
+  ///
+  /// In id, this message translates to:
+  /// **'{paid} dari {total}'**
+  String detailPaidOf(String paid, String total);
+
+  /// No description provided for @detailProgressSemantics.
+  ///
+  /// In id, this message translates to:
+  /// **'Sudah dibayar {paid} dari {total}'**
+  String detailProgressSemantics(String paid, String total);
+
+  /// No description provided for @detailPayOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Bayar'**
+  String get detailPayOwe;
+
+  /// No description provided for @detailPayLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Catat penerimaan'**
+  String get detailPayLent;
+
+  /// No description provided for @detailSettledOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Lunas! Satu beban berkurang.'**
+  String get detailSettledOwe;
+
+  /// No description provided for @detailSettledLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Lunas! Semuanya sudah kembali.'**
+  String get detailSettledLent;
+
+  /// No description provided for @detailScheduleTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Jadwal cicilan'**
+  String get detailScheduleTitle;
+
+  /// No description provided for @detailNoSchedule.
+  ///
+  /// In id, this message translates to:
+  /// **'Tidak ada jadwal cicilan.'**
+  String get detailNoSchedule;
+
+  /// No description provided for @installmentTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Cicilan {n}'**
+  String installmentTitle(int n);
+
+  /// No description provided for @installmentDue.
+  ///
+  /// In id, this message translates to:
+  /// **'Jatuh tempo {date}'**
+  String installmentDue(String date);
+
+  /// No description provided for @installmentPaid.
+  ///
+  /// In id, this message translates to:
+  /// **'Lunas'**
+  String get installmentPaid;
+
+  /// No description provided for @installmentPartial.
+  ///
+  /// In id, this message translates to:
+  /// **'Sebagian ({paid} dari {total})'**
+  String installmentPartial(String paid, String total);
+
+  /// No description provided for @installmentPending.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum dibayar'**
+  String get installmentPending;
+
+  /// No description provided for @detailPaymentsOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Riwayat pembayaran'**
+  String get detailPaymentsOwe;
+
+  /// No description provided for @detailPaymentsLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Riwayat penerimaan'**
+  String get detailPaymentsLent;
+
+  /// No description provided for @detailNoPayments.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada pembayaran.'**
+  String get detailNoPayments;
+
+  /// No description provided for @detailEdit.
+  ///
+  /// In id, this message translates to:
+  /// **'Ubah'**
+  String get detailEdit;
+
+  /// No description provided for @detailMenu.
+  ///
+  /// In id, this message translates to:
+  /// **'Menu'**
+  String get detailMenu;
 }
 
 class _AppLocalizationsDelegate

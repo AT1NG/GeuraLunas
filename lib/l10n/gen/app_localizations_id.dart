@@ -388,4 +388,94 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get formNotFound =>
       'Hutang ini tidak ditemukan. Mungkin sudah dihapus.';
+
+  @override
+  String get detailKindPinjol => 'Pinjol';
+
+  @override
+  String get detailKindInstallment => 'Cicilan';
+
+  @override
+  String get detailKindPersonal => 'Pinjaman teman';
+
+  @override
+  String get detailDirectionOwe => 'Aku berutang';
+
+  @override
+  String get detailDirectionLent => 'Dia berutang ke aku';
+
+  @override
+  String detailKindDirection(String kind, String direction) {
+    return '$kind · $direction';
+  }
+
+  @override
+  String get detailRemainingOwe => 'Sisa yang harus dibayar';
+
+  @override
+  String get detailRemainingLent => 'Sisa yang akan diterima';
+
+  @override
+  String detailPaidOf(String paid, String total) {
+    return '$paid dari $total';
+  }
+
+  @override
+  String detailProgressSemantics(String paid, String total) {
+    return 'Sudah dibayar $paid dari $total';
+  }
+
+  @override
+  String get detailPayOwe => 'Bayar';
+
+  @override
+  String get detailPayLent => 'Catat penerimaan';
+
+  @override
+  String get detailSettledOwe => 'Lunas! Satu beban berkurang.';
+
+  @override
+  String get detailSettledLent => 'Lunas! Semuanya sudah kembali.';
+
+  @override
+  String get detailScheduleTitle => 'Jadwal cicilan';
+
+  @override
+  String get detailNoSchedule => 'Tidak ada jadwal cicilan.';
+
+  @override
+  String installmentTitle(int n) {
+    return 'Cicilan $n';
+  }
+
+  @override
+  String installmentDue(String date) {
+    return 'Jatuh tempo $date';
+  }
+
+  @override
+  String get installmentPaid => 'Lunas';
+
+  @override
+  String installmentPartial(String paid, String total) {
+    return 'Sebagian ($paid dari $total)';
+  }
+
+  @override
+  String get installmentPending => 'Belum dibayar';
+
+  @override
+  String get detailPaymentsOwe => 'Riwayat pembayaran';
+
+  @override
+  String get detailPaymentsLent => 'Riwayat penerimaan';
+
+  @override
+  String get detailNoPayments => 'Belum ada pembayaran.';
+
+  @override
+  String get detailEdit => 'Ubah';
+
+  @override
+  String get detailMenu => 'Menu';
 }

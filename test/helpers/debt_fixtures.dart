@@ -40,9 +40,17 @@ Debt makeDebt({
 /// In-memory repository for widget tests. Only `watchDebts` is implemented;
 /// later tasks extend what is needed.
 class FakeDebtRepository implements DebtRepository {
-  FakeDebtRepository({List<Debt> debts = const []}) : _debts = debts;
+  FakeDebtRepository({
+    List<Debt> debts = const [],
+    Map<String, List<Installment>> installments = const {},
+    Map<String, List<Payment>> payments = const {},
+  }) : _debts = debts,
+       _installments = installments,
+       _payments = payments;
 
   List<Debt> _debts;
+  final Map<String, List<Installment>> _installments;
+  final Map<String, List<Payment>> _payments;
   final _controller = StreamController<List<Debt>>.broadcast();
 
   /// When set, `watchDebts` fails with this error.
@@ -90,6 +98,14 @@ class FakeDebtRepository implements DebtRepository {
   @override
   Stream<Debt?> watchDebt(String debtId) =>
       Stream.value(_debts.where((d) => d.id == debtId).firstOrNull);
+
+  @override
+  Stream<List<Installment>> watchInstallments(String debtId) =>
+      Stream.value(_installments[debtId] ?? const []);
+
+  @override
+  Stream<List<Payment>> watchPayments(String debtId) =>
+      Stream.value(_payments[debtId] ?? const []);
 
   @override
   dynamic noSuchMethod(Invocation invocation) => throw UnimplementedError(
