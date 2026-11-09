@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 3: pengingat jatuh tempo (belum ada rencana implementasi). Menunggu persetujuan user: deploy rules Fase 2 ke geuralunas-dev, lalu uji manual Fase 2 di perangkat (tambah hutang, bayar, batalkan, arsip, hapus, mode pesawat).
+- Fase 3: pengingat jatuh tempo (belum ada rencana implementasi; mulai dari brainstorming). Sisa manual Fase 1: login Google yang berhasil (perlu akun Google di emulator).
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -109,3 +109,4 @@
 | 2026-11-09 | Fase 2 Task 9: tandai lunas, arsip, hapus dengan konfirmasi; gerbang kualitas Fase 2 (analyze 0 isu, 443 test, coverage domain 100% / bloc 98% / total 96%, 35 test rules, APK debug) |
 | 2026-11-09 | Fase 2 review akhir: perbaikan jadwal bulanan yang melorot ke tanggal 28, bunga bulanan vs jadwal mingguan, jatuh tempo hilang saat ubah nominal, tenor dikurangi di bawah cicilan terbayar, penulisan ditolak server kini dilaporkan, tulis hanya cicilan yang berubah, edit nama tidak menimpa data lain (466 test) |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |
+| 2026-11-09 | Fase 2 diuji manual di emulator (tambah hutang, bayar, batalkan, hapus, bayar saat mode pesawat lalu sinkron); rules Fase 2 di-deploy; PR #1 dan #2 di-merge; akun uji dihapus. Perbaikan: `ensureProfile` diserialkan agar profil tidak dibuat dua kali saat daftar (467 test) |

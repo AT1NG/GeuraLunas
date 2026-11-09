@@ -13,8 +13,19 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
 
   final UserProfileDataSource _dataSource;
 
+  // Sign-up emits the user twice (before and after the display name). Two
+  // overlapping runs would both see no profile and both create it; the second
+  // create is then an update that the rules reject (createdAt changes).
+  Future<void> _queue = Future<void>.value();
+
   @override
-  Future<void> ensureProfile(AppUser user) async {
+  Future<void> ensureProfile(AppUser user) {
+    final run = _queue.then((_) => _ensure(user));
+    _queue = run.then((_) {}, onError: (Object _) {});
+    return run;
+  }
+
+  Future<void> _ensure(AppUser user) async {
     if (await _dataSource.exists(user.uid)) {
       // Sign-up creates the account before the display name is set, so the
       // first profile may have been written without it.
