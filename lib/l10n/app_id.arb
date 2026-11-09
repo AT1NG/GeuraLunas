@@ -1,0 +1,11 @@
+{
+  "@@locale": "id",
+  "appName": "GeuraLunas",
+  "navHome": "Beranda",
+  "navDebts": "Hutang",
+  "navBudget": "Budget",
+  "navMore": "Lainnya",
+  "addMenuExpense": "Catat pengeluaran",
+  "addMenuPayment": "Catat pembayaran",
+  "addMenuDebt": "Tambah hutang"
+}

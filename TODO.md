@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 1 Task 3: tema Material 3, lokalisasi, helper test (lihat docs/superpowers/plans/2026-11-09-phase1-foundation.md).
+- Fase 1 Task 4: router dan shell navigasi bawah (lihat docs/superpowers/plans/2026-11-09-phase1-foundation.md).
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -26,7 +26,7 @@
 - [x] Scaffold project Flutter (`vgv-ai-flutter-plugin:create-project`), package `com.geuralunas.app`
 - [x] Setup lint `very_good_analysis`, struktur folder sesuai ARCHITECTURE
 - [ ] Buat project Firebase, daftarkan app Android, pasang `google-services.json`
-- [ ] Tema Material 3 (light/dark), format rupiah, lokalisasi `id`
+- [x] Tema Material 3 (light/dark), format rupiah, lokalisasi `id`
 - [ ] Routing `go_router` dan kerangka navigasi bawah
 - [ ] Auth: Google Sign-In dan email+password (daftar, masuk, lupa password, keluar)
 - [ ] Firestore security rules awal dan test dengan emulator
@@ -86,4 +86,5 @@
 | 2026-11-09 | Diagram dirender ke PNG (`docs/diagrams/`) agar tampil di semua penampil Markdown |
 | 2026-11-09 | Fase 1 Task 1: scaffold Flutter, lint very_good_analysis, smoke test |
 | 2026-11-09 | Fase 1 Task 2: Money dan formatter rupiah/tanggal (12 test) |
+| 2026-11-09 | Fase 1 Task 3: tema Material 3, lokalisasi id, helper pumpApp |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |
