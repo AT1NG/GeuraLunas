@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:geuralunas/domain/auth/app_user.dart';
+import 'package:geuralunas/domain/reminder/reminder_settings.dart';
 import 'package:geuralunas/repositories/auth_repository.dart';
 import 'package:geuralunas/repositories/onboarding_repository.dart';
 import 'package:geuralunas/repositories/user_profile_repository.dart';
@@ -76,4 +77,31 @@ class FakeUserProfileRepository implements UserProfileRepository {
 
   @override
   Future<void> ensureProfile(AppUser user) async => ensured.add(user.uid);
+
+  /// Reminder settings the fake reports; push a new value with [setSettings].
+  ReminderSettings _settings = ReminderSettings.defaults;
+  final _settingsController = StreamController<ReminderSettings>.broadcast();
+
+  /// Calls made to `saveReminderSettings`.
+  final saved = <ReminderSettings>[];
+
+  void setSettings(ReminderSettings settings) {
+    _settings = settings;
+    _settingsController.add(settings);
+  }
+
+  @override
+  Stream<ReminderSettings> watchReminderSettings(String uid) async* {
+    yield _settings;
+    yield* _settingsController.stream;
+  }
+
+  @override
+  Future<void> saveReminderSettings(
+    String uid,
+    ReminderSettings settings,
+  ) async {
+    saved.add(settings);
+    setSettings(settings);
+  }
 }
