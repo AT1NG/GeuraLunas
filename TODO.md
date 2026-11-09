@@ -17,7 +17,7 @@
 - [x] `docs/DECISIONS.md`
 - [x] `README.md`, `CLAUDE.md`, `CHANGELOG.md`
 - [ ] User mereview dan menyetujui dokumen
-- [ ] Putuskan pertanyaan terbuka di PRD (bagian 9)
+- [ ] Putuskan pertanyaan terbuka di PRD (bagian 9): tersisa kunci PIN/biometrik
 - [x] `git init` dan commit dokumen (atas izin user)
 
 ## Fase 1 — Fondasi
@@ -66,6 +66,7 @@
 
 ## Fase 6 — Polish & rilis
 
+- [ ] Ekspor CSV hutang, pembayaran, pengeluaran (US-14)
 - [ ] Aksesibilitas (label semantik, ukuran sentuh, kontras)
 - [ ] Empty state, loading, error state konsisten
 - [ ] Green gate: analyze, format, test, coverage
@@ -79,4 +80,5 @@
 |---|---|
 | 2026-11-09 | Brainstorming dan dokumen perencanaan Fase 0 ditulis |
 | 2026-11-09 | `git init` dan commit awal dokumen |
+| 2026-11-09 | Keputusan: denda manual, siklus budget pilihan user, ekspor CSV masuk (US-14) |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |

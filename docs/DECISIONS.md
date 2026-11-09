@@ -63,3 +63,9 @@ Tanggal: 2026-11-09 · Status: diterima
 Tanggal: 2026-11-09 · Status: diterima
 - **Keputusan:** Nama final GeuraLunas (menggantikan nama kerja "Lunasin"), package `com.geuralunas.app`, repo `AT1NG/GeuraLunas`, project Firebase `geuralunas-dev` / `geuralunas-prod`.
 - **Konsekuensi:** Folder lokal `D:\Project\Lunasin` belum diganti nama.
+
+## ADR-011 — Denda manual, siklus budget pilihan pengguna, ekspor CSV masuk
+Tanggal: 2026-11-09 · Status: diterima
+- **Keputusan:** (1) Denda keterlambatan tidak dihitung otomatis; pengguna mencatat dan menyesuaikan hutangnya sendiri. (2) Pengguna memilih tanggal mulai siklus budget (1–28). (3) Ekspor CSV masuk versi 1 (US-14, Fase 6).
+- **Alasan:** Aturan denda tiap pinjol berbeda-beda; fokus aplikasi adalah pencatatan oleh pengguna. Siklus mengikuti tanggal gajian masing-masing.
+- **Konsekuensi:** Sisa hutang bisa berbeda dari aplikasi pinjol bila ada denda; sediakan penyesuaian sisa manual.

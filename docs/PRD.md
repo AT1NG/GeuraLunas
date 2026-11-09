@@ -21,6 +21,7 @@ Banyak orang punya beberapa kewajiban sekaligus: pinjol, cicilan paylater/kartu/
 ## 3. Bukan tujuan (versi 1)
 
 - Menawarkan, menyalurkan, atau membandingkan pinjaman.
+- Perhitungan denda keterlambatan otomatis (pengguna mengatur sendiri bila perlu).
 - Integrasi bank/e-wallet atau membaca SMS/notifikasi otomatis.
 - Verifikasi legalitas pinjol (OJK).
 - Hutang yang dibagi bersama dua pengguna (sinkron dua akun).
@@ -95,6 +96,12 @@ Lima kemampuan inti: catat hutang/piutang, pengingat, catat pembayaran, budget +
 
 **US-13 Grafik penurunan hutang.** Saya melihat grafik sisa hutang dari waktu ke waktu menurut hasil simulasi.
 
+### Ekspor
+**US-14 Ekspor data.** Saya bisa mengekspor hutang, pembayaran, dan pengeluaran ke file CSV dan membagikannya.
+- Pilihan data: hutang & pembayaran, pengeluaran, atau semuanya; bisa pilih rentang tanggal.
+- Nominal ditulis sebagai angka rupiah utuh, tanggal format `YYYY-MM-DD`, encoding UTF-8.
+- File dibuat di perangkat dan dibagikan lewat menu share; tidak diunggah ke server.
+
 ## 7. Kebutuhan fungsional ringkas
 
 | ID | Kebutuhan | Story |
@@ -107,6 +114,7 @@ Lima kemampuan inti: catat hutang/piutang, pengingat, catat pembayaran, budget +
 | FR-06 | Budget bulanan, kategori, pengeluaran | US-08, 09 |
 | FR-07 | Kalkulasi jatah aman | US-10, 11 |
 | FR-08 | Simulator snowball/avalanche | US-12, 13 |
+| FR-09 | Ekspor CSV | US-14 |
 
 ## 8. Kebutuhan non-fungsional
 
@@ -122,10 +130,10 @@ Lima kemampuan inti: catat hutang/piutang, pengingat, catat pembayaran, budget +
 ## 9. Pertanyaan terbuka
 
 1. ~~Nama final aplikasi dan package ID~~ — diputuskan 2026-11-09: **GeuraLunas**, package `com.geuralunas.app`.
-2. Bunga pinjol: cukup empat model (tanpa bunga, flat per bulan, flat per hari, menurun per bulan) atau perlu denda keterlambatan otomatis? Usulan: denda dicatat manual di versi 1.
-3. Siklus budget: mulai tanggal 1, atau mengikuti tanggal gajian? Usulan: pengguna memilih tanggal mulai (1–28).
-4. Perlu kunci aplikasi (PIN/biometrik) di versi 1? Usulan: tunda ke versi 2.
-5. Perlu ekspor data (CSV)? Usulan: tunda.
+2. ~~Denda keterlambatan~~ — diputuskan 2026-11-09: tidak dihitung otomatis. Fokus aplikasi: pengguna mencatat hutangnya sendiri. Bila ada denda, pengguna menyesuaikan sisa/nominal secara manual. Model bunga tetap empat (tanpa bunga, flat bulanan, flat harian, menurun bulanan).
+3. ~~Siklus budget~~ — diputuskan 2026-11-09: pengguna sendiri yang memilih tanggal mulai siklus (1–28) di pengaturan.
+4. Kunci aplikasi (PIN/biometrik): menunggu keputusan user. Fungsinya mengunci aplikasi saat dibuka supaya orang yang meminjam HP tidak bisa melihat data hutang. Usulan: tunda ke versi 2.
+5. ~~Ekspor data (CSV)~~ — diputuskan 2026-11-09: masuk (US-14), dikerjakan di Fase 6.
 
 ## 10. Metrik keberhasilan
 
