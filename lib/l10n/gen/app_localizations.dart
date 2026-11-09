@@ -147,6 +147,60 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Tambah hutang'**
   String get addMenuDebt;
+
+  /// No description provided for @onboardingTitle1.
+  ///
+  /// In id, this message translates to:
+  /// **'Catat semua hutang di satu tempat'**
+  String get onboardingTitle1;
+
+  /// No description provided for @onboardingBody1.
+  ///
+  /// In id, this message translates to:
+  /// **'Pinjol, cicilan, atau pinjaman dari teman. Semua terlihat jelas, tanpa perlu diingat-ingat.'**
+  String get onboardingBody1;
+
+  /// No description provided for @onboardingTitle2.
+  ///
+  /// In id, this message translates to:
+  /// **'Jangan sampai telat bayar'**
+  String get onboardingTitle2;
+
+  /// No description provided for @onboardingBody2.
+  ///
+  /// In id, this message translates to:
+  /// **'Kami ingatkan sebelum jatuh tempo, supaya kamu tenang dan terhindar dari denda.'**
+  String get onboardingBody2;
+
+  /// No description provided for @onboardingTitle3.
+  ///
+  /// In id, this message translates to:
+  /// **'Jatah jajan harian yang aman'**
+  String get onboardingTitle3;
+
+  /// No description provided for @onboardingBody3.
+  ///
+  /// In id, this message translates to:
+  /// **'Kami hitung sisa uangmu setelah cicilan, jadi kamu tahu berapa yang aman dipakai hari ini.'**
+  String get onboardingBody3;
+
+  /// No description provided for @onboardingSkip.
+  ///
+  /// In id, this message translates to:
+  /// **'Lewati'**
+  String get onboardingSkip;
+
+  /// No description provided for @onboardingNext.
+  ///
+  /// In id, this message translates to:
+  /// **'Lanjut'**
+  String get onboardingNext;
+
+  /// No description provided for @onboardingStart.
+  ///
+  /// In id, this message translates to:
+  /// **'Mulai'**
+  String get onboardingStart;
 }
 
 class _AppLocalizationsDelegate

@@ -8,5 +8,14 @@
   "navAdd": "Tambah",
   "addMenuExpense": "Catat pengeluaran",
   "addMenuPayment": "Catat pembayaran",
-  "addMenuDebt": "Tambah hutang"
+  "addMenuDebt": "Tambah hutang",
+  "onboardingTitle1": "Catat semua hutang di satu tempat",
+  "onboardingBody1": "Pinjol, cicilan, atau pinjaman dari teman. Semua terlihat jelas, tanpa perlu diingat-ingat.",
+  "onboardingTitle2": "Jangan sampai telat bayar",
+  "onboardingBody2": "Kami ingatkan sebelum jatuh tempo, supaya kamu tenang dan terhindar dari denda.",
+  "onboardingTitle3": "Jatah jajan harian yang aman",
+  "onboardingBody3": "Kami hitung sisa uangmu setelah cicilan, jadi kamu tahu berapa yang aman dipakai hari ini.",
+  "onboardingSkip": "Lewati",
+  "onboardingNext": "Lanjut",
+  "onboardingStart": "Mulai"
 }
