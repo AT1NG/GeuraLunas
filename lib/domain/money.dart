@@ -1,6 +1,9 @@
+import 'package:meta/meta.dart';
+
 /// An amount of Indonesian rupiah, stored as a whole number.
 ///
 /// Money is never a `double`: see `docs/DATABASE.md`.
+@immutable
 final class Money implements Comparable<Money> {
   /// Creates an amount of [rupiah].
   const Money(this.rupiah);
