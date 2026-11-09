@@ -215,5 +215,16 @@
   "collectionAfterDue": "Halo {name}, mau mengingatkan pinjaman {amount} yang jatuh tempo tanggal {date} lalu. Kapan kira-kira bisa dibayar? Terima kasih ya.",
   "@collectionAfterDue": {"placeholders": {"name": {"type": "String"}, "amount": {"type": "String"}, "date": {"type": "String"}}},
   "collectionNoDue": "Halo {name}, mau mengingatkan soal pinjaman {amount}. Kapan kira-kira bisa dibayar? Terima kasih ya.",
-  "@collectionNoDue": {"placeholders": {"name": {"type": "String"}, "amount": {"type": "String"}}}
+  "@collectionNoDue": {"placeholders": {"name": {"type": "String"}, "amount": {"type": "String"}}},
+  "settingsReminderTitle": "Pengingat bayar",
+  "settingsReminderTime": "Jam pengingat",
+  "settingsReminderDays": "Ingatkan sebelum jatuh tempo",
+  "settingsReminderDayChip": "H-{n}",
+  "@settingsReminderDayChip": {"placeholders": {"n": {"type": "int"}}},
+  "settingsReminderDaysHint": "Pilih satu atau lebih. H-0 berarti di hari jatuh tempo.",
+  "settingsNotificationsOff": "Notifikasi dimatikan, jadi pengingat belum bisa muncul.",
+  "settingsNotificationsAllow": "Izinkan",
+  "settingsExactAlarmsOff": "Pengingat bisa meleset beberapa menit.",
+  "settingsExactAlarmsOpen": "Buka pengaturan",
+  "settingsBatteryHelp": "Kalau notifikasi tidak muncul, matikan penghemat baterai untuk GeuraLunas."
 }

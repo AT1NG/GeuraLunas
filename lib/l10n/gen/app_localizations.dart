@@ -1245,6 +1245,66 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Halo {name}, mau mengingatkan soal pinjaman {amount}. Kapan kira-kira bisa dibayar? Terima kasih ya.'**
   String collectionNoDue(String name, String amount);
+
+  /// No description provided for @settingsReminderTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Pengingat bayar'**
+  String get settingsReminderTitle;
+
+  /// No description provided for @settingsReminderTime.
+  ///
+  /// In id, this message translates to:
+  /// **'Jam pengingat'**
+  String get settingsReminderTime;
+
+  /// No description provided for @settingsReminderDays.
+  ///
+  /// In id, this message translates to:
+  /// **'Ingatkan sebelum jatuh tempo'**
+  String get settingsReminderDays;
+
+  /// No description provided for @settingsReminderDayChip.
+  ///
+  /// In id, this message translates to:
+  /// **'H-{n}'**
+  String settingsReminderDayChip(int n);
+
+  /// No description provided for @settingsReminderDaysHint.
+  ///
+  /// In id, this message translates to:
+  /// **'Pilih satu atau lebih. H-0 berarti di hari jatuh tempo.'**
+  String get settingsReminderDaysHint;
+
+  /// No description provided for @settingsNotificationsOff.
+  ///
+  /// In id, this message translates to:
+  /// **'Notifikasi dimatikan, jadi pengingat belum bisa muncul.'**
+  String get settingsNotificationsOff;
+
+  /// No description provided for @settingsNotificationsAllow.
+  ///
+  /// In id, this message translates to:
+  /// **'Izinkan'**
+  String get settingsNotificationsAllow;
+
+  /// No description provided for @settingsExactAlarmsOff.
+  ///
+  /// In id, this message translates to:
+  /// **'Pengingat bisa meleset beberapa menit.'**
+  String get settingsExactAlarmsOff;
+
+  /// No description provided for @settingsExactAlarmsOpen.
+  ///
+  /// In id, this message translates to:
+  /// **'Buka pengaturan'**
+  String get settingsExactAlarmsOpen;
+
+  /// No description provided for @settingsBatteryHelp.
+  ///
+  /// In id, this message translates to:
+  /// **'Kalau notifikasi tidak muncul, matikan penghemat baterai untuk GeuraLunas.'**
+  String get settingsBatteryHelp;
 }
 
 class _AppLocalizationsDelegate
