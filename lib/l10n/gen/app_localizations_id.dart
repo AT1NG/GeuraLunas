@@ -693,4 +693,26 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get settingsBatteryHelp =>
       'Kalau notifikasi tidak muncul, matikan penghemat baterai untuk GeuraLunas.';
+
+  @override
+  String get detailCollect => 'Tagih';
+
+  @override
+  String get collectionSheetTitle => 'Tagih dengan sopan';
+
+  @override
+  String get collectionSheetHint =>
+      'Kamu bisa ubah pesannya sebelum dibagikan.';
+
+  @override
+  String get collectionMessageLabel => 'Pesan';
+
+  @override
+  String get collectionShare => 'Bagikan';
+
+  @override
+  String get collectionCopy => 'Salin';
+
+  @override
+  String get collectionCopied => 'Pesan disalin';
 }

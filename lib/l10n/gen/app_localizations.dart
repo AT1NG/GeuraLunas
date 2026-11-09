@@ -1305,6 +1305,48 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Kalau notifikasi tidak muncul, matikan penghemat baterai untuk GeuraLunas.'**
   String get settingsBatteryHelp;
+
+  /// No description provided for @detailCollect.
+  ///
+  /// In id, this message translates to:
+  /// **'Tagih'**
+  String get detailCollect;
+
+  /// No description provided for @collectionSheetTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Tagih dengan sopan'**
+  String get collectionSheetTitle;
+
+  /// No description provided for @collectionSheetHint.
+  ///
+  /// In id, this message translates to:
+  /// **'Kamu bisa ubah pesannya sebelum dibagikan.'**
+  String get collectionSheetHint;
+
+  /// No description provided for @collectionMessageLabel.
+  ///
+  /// In id, this message translates to:
+  /// **'Pesan'**
+  String get collectionMessageLabel;
+
+  /// No description provided for @collectionShare.
+  ///
+  /// In id, this message translates to:
+  /// **'Bagikan'**
+  String get collectionShare;
+
+  /// No description provided for @collectionCopy.
+  ///
+  /// In id, this message translates to:
+  /// **'Salin'**
+  String get collectionCopy;
+
+  /// No description provided for @collectionCopied.
+  ///
+  /// In id, this message translates to:
+  /// **'Pesan disalin'**
+  String get collectionCopied;
 }
 
 class _AppLocalizationsDelegate

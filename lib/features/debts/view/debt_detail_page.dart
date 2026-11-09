@@ -7,6 +7,7 @@ import 'package:geuralunas/domain/debt/debt.dart';
 import 'package:geuralunas/domain/debt/debt_enums.dart';
 import 'package:geuralunas/features/debts/bloc/debt_actions_cubit.dart';
 import 'package:geuralunas/features/debts/bloc/debt_detail_cubit.dart';
+import 'package:geuralunas/features/debts/view/collection_sheet.dart';
 import 'package:geuralunas/features/debts/widgets/debt_status.dart';
 import 'package:geuralunas/features/payments/view/settled_celebration.dart';
 import 'package:geuralunas/l10n/l10n.dart';
@@ -297,6 +298,23 @@ class _Content extends StatelessWidget {
                       ),
                     ),
                   ),
+                  if (!isOwe) ...[
+                    const SizedBox(height: Spacing.sm),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        key: const Key('debt-collect'),
+                        onPressed: () => showCollectionSheet(
+                          context,
+                          name: debt.counterpartyName,
+                          remaining: debt.remaining,
+                          dueDate: debt.nextDueDate,
+                        ),
+                        icon: const Icon(Icons.chat_bubble_outline),
+                        label: Text(l10n.detailCollect),
+                      ),
+                    ),
+                  ],
                 ],
               ],
             ),

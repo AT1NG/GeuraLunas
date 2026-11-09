@@ -226,5 +226,12 @@
   "settingsNotificationsAllow": "Izinkan",
   "settingsExactAlarmsOff": "Pengingat bisa meleset beberapa menit.",
   "settingsExactAlarmsOpen": "Buka pengaturan",
-  "settingsBatteryHelp": "Kalau notifikasi tidak muncul, matikan penghemat baterai untuk GeuraLunas."
+  "settingsBatteryHelp": "Kalau notifikasi tidak muncul, matikan penghemat baterai untuk GeuraLunas.",
+  "detailCollect": "Tagih",
+  "collectionSheetTitle": "Tagih dengan sopan",
+  "collectionSheetHint": "Kamu bisa ubah pesannya sebelum dibagikan.",
+  "collectionMessageLabel": "Pesan",
+  "collectionShare": "Bagikan",
+  "collectionCopy": "Salin",
+  "collectionCopied": "Pesan disalin"
 }
