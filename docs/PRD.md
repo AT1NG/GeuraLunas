@@ -1,4 +1,4 @@
-# PRD — Lunasin
+# PRD — GeuraLunas
 
 Versi 0.1 · 2026-11-09 · Status: draft untuk direview
 
@@ -121,7 +121,7 @@ Lima kemampuan inti: catat hutang/piutang, pengingat, catat pembayaran, budget +
 
 ## 9. Pertanyaan terbuka
 
-1. Nama final aplikasi dan package ID.
+1. ~~Nama final aplikasi dan package ID~~ — diputuskan 2026-11-09: **GeuraLunas**, package `com.geuralunas.app`.
 2. Bunga pinjol: cukup empat model (tanpa bunga, flat per bulan, flat per hari, menurun per bulan) atau perlu denda keterlambatan otomatis? Usulan: denda dicatat manual di versi 1.
 3. Siklus budget: mulai tanggal 1, atau mengikuti tanggal gajian? Usulan: pengguna memilih tanggal mulai (1–28).
 4. Perlu kunci aplikasi (PIN/biometrik) di versi 1? Usulan: tunda ke versi 2.

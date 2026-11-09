@@ -1,4 +1,4 @@
-# UI-UX — Lunasin
+# UI-UX — GeuraLunas
 
 Versi 0.1 · 2026-11-09
 

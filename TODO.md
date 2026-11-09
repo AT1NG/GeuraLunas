@@ -1,4 +1,4 @@
-# TODO — Lunasin
+# TODO — GeuraLunas
 
 > Aturan: update file ini setiap tugas selesai (centang, isi Log selesai, pindahkan "Sedang dikerjakan"). Lihat [CLAUDE.md](CLAUDE.md).
 
@@ -22,7 +22,7 @@
 
 ## Fase 1 — Fondasi
 
-- [ ] Scaffold project Flutter (`vgv-ai-flutter-plugin:create-project`), package `com.lunasin.app` (sesuaikan)
+- [ ] Scaffold project Flutter (`vgv-ai-flutter-plugin:create-project`), package `com.geuralunas.app`
 - [ ] Setup lint `very_good_analysis`, struktur folder sesuai ARCHITECTURE
 - [ ] Buat project Firebase, daftarkan app Android, pasang `google-services.json`
 - [ ] Tema Material 3 (light/dark), format rupiah, lokalisasi `id`
@@ -79,3 +79,4 @@
 |---|---|
 | 2026-11-09 | Brainstorming dan dokumen perencanaan Fase 0 ditulis |
 | 2026-11-09 | `git init` dan commit awal dokumen |
+| 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |

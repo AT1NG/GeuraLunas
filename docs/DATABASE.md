@@ -1,4 +1,4 @@
-# DATABASE — Lunasin
+# DATABASE — GeuraLunas
 
 Versi 0.1 · 2026-11-09 · Basis data: Cloud Firestore (NoSQL, dokumen/koleksi)
 

@@ -1,6 +1,6 @@
-# CLAUDE.md — Panduan untuk Claude di proyek Lunasin
+# CLAUDE.md — Panduan untuk Claude di proyek GeuraLunas
 
-Lunasin adalah aplikasi mobile (Flutter + Firebase, Android dulu) untuk mengatur hutang dan piutang: pinjol, cicilan, dan pinjaman antar teman. Aplikasi juga membantu mengatur jatah jajan harian/mingguan supaya aman dari sisi pelunasan.
+GeuraLunas adalah aplikasi mobile (Flutter + Firebase, Android dulu) untuk mengatur hutang dan piutang: pinjol, cicilan, dan pinjaman antar teman. Aplikasi juga membantu mengatur jatah jajan harian/mingguan supaya aman dari sisi pelunasan.
 
 ## Dokumen rujukan (sumber kebenaran)
 

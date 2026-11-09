@@ -1,8 +1,6 @@
-# Lunasin
+# GeuraLunas
 
 Aplikasi mobile untuk mengatur hutang dan piutang (pinjol, cicilan, hutang ke/dari teman) sekaligus menjaga jatah jajan harian dan mingguan agar pelunasan tetap aman.
-
-> Nama "Lunasin" adalah nama kerja dan bisa diganti.
 
 **Status:** tahap perencanaan selesai (dokumen), implementasi belum dimulai. Lihat [TODO.md](TODO.md).
 
@@ -38,4 +36,4 @@ Langkah akan diisi saat scaffold project dibuat. Prasyarat yang sudah pasti: Flu
 
 ## Catatan
 
-Simulasi dan perhitungan di aplikasi bersifat alat bantu, bukan nasihat keuangan. Lunasin tidak menawarkan pinjaman.
+Simulasi dan perhitungan di aplikasi bersifat alat bantu, bukan nasihat keuangan. GeuraLunas tidak menawarkan pinjaman.

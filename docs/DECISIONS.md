@@ -1,4 +1,4 @@
-# DECISIONS — Lunasin
+# DECISIONS — GeuraLunas
 
 Catatan keputusan (ADR). Tambahkan entri baru di bawah; jangan menghapus entri lama, tandai `Digantikan oleh ADR-xxx`.
 
@@ -58,3 +58,8 @@ Tanggal: 2026-11-09 · Status: diterima
 Tanggal: 2026-11-09 · Status: diterima
 - **Keputusan:** Jatah aman hanya memakai pemasukan yang diisi pengguna; uang dari penagihan piutang dicatat sebagai pemasukan manual ketika diterima.
 - **Alasan:** Konservatif; piutang tidak pasti tertagih.
+
+## ADR-010 — Nama aplikasi: GeuraLunas
+Tanggal: 2026-11-09 · Status: diterima
+- **Keputusan:** Nama final GeuraLunas (menggantikan nama kerja "Lunasin"), package `com.geuralunas.app`, repo `AT1NG/GeuraLunas`, project Firebase `geuralunas-dev` / `geuralunas-prod`.
+- **Konsekuensi:** Folder lokal `D:\Project\Lunasin` belum diganti nama.

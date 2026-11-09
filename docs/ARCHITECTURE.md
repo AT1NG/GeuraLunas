@@ -1,4 +1,4 @@
-# ARCHITECTURE — Lunasin
+# ARCHITECTURE — GeuraLunas
 
 Versi 0.1 · 2026-11-09
 
@@ -123,7 +123,7 @@ Versi 1: tanpa analitik pihak ketiga. Crash reporting (Firebase Crashlytics) dip
 
 ## 8. Build dan lingkungan
 
-- Dev: project Firebase `lunasin-dev`, emulator untuk test rules.
-- Prod: project Firebase `lunasin-prod`.
+- Dev: project Firebase `geuralunas-dev`, emulator untuk test rules.
+- Prod: project Firebase `geuralunas-prod`.
 - Flavor Android `dev` dan `prod`.
 - CI (opsional, Fase 6): `flutter analyze`, `flutter test`, format check.
