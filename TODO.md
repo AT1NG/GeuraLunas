@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 3: pengingat jatuh tempo (belum ada rencana implementasi; mulai dari brainstorming). Sisa manual Fase 1: login Google yang berhasil (perlu akun Google di emulator).
+- Fase 3: kode dan uji manual di emulator selesai. PR #3 (Fase 3) sudah di-merge; PR #4 (fix `ensureProfile`) menunggu merge. Sisa uji manual: cold start dari notifikasi, Google Sign-In, arsip dan Tandai lunas.
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -44,11 +44,11 @@
 
 ## Fase 3 — Pengingat (US-06, US-07)
 
-- [ ] Izin notifikasi (Android 13+) dan exact alarm
-- [ ] Penjadwalan notifikasi lokal dari jadwal cicilan
-- [ ] Jadwal ulang saat data berubah dan setelah reboot
-- [ ] Pengaturan jam dan hari pengingat
-- [ ] Template pesan tagih sopan + bagikan (share)
+- [x] Izin notifikasi (Android 13+) dan exact alarm (kode + test; uji di perangkat belum)
+- [x] Penjadwalan notifikasi lokal dari jadwal cicilan (kode + test; uji di perangkat belum)
+- [x] Jadwal ulang saat data berubah dan setelah reboot (reboot lewat receiver plugin; uji di perangkat belum)
+- [x] Pengaturan jam dan hari pengingat
+- [x] Template pesan tagih sopan + bagikan (share)
 
 ## Fase 4 — Budget & jatah aman (US-08 s.d. US-11)
 
@@ -110,3 +110,6 @@
 | 2026-11-09 | Fase 2 review akhir: perbaikan jadwal bulanan yang melorot ke tanggal 28, bunga bulanan vs jadwal mingguan, jatuh tempo hilang saat ubah nominal, tenor dikurangi di bawah cicilan terbayar, penulisan ditolak server kini dilaporkan, tulis hanya cicilan yang berubah, edit nama tidak menimpa data lain (466 test) |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |
 | 2026-11-09 | Fase 2 diuji manual di emulator (tambah hutang, bayar, batalkan, hapus, bayar saat mode pesawat lalu sinkron); rules Fase 2 di-deploy; PR #1 dan #2 di-merge; akun uji dihapus. Perbaikan: `ensureProfile` diserialkan agar profil tidak dibuat dua kali saat daftar (467 test) |
+| 2026-11-10 | Fase 3 (US-06, US-07): domain pengingat, teks, pengaturan profil, NotificationDataSource + konfigurasi Android, ReminderRepository serial, ReminderCoordinator, UI pengaturan, tombol Tagih, ADR-014/015 (558 test hijau, analyze bersih, coverage domain 100% / total 95.6%). Uji manual di emulator belum |
+| 2026-11-10 | Fase 3 review akhir: jam pengingat kini memakai zona waktu perangkat (bukan Asia/Jakarta tetap), izin notifikasi diminta saat pengguna mengubah hutang, bukan saat app dibuka (560 test hijau) |
+| 2026-11-10 | Fase 3 uji manual di emulator Pixel_API34 (akun uji sementara, sudah dihapus dari Auth dan Firestore): izin ditolak lalu diizinkan, alarm tepat muncul pas 01:37 dengan app di latar, ketuk membuka detail, ubah jam menjadwalkan ulang, bayar menghapus alarm dan batalkan bayar memulihkannya, alarm bertahan setelah reboot (mode inexact), keluar akun membersihkan alarm, Tagih membuka teks sopan dan share sheet. Catatan: izin alarm tepat via appops kembali default setelah reboot emulator, jadwal exact lama tidak pulih sampai app dibuka |

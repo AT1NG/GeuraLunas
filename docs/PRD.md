@@ -69,11 +69,13 @@ Lima kemampuan inti: catat hutang/piutang, pengingat, catat pembayaran, budget +
 
 ### Pengingat
 **US-06 Pengingat jatuh tempo.** Saya mendapat notifikasi sebelum cicilan jatuh tempo.
-- Default H-3, H-1, dan hari-H jam 09:00; bisa diatur.
+- Hanya hutang "aku berutang" yang aktif; satu notifikasi per cicilan belum lunas per hari pengingat.
+- Default H-3, H-1, dan hari-H jam 09:00; jam dan hari bisa diatur di Pengaturan.
 - Notifikasi berhenti setelah cicilan dibayar atau hutang lunas.
 - Tetap berfungsi tanpa internet dan setelah HP restart.
 
-**US-07 Pengingat tagih teman.** Untuk piutang, saya mendapat pengingat untuk menagih, dan bisa membagikan teks tagih yang sopan lewat aplikasi chat.
+**US-07 Tagih teman.** Untuk piutang, saya bisa membagikan teks tagih yang sopan lewat aplikasi chat. Piutang tidak mendapat pengingat terjadwal (lihat ADR-014).
+- Tombol Tagih ada di detail piutang yang masih aktif; teks dibuat dari templat tetap dengan sisa piutang dan jatuh tempo terdekat.
 - Teks bisa diedit sebelum dibagikan.
 - Teks tidak memuat kata kasar/mengancam.
 

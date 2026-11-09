@@ -1,11 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geuralunas/data/user_profile_data_source.dart';
 import 'package:geuralunas/domain/auth/app_user.dart';
+import 'package:geuralunas/domain/reminder/reminder_settings.dart';
 
-// ignore: one_member_abstracts // interface boundary, mocked in tests
 abstract interface class UserProfileRepository {
   /// Creates `users/{uid}` with default settings if it does not exist yet.
   Future<void> ensureProfile(AppUser user);
+
+  /// The reminder settings of [uid], following changes. Falls back to
+  /// [ReminderSettings.defaults] while the profile or a field is missing or
+  /// invalid.
+  Stream<ReminderSettings> watchReminderSettings(String uid);
+
+  /// Saves the reminder time and days. Does not wait for the server.
+  ///
+  /// Throws [ArgumentError] when `daysBefore` is not valid.
+  Future<void> saveReminderSettings(String uid, ReminderSettings settings);
 }
 
 class UserProfileRepositoryImpl implements UserProfileRepository {
@@ -47,4 +57,50 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
       },
     });
   }
+
+  @override
+  Stream<ReminderSettings> watchReminderSettings(String uid) =>
+      _dataSource.watchSettings(uid).map(_parseSettings);
+
+  @override
+  Future<void> saveReminderSettings(String uid, ReminderSettings settings) {
+    if (!ReminderSettings.validDaysBefore(settings.daysBefore)) {
+      throw ArgumentError.value(
+        settings.daysBefore,
+        'settings.daysBefore',
+        'must be 1 to 8 distinct days from 0 to 7',
+      );
+    }
+    String two(int v) => v.toString().padLeft(2, '0');
+    return _dataSource.updateReminderSettings(
+      uid,
+      time: '${two(settings.hour)}:${two(settings.minute)}',
+      daysBefore: settings.daysBefore,
+    );
+  }
+}
+
+final _time = RegExp(r'^([01]\d|2[0-3]):([0-5]\d)$');
+
+ReminderSettings _parseSettings(Map<String, Object?>? m) {
+  if (m == null) return ReminderSettings.defaults;
+  final match = _time.firstMatch('${m['reminderTime']}');
+  final raw = m['reminderDaysBefore'];
+  final days = raw is List && raw.every((e) => e is int)
+      ? raw.cast<int>().toList()
+      : null;
+  if (match == null ||
+      days == null ||
+      !ReminderSettings.validDaysBefore(days)) {
+    return ReminderSettings.defaults;
+  }
+  final zone = m['timezone'];
+  return ReminderSettings(
+    hour: int.parse(match.group(1)!),
+    minute: int.parse(match.group(2)!),
+    daysBefore: days,
+    timezone: zone is String && zone.isNotEmpty
+        ? zone
+        : ReminderSettings.defaults.timezone,
+  );
 }
