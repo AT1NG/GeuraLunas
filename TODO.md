@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 2: rencana ada di docs/superpowers/plans/2026-11-09-phase2-debts-payments.md (menunggu persetujuan dan pilihan cara eksekusi). Fase 1: tinggal uji manual di perangkat (lihat docs/TESTING.md bagian 5).
+- Fase 2: rencana ada di docs/superpowers/plans/2026-11-09-phase2-debts-payments.md (menunggu persetujuan dan pilihan cara eksekusi). Fase 1: uji manual di emulator selesai kecuali Google Sign-In sukses (butuh akun Google di emulator).
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -97,4 +97,5 @@
 | 2026-11-09 | Fase 1 Task 11: gerbang kualitas (analyze bersih, 113 test, coverage domain 100% / bloc 99% / total 93%), ADR-012, CHANGELOG |
 | 2026-11-09 | Fase 1 review akhir: perbaikan nama hilang setelah daftar, emit pada cubit tertutup, error Google yang membuat spinner macet (124 test hijau) |
 | 2026-11-09 | Fase 1 penutup: rules diperketat (createdAt server, batas panjang) dan di-deploy ke geuralunas-dev; sign-out Google tahan error; splash tak menggantung; test layar HP skala teks 2.0 dan cold start (131 test, 18 test rules) |
+| 2026-11-09 | Fase 1 uji manual di emulator Pixel_API34: onboarding, validasi, pesan salah password, daftar → Beranda, nama di Pengaturan, dokumen profil di Firestore, buka ulang tanpa kilasan login (termasuk mode pesawat), keluar dengan konfirmasi, login ulang. Belum: Google Sign-In sukses |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |
