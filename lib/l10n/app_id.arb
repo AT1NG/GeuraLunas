@@ -50,5 +50,13 @@
   "forgotTitle": "Lupa password",
   "forgotBody": "Masukkan email akunmu. Kami kirim tautan untuk membuat password baru.",
   "forgotSubmit": "Kirim tautan",
-  "forgotSent": "Kalau email itu terdaftar, tautan sudah kami kirim. Cek kotak masuk atau folder spam."
+  "forgotSent": "Kalau email itu terdaftar, tautan sudah kami kirim. Cek kotak masuk atau folder spam.",
+  "commonCancel": "Batal",
+  "commonComingSoon": "Segera hadir",
+  "moreSimulation": "Simulasi pelunasan",
+  "settingsTitle": "Pengaturan",
+  "settingsNoName": "Tanpa nama",
+  "settingsSignOut": "Keluar",
+  "settingsSignOutConfirmTitle": "Keluar dari akun?",
+  "settingsSignOutConfirmBody": "Datamu tetap aman dan akan muncul lagi saat kamu masuk."
 }

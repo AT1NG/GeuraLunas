@@ -14,11 +14,16 @@ import 'package:geuralunas/features/home/view/home_page.dart';
 import 'package:geuralunas/features/more/view/more_page.dart';
 import 'package:geuralunas/features/onboarding/bloc/onboarding_cubit.dart';
 import 'package:geuralunas/features/onboarding/view/onboarding_page.dart';
+import 'package:geuralunas/features/settings/view/settings_page.dart';
 import 'package:geuralunas/features/shell/app_shell.dart';
 import 'package:go_router/go_router.dart';
 
-StatefulShellBranch _branch(String path, Widget page) => StatefulShellBranch(
-  routes: [GoRoute(path: path, builder: (_, _) => page)],
+StatefulShellBranch _branch(
+  String path,
+  Widget page, {
+  List<RouteBase> routes = const [],
+}) => StatefulShellBranch(
+  routes: [GoRoute(path: path, builder: (_, _) => page, routes: routes)],
 );
 
 /// Re-evaluates the router redirect whenever auth or onboarding state changes.
@@ -84,7 +89,16 @@ GoRouter createRouter({
           _branch('/home', const HomePage()),
           _branch('/debts', const DebtsPage()),
           _branch('/budget', const BudgetPage()),
-          _branch('/more', const MorePage()),
+          _branch(
+            '/more',
+            const MorePage(),
+            routes: [
+              GoRoute(
+                path: 'settings',
+                builder: (_, _) => const SettingsPage(),
+              ),
+            ],
+          ),
         ],
       ),
     ],

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:geuralunas/domain/auth/app_user.dart';
 import 'package:geuralunas/repositories/auth_repository.dart';
 import 'package:geuralunas/repositories/onboarding_repository.dart';
+import 'package:geuralunas/repositories/user_profile_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}
@@ -67,3 +68,10 @@ const testUser = AppUser(
   email: 'rani@mail.com',
   displayName: 'Rani',
 );
+
+class FakeUserProfileRepository implements UserProfileRepository {
+  final ensured = <String>[];
+
+  @override
+  Future<void> ensureProfile(AppUser user) async => ensured.add(user.uid);
+}

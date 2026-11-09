@@ -173,4 +173,29 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get forgotSent =>
       'Kalau email itu terdaftar, tautan sudah kami kirim. Cek kotak masuk atau folder spam.';
+
+  @override
+  String get commonCancel => 'Batal';
+
+  @override
+  String get commonComingSoon => 'Segera hadir';
+
+  @override
+  String get moreSimulation => 'Simulasi pelunasan';
+
+  @override
+  String get settingsTitle => 'Pengaturan';
+
+  @override
+  String get settingsNoName => 'Tanpa nama';
+
+  @override
+  String get settingsSignOut => 'Keluar';
+
+  @override
+  String get settingsSignOutConfirmTitle => 'Keluar dari akun?';
+
+  @override
+  String get settingsSignOutConfirmBody =>
+      'Datamu tetap aman dan akan muncul lagi saat kamu masuk.';
 }

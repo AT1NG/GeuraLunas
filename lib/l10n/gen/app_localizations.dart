@@ -399,6 +399,54 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Kalau email itu terdaftar, tautan sudah kami kirim. Cek kotak masuk atau folder spam.'**
   String get forgotSent;
+
+  /// No description provided for @commonCancel.
+  ///
+  /// In id, this message translates to:
+  /// **'Batal'**
+  String get commonCancel;
+
+  /// No description provided for @commonComingSoon.
+  ///
+  /// In id, this message translates to:
+  /// **'Segera hadir'**
+  String get commonComingSoon;
+
+  /// No description provided for @moreSimulation.
+  ///
+  /// In id, this message translates to:
+  /// **'Simulasi pelunasan'**
+  String get moreSimulation;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Pengaturan'**
+  String get settingsTitle;
+
+  /// No description provided for @settingsNoName.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanpa nama'**
+  String get settingsNoName;
+
+  /// No description provided for @settingsSignOut.
+  ///
+  /// In id, this message translates to:
+  /// **'Keluar'**
+  String get settingsSignOut;
+
+  /// No description provided for @settingsSignOutConfirmTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Keluar dari akun?'**
+  String get settingsSignOutConfirmTitle;
+
+  /// No description provided for @settingsSignOutConfirmBody.
+  ///
+  /// In id, this message translates to:
+  /// **'Datamu tetap aman dan akan muncul lagi saat kamu masuk.'**
+  String get settingsSignOutConfirmBody;
 }
 
 class _AppLocalizationsDelegate

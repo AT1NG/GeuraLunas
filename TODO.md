@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 1 Task 10: profil pengguna + layar pengaturan (lihat docs/superpowers/plans/2026-11-09-phase1-foundation.md). Menunggu persetujuan user: deploy rules ke geuralunas-dev; uji manual Task 8.
+- Fase 1 Task 11: green-gate, dokumen (ADR-012), CHANGELOG, lalu review akhir (lihat docs/superpowers/plans/2026-11-09-phase1-foundation.md). Menunggu persetujuan user: deploy rules ke geuralunas-dev; uji manual di perangkat.
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -28,9 +28,9 @@
 - [x] Buat project Firebase, daftarkan app Android, pasang `google-services.json`
 - [x] Tema Material 3 (light/dark), format rupiah, lokalisasi `id`
 - [x] Routing `go_router` dan kerangka navigasi bawah
-- [ ] Auth: Google Sign-In dan email+password (daftar, masuk, lupa password, keluar)
+- [x] Auth: Google Sign-In dan email+password (daftar, masuk, lupa password, keluar) (kode + test; uji di perangkat belum)
 - [x] Firestore security rules awal dan test dengan emulator (belum di-deploy ke geuralunas-dev)
-- [ ] Onboarding singkat dan layar pengaturan dasar
+- [x] Onboarding singkat dan layar pengaturan dasar
 
 ## Fase 2 — Hutang & pembayaran (US-01 s.d. US-05)
 
@@ -93,4 +93,5 @@
 | 2026-11-09 | Fase 1 Task 7: onboarding 3 slide dengan flag tersimpan (shared_preferences), 69 test hijau |
 | 2026-11-09 | Fase 1 Task 8: layar splash/login/daftar/lupa password, redirect berbasis auth+onboarding (102 test hijau). Uji manual di perangkat belum dilakukan; item Auth tetap terbuka sampai tombol keluar (Task 10) |
 | 2026-11-09 | Fase 1 Task 9: firestore.rules v2 (profil tervalidasi, subkoleksi hanya pemilik) + 12 test emulator |
+| 2026-11-09 | Fase 1 Task 10: profil users/{uid} dibuat saat login pertama (gagal tidak memblokir), layar Pengaturan + keluar dengan konfirmasi, tile Lainnya (110 test hijau) |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |

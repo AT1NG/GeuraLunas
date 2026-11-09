@@ -11,6 +11,7 @@ Widget _app({
 }) => App(
   authRepository: auth ?? FakeAuthRepository(initialUser: testUser),
   onboardingRepository: onboarding ?? FakeOnboardingRepository(),
+  userProfileRepository: FakeUserProfileRepository(),
 );
 
 void main() {

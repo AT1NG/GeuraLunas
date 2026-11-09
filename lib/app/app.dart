@@ -9,6 +9,7 @@ import 'package:geuralunas/features/onboarding/bloc/onboarding_cubit.dart';
 import 'package:geuralunas/l10n/l10n.dart';
 import 'package:geuralunas/repositories/auth_repository.dart';
 import 'package:geuralunas/repositories/onboarding_repository.dart';
+import 'package:geuralunas/repositories/user_profile_repository.dart';
 import 'package:go_router/go_router.dart';
 
 /// Root widget of the GeuraLunas app.
@@ -17,6 +18,7 @@ class App extends StatefulWidget {
   const App({
     required this.authRepository,
     required this.onboardingRepository,
+    required this.userProfileRepository,
     super.key,
   });
 
@@ -26,12 +28,18 @@ class App extends StatefulWidget {
   /// Persisted "onboarding seen" flag.
   final OnboardingRepository onboardingRepository;
 
+  /// Creates the Firestore profile on first sign-in.
+  final UserProfileRepository userProfileRepository;
+
   @override
   State<App> createState() => _AppState();
 }
 
 class _AppState extends State<App> {
-  late final AuthBloc _authBloc = AuthBloc(widget.authRepository);
+  late final AuthBloc _authBloc = AuthBloc(
+    widget.authRepository,
+    widget.userProfileRepository,
+  );
   late final OnboardingCubit _onboardingCubit = OnboardingCubit(
     widget.onboardingRepository,
   );
