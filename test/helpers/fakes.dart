@@ -4,6 +4,7 @@ import 'package:geuralunas/domain/auth/app_user.dart';
 import 'package:geuralunas/domain/reminder/reminder_settings.dart';
 import 'package:geuralunas/repositories/auth_repository.dart';
 import 'package:geuralunas/repositories/onboarding_repository.dart';
+import 'package:geuralunas/repositories/reminder_repository.dart';
 import 'package:geuralunas/repositories/user_profile_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -104,4 +105,49 @@ class FakeUserProfileRepository implements UserProfileRepository {
     saved.add(settings);
     setSettings(settings);
   }
+}
+
+/// Records what the app asks of the reminder system.
+class FakeReminderRepository implements ReminderRepository {
+  /// 'reschedule', 'cancel' and 'request' in the order they happened.
+  final calls = <String>[];
+
+  /// What `rescheduleAll` reports as planned.
+  int planned = 3;
+
+  ReminderPermissions state = const ReminderPermissions(
+    notifications: true,
+    exactAlarms: true,
+  );
+
+  @override
+  String? launchDebtId;
+
+  final _taps = StreamController<String>.broadcast();
+
+  void tap(String debtId) => _taps.add(debtId);
+
+  @override
+  Stream<String> get taps => _taps.stream;
+
+  @override
+  Future<int> rescheduleAll() async {
+    calls.add('reschedule');
+    return planned;
+  }
+
+  @override
+  Future<void> cancelAll() async => calls.add('cancel');
+
+  @override
+  Future<ReminderPermissions> permissions() async => state;
+
+  @override
+  Future<ReminderPermissions> requestPermissions() async {
+    calls.add('request');
+    return state;
+  }
+
+  @override
+  Future<void> openAlarmSettings() async => calls.add('alarm-settings');
 }
