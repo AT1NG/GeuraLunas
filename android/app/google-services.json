@@ -12,7 +12,20 @@
           "package_name": "com.geuralunas.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1080588780296-onu7itgc52npqnoi5agv941ktkb8iku9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.geuralunas.app",
+            "certificate_hash": "b02c041a172ec31fe1c13c85330e70fe28c31f13"
+          }
+        },
+        {
+          "client_id": "1080588780296-62cdioheiupj23nfs8bbgdn0qunmgh94.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCBLUyuimvZkG3l9mfV3HiLQzQhgnJlndI"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1080588780296-62cdioheiupj23nfs8bbgdn0qunmgh94.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

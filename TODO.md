@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 1 Task 7: onboarding (Task 5 Firebase menunggu langkah console user: aktifkan Auth Google+Email dan buat Firestore, lalu jalankan ulang flutterfire configure). Lihat docs/superpowers/plans/2026-11-09-phase1-foundation.md.
+- Fase 1 Task 7: onboarding (lihat docs/superpowers/plans/2026-11-09-phase1-foundation.md).
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -25,7 +25,7 @@
 
 - [x] Scaffold project Flutter (`vgv-ai-flutter-plugin:create-project`), package `com.geuralunas.app`
 - [x] Setup lint `very_good_analysis`, struktur folder sesuai ARCHITECTURE
-- [ ] Buat project Firebase, daftarkan app Android, pasang `google-services.json`
+- [x] Buat project Firebase, daftarkan app Android, pasang `google-services.json`
 - [x] Tema Material 3 (light/dark), format rupiah, lokalisasi `id`
 - [x] Routing `go_router` dan kerangka navigasi bawah
 - [ ] Auth: Google Sign-In dan email+password (daftar, masuk, lupa password, keluar)
@@ -88,5 +88,6 @@
 | 2026-11-09 | Fase 1 Task 2: Money dan formatter rupiah/tanggal (12 test) |
 | 2026-11-09 | Fase 1 Task 3: tema Material 3, lokalisasi id, helper pumpApp |
 | 2026-11-09 | Fase 1 Task 4: go_router + shell navigasi bawah 5 tab (6 widget test) |
+| 2026-11-09 | Fase 1 Task 5: project Firebase geuralunas-dev, Auth (Google + email) dan Firestore aktif, google-services.json memuat OAuth client |
 | 2026-11-09 | Fase 1 Task 6: logika auth (validator, AuthRepository, AuthBloc, Login/Register/ForgotPassword cubit; 60 test hijau). UI auth di Task 8 |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |
