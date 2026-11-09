@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 2 Task 3: penerapan dan pembatalan pembayaran (lihat docs/superpowers/plans/2026-11-09-phase2-debts-payments.md).
+- Fase 2 Task 4: DTO, repository hutang, rules (lihat docs/superpowers/plans/2026-11-09-phase2-debts-payments.md).
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -100,4 +100,5 @@
 | 2026-11-09 | Fase 1 uji manual di emulator Pixel_API34: onboarding, validasi, pesan salah password, daftar → Beranda, nama di Pengaturan, dokumen profil di Firestore, buka ulang tanpa kilasan login (termasuk mode pesawat), keluar dengan konfirmasi, login ulang. Belum: Google Sign-In sukses |
 | 2026-11-09 | Fase 2 Task 1: model domain hutang (enum, Debt, Installment, Payment) dan rumus total bayar termasuk anuitas; domain 100% |
 | 2026-11-09 | Fase 2 Task 2: generator jadwal cicilan (akhir bulan tidak melorot, sisa pembulatan ke cicilan terakhir, 183 test) |
+| 2026-11-09 | Fase 2 Task 3: penerapan dan pembatalan pembayaran (replay dari nol, pembatalan persis seperti sebelum dibayar; domain 100%, 206 test) |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |
