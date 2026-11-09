@@ -447,6 +447,120 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Datamu tetap aman dan akan muncul lagi saat kamu masuk.'**
   String get settingsSignOutConfirmBody;
+
+  /// No description provided for @debtsTabOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Aku berutang'**
+  String get debtsTabOwe;
+
+  /// No description provided for @debtsTabLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Piutang'**
+  String get debtsTabLent;
+
+  /// No description provided for @debtsTotalOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Total yang harus kamu bayar'**
+  String get debtsTotalOwe;
+
+  /// No description provided for @debtsTotalLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Total yang akan kamu terima'**
+  String get debtsTotalLent;
+
+  /// No description provided for @debtsFilterActive.
+  ///
+  /// In id, this message translates to:
+  /// **'Aktif'**
+  String get debtsFilterActive;
+
+  /// No description provided for @debtsFilterSettled.
+  ///
+  /// In id, this message translates to:
+  /// **'Lunas'**
+  String get debtsFilterSettled;
+
+  /// No description provided for @debtsEmptyOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada hutang yang tercatat. Mulai dari yang pertama, pelan-pelan saja.'**
+  String get debtsEmptyOwe;
+
+  /// No description provided for @debtsEmptyLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada piutang yang tercatat.'**
+  String get debtsEmptyLent;
+
+  /// No description provided for @debtsEmptySettled.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada yang lunas. Satu per satu pasti sampai.'**
+  String get debtsEmptySettled;
+
+  /// No description provided for @debtsEmptyAction.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambah hutang pertamamu'**
+  String get debtsEmptyAction;
+
+  /// No description provided for @debtsLoadError.
+  ///
+  /// In id, this message translates to:
+  /// **'Datamu belum bisa dimuat. Coba lagi sebentar lagi.'**
+  String get debtsLoadError;
+
+  /// No description provided for @statusOverdue.
+  ///
+  /// In id, this message translates to:
+  /// **'Terlambat'**
+  String get statusOverdue;
+
+  /// No description provided for @statusDueSoon.
+  ///
+  /// In id, this message translates to:
+  /// **'Segera jatuh tempo'**
+  String get statusDueSoon;
+
+  /// No description provided for @statusSettled.
+  ///
+  /// In id, this message translates to:
+  /// **'Lunas'**
+  String get statusSettled;
+
+  /// No description provided for @statusActive.
+  ///
+  /// In id, this message translates to:
+  /// **'Aktif'**
+  String get statusActive;
+
+  /// No description provided for @debtCardRemaining.
+  ///
+  /// In id, this message translates to:
+  /// **'Sisa {amount}'**
+  String debtCardRemaining(String amount);
+
+  /// No description provided for @debtCardDue.
+  ///
+  /// In id, this message translates to:
+  /// **'Jatuh tempo {date}'**
+  String debtCardDue(String date);
+
+  /// No description provided for @debtCardNoDue.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanpa jatuh tempo'**
+  String get debtCardNoDue;
+
+  /// No description provided for @debtCardSemantics.
+  ///
+  /// In id, this message translates to:
+  /// **'{name}, sisa {amount}, {due}'**
+  String debtCardSemantics(String name, String amount, String due);
 }
 
 class _AppLocalizationsDelegate

@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 2 Task 5: daftar hutang + komponen bersama (lihat docs/superpowers/plans/2026-11-09-phase2-debts-payments.md). Menunggu persetujuan user: deploy rules Fase 2 ke geuralunas-dev.
+- Fase 2 Task 6: form tambah/ubah hutang (lihat docs/superpowers/plans/2026-11-09-phase2-debts-payments.md). Menunggu persetujuan user: deploy rules Fase 2 ke geuralunas-dev.
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -36,7 +36,7 @@
 
 - [x] Domain: `Money`, kalkulasi bunga, generator jadwal cicilan (+ unit test; selesai)
 - [ ] Repository dan Bloc hutang (repository + rules selesai; bloc di task layar)
-- [ ] Layar daftar hutang (filter: aku berutang / piutang, aktif / lunas)
+- [x] Layar daftar hutang (filter: aku berutang / piutang, aktif / lunas)
 - [ ] Form tambah/ubah hutang (pinjol, cicilan, teman)
 - [ ] Detail hutang: jadwal, riwayat, progres
 - [ ] Catat pembayaran (batch atomik: payment + installment + sisa hutang)
@@ -102,4 +102,5 @@
 | 2026-11-09 | Fase 2 Task 2: generator jadwal cicilan (akhir bulan tidak melorot, sisa pembulatan ke cicilan terakhir, 183 test) |
 | 2026-11-09 | Fase 2 Task 3: penerapan dan pembatalan pembayaran (replay dari nol, pembatalan persis seperti sebelum dibayar; domain 100%, 206 test) |
 | 2026-11-09 | Fase 2 Task 4: DTO, DebtRepository (WriteBatch, offline-aman), rules debts/installments/payments dengan 35 test emulator, ADR-013 (242 test Flutter) |
+| 2026-11-09 | Fase 2 Task 5: daftar hutang (tab Aku berutang/Piutang, filter, total sisa, kartu dengan status+ikon, label semantik) dan komponen bersama (275 test) |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |

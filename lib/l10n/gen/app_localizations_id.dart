@@ -198,4 +198,70 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get settingsSignOutConfirmBody =>
       'Datamu tetap aman dan akan muncul lagi saat kamu masuk.';
+
+  @override
+  String get debtsTabOwe => 'Aku berutang';
+
+  @override
+  String get debtsTabLent => 'Piutang';
+
+  @override
+  String get debtsTotalOwe => 'Total yang harus kamu bayar';
+
+  @override
+  String get debtsTotalLent => 'Total yang akan kamu terima';
+
+  @override
+  String get debtsFilterActive => 'Aktif';
+
+  @override
+  String get debtsFilterSettled => 'Lunas';
+
+  @override
+  String get debtsEmptyOwe =>
+      'Belum ada hutang yang tercatat. Mulai dari yang pertama, pelan-pelan saja.';
+
+  @override
+  String get debtsEmptyLent => 'Belum ada piutang yang tercatat.';
+
+  @override
+  String get debtsEmptySettled =>
+      'Belum ada yang lunas. Satu per satu pasti sampai.';
+
+  @override
+  String get debtsEmptyAction => 'Tambah hutang pertamamu';
+
+  @override
+  String get debtsLoadError =>
+      'Datamu belum bisa dimuat. Coba lagi sebentar lagi.';
+
+  @override
+  String get statusOverdue => 'Terlambat';
+
+  @override
+  String get statusDueSoon => 'Segera jatuh tempo';
+
+  @override
+  String get statusSettled => 'Lunas';
+
+  @override
+  String get statusActive => 'Aktif';
+
+  @override
+  String debtCardRemaining(String amount) {
+    return 'Sisa $amount';
+  }
+
+  @override
+  String debtCardDue(String date) {
+    return 'Jatuh tempo $date';
+  }
+
+  @override
+  String get debtCardNoDue => 'Tanpa jatuh tempo';
+
+  @override
+  String debtCardSemantics(String name, String amount, String due) {
+    return '$name, sisa $amount, $due';
+  }
 }

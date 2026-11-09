@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:geuralunas/app/router.dart';
 import 'package:geuralunas/app/theme/app_theme.dart';
 import 'package:geuralunas/l10n/gen/app_localizations.dart';
+import 'package:geuralunas/repositories/debt_repository.dart';
+
+import '../../helpers/debt_fixtures.dart';
 
 Future<void> _pumpRouter(WidgetTester tester) {
   return tester.pumpWidget(
-    MaterialApp.router(
-      theme: AppTheme.light(),
-      locale: const Locale('id'),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      routerConfig: createRouter(),
+    RepositoryProvider<DebtRepository>.value(
+      value: FakeDebtRepository(),
+      child: MaterialApp.router(
+        theme: AppTheme.light(),
+        locale: const Locale('id'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        routerConfig: createRouter(),
+      ),
     ),
   );
 }

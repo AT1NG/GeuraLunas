@@ -8,6 +8,7 @@ import 'package:geuralunas/features/auth/bloc/auth_bloc.dart';
 import 'package:geuralunas/features/onboarding/bloc/onboarding_cubit.dart';
 import 'package:geuralunas/l10n/l10n.dart';
 import 'package:geuralunas/repositories/auth_repository.dart';
+import 'package:geuralunas/repositories/debt_repository.dart';
 import 'package:geuralunas/repositories/onboarding_repository.dart';
 import 'package:geuralunas/repositories/user_profile_repository.dart';
 import 'package:go_router/go_router.dart';
@@ -19,6 +20,7 @@ class App extends StatefulWidget {
     required this.authRepository,
     required this.onboardingRepository,
     required this.userProfileRepository,
+    required this.debtRepository,
     super.key,
   });
 
@@ -30,6 +32,9 @@ class App extends StatefulWidget {
 
   /// Creates the Firestore profile on first sign-in.
   final UserProfileRepository userProfileRepository;
+
+  /// Debts, installments and payments of the signed-in user.
+  final DebtRepository debtRepository;
 
   @override
   State<App> createState() => _AppState();
@@ -74,6 +79,7 @@ class _AppState extends State<App> {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<AuthRepository>.value(value: widget.authRepository),
+        RepositoryProvider<DebtRepository>.value(value: widget.debtRepository),
       ],
       child: MultiBlocProvider(
         providers: [

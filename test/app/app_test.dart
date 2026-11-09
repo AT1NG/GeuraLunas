@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:geuralunas/app/app.dart';
 import 'package:geuralunas/l10n/l10n.dart';
 
+import '../helpers/debt_fixtures.dart';
 import '../helpers/fakes.dart';
 
 Widget _app({
@@ -12,6 +13,7 @@ Widget _app({
   authRepository: auth ?? FakeAuthRepository(initialUser: testUser),
   onboardingRepository: onboarding ?? FakeOnboardingRepository(),
   userProfileRepository: FakeUserProfileRepository(),
+  debtRepository: FakeDebtRepository(),
 );
 
 void main() {
