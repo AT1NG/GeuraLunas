@@ -102,4 +102,30 @@ void main() {
     expect(find.byKey(const Key('login-page')), findsNothing);
     expect(find.byKey(const Key('home-page')), findsOneWidget);
   });
+
+  testWidgets('a write the server rejected is reported to the user', (
+    tester,
+  ) async {
+    final debts = FakeDebtRepository();
+    await tester.pumpWidget(
+      App(
+        authRepository: FakeAuthRepository(initialUser: testUser),
+        onboardingRepository: FakeOnboardingRepository(),
+        userProfileRepository: FakeUserProfileRepository(),
+        debtRepository: debts,
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    debts.rejectWrite(StateError('permission-denied'));
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text(
+        'Perubahan terakhir belum bisa disimpan ke server dan dibatalkan. '
+        'Coba lagi ya.',
+      ),
+      findsOneWidget,
+    );
+  });
 }

@@ -19,6 +19,13 @@ final class SetOp extends WriteOp {
   final Map<String, Object?> data;
 }
 
+/// Merges [data] into the document at [path], leaving other fields alone.
+final class MergeOp extends WriteOp {
+  const MergeOp(super.path, this.data);
+
+  final Map<String, Object?> data;
+}
+
 /// Deletes the document at [path].
 final class DeleteOp extends WriteOp {
   const DeleteOp(super.path);
@@ -90,6 +97,8 @@ class DebtDataSource {
         switch (op) {
           case SetOp(:final data):
             batch.set(ref, data);
+          case MergeOp(:final data):
+            batch.set(ref, data, SetOptions(merge: true));
           case DeleteOp():
             batch.delete(ref);
         }

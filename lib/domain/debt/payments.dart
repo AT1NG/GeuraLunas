@@ -95,9 +95,10 @@ DebtState replayPayments({
     var left = amount;
     final seq = p.installmentSeq;
     if (seq != null) {
+      // A stored payment may point at an installment that an edit removed;
+      // it then falls back to the earliest unpaid ones like any other.
       final target = installments.indexWhere((i) => i.seq == seq);
-      if (target < 0) throw UnknownInstallment(seq: seq);
-      left = fill(target, left, p.paidAt);
+      if (target >= 0) left = fill(target, left, p.paidAt);
     }
     for (final index in order) {
       if (left == 0) break;
@@ -173,6 +174,12 @@ DebtState applyPayment({
   if (payment.amount.rupiah <= 0) throw const InvalidPaymentAmount();
   if (payment.amount.rupiah > state.debt.remaining.rupiah) {
     throw PaymentExceedsRemaining(remaining: state.debt.remaining);
+  }
+  final seq = payment.installmentSeq;
+  if (seq != null &&
+      state.installments.isNotEmpty &&
+      !state.installments.any((i) => i.seq == seq)) {
+    throw UnknownInstallment(seq: seq);
   }
   return replayPayments(
     debt: state.debt,

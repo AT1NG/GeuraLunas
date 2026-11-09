@@ -28,11 +28,17 @@ DateTime addPeriods(DateTime anchor, Frequency frequency, int count) {
 ///
 /// Every installment gets `totalPayable ~/ count`; the last one absorbs the
 /// rounding remainder, so the amounts always sum to [totalPayable].
+///
+/// Dates normally count from [firstDueDate]. With a [periodAnchor] (the start
+/// date) installment `i` falls `i` periods after the anchor instead, so a loan
+/// started on the 31st keeps its due dates on the 31st (28 Feb, 31 Mar, ...)
+/// rather than drifting to the 28th. [firstDueDate] is then unused.
 List<Installment> generateSchedule({
   required Money totalPayable,
   required int count,
   required Frequency frequency,
   required DateTime firstDueDate,
+  DateTime? periodAnchor,
 }) {
   if (count < 1) {
     throw ArgumentError.value(count, 'count', 'must be >= 1');
@@ -54,7 +60,9 @@ List<Installment> generateSchedule({
     for (var i = 0; i < count; i++)
       Installment(
         seq: i + 1,
-        dueDate: addPeriods(firstDueDate, frequency, i),
+        dueDate: periodAnchor == null
+            ? addPeriods(firstDueDate, frequency, i)
+            : addPeriods(periodAnchor, frequency, i + 1),
         amount: Money(i == count - 1 ? each + remainder : each),
       ),
   ];

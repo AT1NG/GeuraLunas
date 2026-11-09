@@ -95,7 +95,8 @@
   "formInterestFlatMonthly": "Flat per bulan",
   "formInterestFlatDaily": "Flat per hari",
   "formInterestReducing": "Anuitas (menurun)",
-  "formRate": "Bunga (% per periode)",
+  "formRateMonthly": "Bunga (% per bulan)",
+  "formRateDaily": "Bunga (% per hari)",
   "formAdminFee": "Biaya admin (opsional)",
   "formTenor": "Jumlah cicilan",
   "formTenorDays": "Tenor (hari)",
@@ -200,5 +201,6 @@
   "actionSettleBody": "Kami catat satu pembayaran sebesar sisa ({amount}) pada hari ini.",
   "@actionSettleBody": {"placeholders": {"amount": {"type": "String"}}},
   "actionSettleConfirm": "Tandai lunas",
-  "actionFailed": "Belum bisa menyelesaikannya. Coba lagi sebentar lagi."
+  "actionFailed": "Belum bisa menyelesaikannya. Coba lagi sebentar lagi.",
+  "writeRejected": "Perubahan terakhir belum bisa disimpan ke server dan dibatalkan. Coba lagi ya."
 }

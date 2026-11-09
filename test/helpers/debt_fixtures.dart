@@ -112,6 +112,14 @@ class FakeDebtRepository implements DebtRepository {
   /// Set to make `setArchived` and `deleteDebt` fail.
   Object? actionError;
 
+  final _writeErrors = StreamController<Object>.broadcast();
+
+  @override
+  Stream<Object> get writeErrors => _writeErrors.stream;
+
+  /// Pretends the server rejected an earlier write.
+  void rejectWrite(Object error) => _writeErrors.add(error);
+
   NewDebt? added;
   Debt? updated;
   List<Installment>? updatedSchedule;

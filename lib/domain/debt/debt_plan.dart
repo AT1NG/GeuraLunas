@@ -56,13 +56,22 @@ DebtPlan planDebt({
     );
   }
 
+  // Monthly interest is charged once per installment, so those installments
+  // must be a month apart; a weekly schedule would multiply the interest.
+  final monthlyInterest =
+      interestType == InterestType.flatMonthly ||
+      interestType == InterestType.reducingMonthly;
+  final effectiveFrequency = monthlyInterest ? Frequency.monthly : frequency;
+
   final List<Installment> installments;
   if (tenorCount != null) {
     installments = generateSchedule(
       totalPayable: total,
       count: tenorCount,
-      frequency: frequency,
-      firstDueDate: firstDueDate ?? addPeriods(startDate, frequency, 1),
+      frequency: effectiveFrequency,
+      firstDueDate:
+          firstDueDate ?? addPeriods(startDate, effectiveFrequency, 1),
+      periodAnchor: firstDueDate == null ? startDate : null,
     );
   } else if (firstDueDate != null) {
     installments = generateSchedule(
@@ -76,7 +85,7 @@ DebtPlan planDebt({
   }
   return (
     totalPayable: total,
-    frequency: frequency,
+    frequency: effectiveFrequency,
     installments: installments,
   );
 }

@@ -18,8 +18,9 @@ enum DebtFormError { required, invalidAmount, invalidNumber, belowPaid }
 /// Why saving failed.
 enum DebtFormFailure { unknown, belowPaid }
 
-/// Tenor limit: 100 years of monthly installments.
-const _maxTenor = 1200;
+/// Tenor limit: 30 years of monthly installments. It also keeps a whole
+/// schedule inside one write batch.
+const _maxTenor = 360;
 
 DateTime _dateOnly(DateTime d) => DateTime(d.year, d.month, d.day);
 
@@ -105,7 +106,13 @@ final class DebtFormState extends Equatable {
   Money get feeValue => _eval.fee;
   int? get tenorValue => _eval.tenor;
 
-  Frequency get effectiveFrequency => isPersonal ? Frequency.once : frequency;
+  /// Monthly interest types are always scheduled monthly (see `planDebt`).
+  Frequency get effectiveFrequency {
+    if (isPersonal) return Frequency.once;
+    return effectiveInterestType == InterestType.none
+        ? frequency
+        : Frequency.monthly;
+  }
 
   _Evaluation _evaluate() {
     final errors = <DebtFormField, DebtFormError>{};
@@ -252,31 +259,71 @@ final class DebtFormState extends Equatable {
 }
 
 class DebtFormCubit extends Cubit<DebtFormState> {
-  DebtFormCubit(this._repository, {Debt? editing, DateTime Function()? now})
-    : _editing = editing,
-      super(
-        editing == null
-            ? DebtFormState(startDate: _dateOnly((now ?? DateTime.now)()))
-            : _fromDebt(editing),
-      );
+  /// [existingFirstDueDate] is the due date of the debt's first installment
+  /// when editing; it is kept only if the user (not the default schedule)
+  /// chose it.
+  DebtFormCubit(
+    this._repository, {
+    Debt? editing,
+    DateTime? existingFirstDueDate,
+    DateTime Function()? now,
+  }) : _editing = editing,
+       super(
+         editing == null
+             ? DebtFormState(startDate: _dateOnly((now ?? DateTime.now)()))
+             : _fromDebt(editing, existingFirstDueDate),
+       ) {
+    _initialFirstDue = state.firstDueDate;
+  }
 
   final DebtRepository _repository;
   final Debt? _editing;
+  DateTime? _initialFirstDue;
 
-  static DebtFormState _fromDebt(Debt d) => DebtFormState(
-    direction: d.direction,
-    kind: d.kind,
-    name: d.counterpartyName,
-    note: d.note ?? '',
-    principal: d.principal.rupiah.toString(),
-    interestType: d.interestType,
-    interestRate: d.interestRate == 0 ? '' : _plainNumber(d.interestRate),
-    adminFee: d.adminFee.isZero ? '' : d.adminFee.rupiah.toString(),
-    tenor: d.tenorCount?.toString() ?? '',
-    frequency: d.frequency,
-    startDate: _dateOnly(d.startDate),
-    paidTotal: d.paidTotal,
-  );
+  /// The first installment date the default schedule would give this debt.
+  static DateTime? _defaultFirstDue(Debt d) {
+    try {
+      return planDebt(
+        principal: d.principal,
+        interestType: d.interestType,
+        interestRate: d.interestRate,
+        adminFee: d.adminFee,
+        frequency: d.frequency,
+        startDate: _dateOnly(d.startDate),
+        tenorCount: d.tenorCount,
+      ).installments.firstOrNull?.dueDate;
+      // ignore: avoid_catching_errors // corrupt stored terms must not crash
+    } on ArgumentError {
+      return null;
+    }
+  }
+
+  static DebtFormState _fromDebt(Debt d, DateTime? existingFirstDue) {
+    final existing = existingFirstDue == null
+        ? null
+        : _dateOnly(existingFirstDue);
+    final pinned = existing != null && existing != _defaultFirstDue(d)
+        ? existing
+        : null;
+    return _stateFromDebt(d, pinned);
+  }
+
+  static DebtFormState _stateFromDebt(Debt d, DateTime? firstDueDate) =>
+      DebtFormState(
+        direction: d.direction,
+        kind: d.kind,
+        name: d.counterpartyName,
+        note: d.note ?? '',
+        principal: d.principal.rupiah.toString(),
+        interestType: d.interestType,
+        interestRate: d.interestRate == 0 ? '' : _plainNumber(d.interestRate),
+        adminFee: d.adminFee.isZero ? '' : d.adminFee.rupiah.toString(),
+        tenor: d.tenorCount?.toString() ?? '',
+        frequency: d.frequency,
+        startDate: _dateOnly(d.startDate),
+        firstDueDate: firstDueDate,
+        paidTotal: d.paidTotal,
+      );
 
   /// The screen can be closed while a save is in flight; a late result must
   /// not throw.
@@ -390,9 +437,9 @@ class DebtFormCubit extends Cubit<DebtFormState> {
         s.rateValue != editing.interestRate ||
         s.feeValue != editing.adminFee ||
         s.tenorValue != editing.tenorCount ||
-        plan.frequency != editing.frequency ||
+        (!s.isPersonal && plan.frequency != editing.frequency) ||
         s.startDate != _dateOnly(editing.startDate) ||
-        s.firstDueDate != null;
+        s.firstDueDate != _initialFirstDue;
 
     var updated = editing.copyWith(
       counterpartyName: s.name.trim(),

@@ -308,7 +308,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get formInterestReducing => 'Anuitas (menurun)';
 
   @override
-  String get formRate => 'Bunga (% per periode)';
+  String get formRateMonthly => 'Bunga (% per bulan)';
+
+  @override
+  String get formRateDaily => 'Bunga (% per hari)';
 
   @override
   String get formAdminFee => 'Biaya admin (opsional)';
@@ -617,4 +620,8 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get actionFailed =>
       'Belum bisa menyelesaikannya. Coba lagi sebentar lagi.';
+
+  @override
+  String get writeRejected =>
+      'Perubahan terakhir belum bisa disimpan ke server dan dibatalkan. Coba lagi ya.';
 }

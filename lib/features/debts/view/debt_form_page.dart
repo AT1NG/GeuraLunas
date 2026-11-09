@@ -27,15 +27,27 @@ class DebtFormPage extends StatefulWidget {
   State<DebtFormPage> createState() => _DebtFormPageState();
 }
 
+typedef _Existing = (Debt?, DateTime?);
+
 class _DebtFormPageState extends State<DebtFormPage> {
-  Future<Debt?>? _loading;
+  Future<_Existing>? _loading;
 
   @override
   void initState() {
     super.initState();
     final id = widget.debtId;
     if (id != null) {
-      _loading = context.read<DebtRepository>().watchDebt(id).first;
+      final repo = context.read<DebtRepository>();
+      _loading = () async {
+        final debt = await repo.watchDebt(id).first;
+        final installments = await repo.watchInstallments(id).first;
+        final first = installments.isEmpty
+            ? null
+            : (installments.toList()..sort((a, b) => a.seq.compareTo(b.seq)))
+                  .first
+                  .dueDate;
+        return (debt, first);
+      }();
     }
   }
 
@@ -43,7 +55,7 @@ class _DebtFormPageState extends State<DebtFormPage> {
   Widget build(BuildContext context) {
     final loading = _loading;
     if (loading == null) return const _FormScope(editing: null);
-    return FutureBuilder<Debt?>(
+    return FutureBuilder<_Existing>(
       future: loading,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
@@ -52,7 +64,7 @@ class _DebtFormPageState extends State<DebtFormPage> {
             body: const Center(child: CircularProgressIndicator()),
           );
         }
-        final debt = snapshot.data;
+        final debt = snapshot.data?.$1;
         if (debt == null) {
           return Scaffold(
             appBar: AppBar(),
@@ -68,22 +80,29 @@ class _DebtFormPageState extends State<DebtFormPage> {
             ),
           );
         }
-        return _FormScope(editing: debt);
+        return _FormScope(
+          editing: debt,
+          existingFirstDueDate: snapshot.data?.$2,
+        );
       },
     );
   }
 }
 
 class _FormScope extends StatelessWidget {
-  const _FormScope({required this.editing});
+  const _FormScope({required this.editing, this.existingFirstDueDate});
 
   final Debt? editing;
+  final DateTime? existingFirstDueDate;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          DebtFormCubit(context.read<DebtRepository>(), editing: editing),
+      create: (context) => DebtFormCubit(
+        context.read<DebtRepository>(),
+        editing: editing,
+        existingFirstDueDate: existingFirstDueDate,
+      ),
       child: _DebtFormView(isEditing: editing != null),
     );
   }
@@ -360,7 +379,9 @@ class _DebtFormViewState extends State<_DebtFormView> {
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
           onChanged: cubit.rateChanged,
           decoration: InputDecoration(
-            labelText: l10n.formRate,
+            labelText: interest == InterestType.flatDaily
+                ? l10n.formRateDaily
+                : l10n.formRateMonthly,
             suffixText: '%',
             errorText: _errorText(state, DebtFormField.interestRate),
             border: const OutlineInputBorder(),
@@ -390,7 +411,7 @@ class _DebtFormViewState extends State<_DebtFormView> {
           border: const OutlineInputBorder(),
         ),
       ),
-      if (interest != InterestType.flatDaily && state.tenorValue != null) ...[
+      if (interest == InterestType.none && state.tenorValue != null) ...[
         const SizedBox(height: Spacing.md),
         Text(l10n.formFrequencyTitle, style: theme.textTheme.titleSmall),
         const SizedBox(height: Spacing.sm),

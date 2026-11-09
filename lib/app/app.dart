@@ -41,6 +41,9 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  final _messengerKey = GlobalKey<ScaffoldMessengerState>();
+  StreamSubscription<Object>? _writeErrors;
+
   late final AuthBloc _authBloc = AuthBloc(
     widget.authRepository,
     widget.userProfileRepository,
@@ -63,10 +66,20 @@ class _AppState extends State<App> {
     super.initState();
     _authBloc.add(const AuthStarted());
     unawaited(_onboardingCubit.load());
+    _writeErrors = widget.debtRepository.writeErrors.listen(_onWriteRejected);
+  }
+
+  /// The server refused a write that the app had already shown as saved.
+  void _onWriteRejected(Object error) {
+    final l10n = lookupAppLocalizations(const Locale('id'));
+    _messengerKey.currentState?.showSnackBar(
+      SnackBar(content: Text(l10n.writeRejected)),
+    );
   }
 
   @override
   void dispose() {
+    unawaited(_writeErrors?.cancel());
     _router.dispose();
     _refresh.dispose();
     unawaited(_authBloc.close());
@@ -87,6 +100,7 @@ class _AppState extends State<App> {
           BlocProvider<OnboardingCubit>.value(value: _onboardingCubit),
         ],
         child: MaterialApp.router(
+          scaffoldMessengerKey: _messengerKey,
           onGenerateTitle: (context) => context.l10n.appName,
           theme: AppTheme.light(),
           darkTheme: AppTheme.dark(),

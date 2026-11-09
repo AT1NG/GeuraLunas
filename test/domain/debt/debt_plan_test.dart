@@ -107,4 +107,68 @@ void main() {
       throwsArgumentError,
     );
   });
+
+  test(
+    'monthly dates keep the start day: 31 Jan gives 28 Feb, 31 Mar, 30 Apr',
+    () {
+      final p = plan(principal: 400000, tenor: 4, start: DateTime(2026, 1, 31));
+
+      expect(p.installments.map((i) => i.dueDate), [
+        DateTime(2026, 2, 28),
+        DateTime(2026, 3, 31),
+        DateTime(2026, 4, 30),
+        DateTime(2026, 5, 31),
+      ]);
+    },
+  );
+
+  test('a leap year start on 31 Jan gives 29 Feb', () {
+    final p = plan(principal: 300000, tenor: 3, start: DateTime(2028, 1, 31));
+
+    expect(p.installments.map((i) => i.dueDate), [
+      DateTime(2028, 2, 29),
+      DateTime(2028, 3, 31),
+      DateTime(2028, 4, 30),
+    ]);
+  });
+
+  test('an explicit first due date still anchors the rest', () {
+    final p = plan(
+      tenor: 3,
+      start: DateTime(2026, 1, 31),
+      firstDue: DateTime(2026, 2, 28),
+    );
+
+    // Anchored on 28 Feb by the user's choice: no drift back to the 31st.
+    expect(p.installments.map((i) => i.dueDate), [
+      DateTime(2026, 2, 28),
+      DateTime(2026, 3, 28),
+      DateTime(2026, 4, 28),
+    ]);
+  });
+
+  test('monthly interest types always schedule monthly, never weekly', () {
+    for (final type in [
+      InterestType.flatMonthly,
+      InterestType.reducingMonthly,
+    ]) {
+      final p = plan(
+        principal: 1000000,
+        type: type,
+        rate: 2,
+        tenor: 12,
+        frequency: Frequency.weekly,
+        start: DateTime(2026, 11, 5),
+      );
+
+      expect(p.frequency, Frequency.monthly, reason: type.name);
+      expect(p.installments.first.dueDate, DateTime(2026, 12, 5));
+      expect(p.installments[1].dueDate, DateTime(2027, 1, 5));
+    }
+  });
+
+  test('without interest a weekly schedule stays weekly', () {
+    final p = plan(tenor: 2, frequency: Frequency.weekly);
+    expect(p.frequency, Frequency.weekly);
+  });
 }

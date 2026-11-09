@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:geuralunas/app/theme/app_theme.dart';
+import 'package:geuralunas/domain/debt/debt.dart';
 import 'package:geuralunas/domain/debt/debt_enums.dart';
 import 'package:geuralunas/domain/money.dart';
 import 'package:geuralunas/features/debts/view/debt_form_page.dart';
@@ -316,5 +317,67 @@ void main() {
     );
 
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('monthly interest hides the weekly choice and says per bulan', (
+    tester,
+  ) async {
+    phone(tester);
+    await _pump(tester, FakeDebtRepository());
+
+    await scrollTo(tester, 'interest-flat_monthly');
+    await tester.tap(key('interest-flat_monthly'));
+    await tester.pumpAndSettle();
+    await enter(tester, 'form-tenor', '3');
+    await scrollTo(tester, 'form-rate');
+
+    expect(find.text('Bunga (% per bulan)'), findsOneWidget);
+    expect(key('freq-weekly'), findsNothing);
+  });
+
+  testWidgets('without interest the weekly choice is offered', (tester) async {
+    phone(tester);
+    await _pump(tester, FakeDebtRepository());
+
+    await enter(tester, 'form-tenor', '3');
+    await scrollTo(tester, 'freq-weekly');
+
+    expect(key('freq-weekly'), findsOneWidget);
+  });
+
+  testWidgets('editing a friend debt shows its existing due date', (
+    tester,
+  ) async {
+    phone(tester);
+    final debt = makeDebt(
+      name: 'Budi',
+      direction: DebtDirection.lent,
+      kind: DebtKind.personal,
+      total: 500000,
+      remaining: 500000,
+    );
+    final repo = FakeDebtRepository(
+      debts: [debt],
+      installments: {
+        'd1': [
+          Installment(
+            seq: 1,
+            dueDate: DateTime(2026, 12),
+            amount: const Money(500000),
+          ),
+        ],
+      },
+    );
+    await _pump(tester, repo, location: '/debts/d1/edit');
+    await tester.pumpAndSettle();
+    await scrollTo(tester, 'form-first-due');
+
+    expect(
+      find.descendant(
+        of: key('form-first-due'),
+        matching: find.text('1 Des 2026'),
+      ),
+      findsOneWidget,
+    );
   });
 }

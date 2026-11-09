@@ -394,4 +394,135 @@ void main() {
       },
     );
   });
+
+  group('review fixes', () {
+    test('monthly interest forces a monthly schedule', () {
+      final c = filled()
+        ..interestTypeChanged(InterestType.flatMonthly)
+        ..rateChanged('2')
+        ..tenorChanged('12')
+        ..frequencyChanged(Frequency.weekly);
+
+      expect(c.state.effectiveFrequency, Frequency.monthly);
+      expect(c.state.plan!.frequency, Frequency.monthly);
+    });
+
+    test('without interest the chosen frequency is kept', () {
+      final c = filled()
+        ..kindChanged(DebtKind.installment)
+        ..tenorChanged('4')
+        ..frequencyChanged(Frequency.weekly);
+
+      expect(c.state.effectiveFrequency, Frequency.weekly);
+    });
+
+    test('the tenor is limited to 360', () {
+      final c = filled()
+        ..kindChanged(DebtKind.installment)
+        ..tenorChanged('361');
+      expect(c.state.errors[DebtFormField.tenor], DebtFormError.invalidNumber);
+      c.tenorChanged('360');
+      expect(c.state.errors.containsKey(DebtFormField.tenor), isFalse);
+    });
+
+    Debt personal() => makeDebt(
+      name: 'Budi',
+      direction: DebtDirection.lent,
+      kind: DebtKind.personal,
+      total: 500000,
+      remaining: 500000,
+    );
+
+    test(
+      'editing a friend debt keeps its due date when the amount changes',
+      () async {
+        final c = DebtFormCubit(
+          repo,
+          editing: personal(),
+          existingFirstDueDate: DateTime(2026, 12),
+          now: () => today,
+        )..principalChanged('600.000');
+
+        await c.submit();
+
+        final captured = verify(
+          () => repo.updateDebt(
+            captureAny(),
+            schedule: captureAny(named: 'schedule'),
+          ),
+        ).captured;
+        final schedule = captured[1] as List<Installment>;
+        expect(schedule.single.dueDate, DateTime(2026, 12));
+        expect(schedule.single.amount, const Money(600000));
+      },
+    );
+
+    test(
+      'a name-only edit of a friend debt sends no schedule',
+      () async {
+        final c = DebtFormCubit(
+          repo,
+          editing: personal(),
+          existingFirstDueDate: DateTime(2026, 12),
+          now: () => today,
+        )..nameChanged('Budi S');
+
+        await c.submit();
+
+        final captured = verify(
+          () => repo.updateDebt(
+            captureAny(),
+            schedule: captureAny(named: 'schedule'),
+          ),
+        ).captured;
+        expect(captured[1], isNull);
+      },
+    );
+
+    test('a custom first due date survives a money change', () async {
+      final editing = makeDebt(
+        name: 'Paylater A',
+        kind: DebtKind.installment,
+        total: 900000,
+        remaining: 900000,
+      ).copyWith(tenorCount: 3, startDate: DateTime(2026, 11, 5));
+      final c = DebtFormCubit(
+        repo,
+        editing: editing,
+        existingFirstDueDate: DateTime(2026, 11, 25),
+        now: () => today,
+      );
+      expect(c.state.firstDueDate, DateTime(2026, 11, 25));
+
+      c.principalChanged('1.200.000');
+      await c.submit();
+
+      final captured = verify(
+        () => repo.updateDebt(
+          captureAny(),
+          schedule: captureAny(named: 'schedule'),
+        ),
+      ).captured;
+      final schedule = captured[1] as List<Installment>;
+      expect(schedule.first.dueDate, DateTime(2026, 11, 25));
+      expect(schedule.length, 3);
+    });
+
+    test('the default first due date is not pinned', () {
+      final editing = makeDebt(
+        name: 'Paylater A',
+        kind: DebtKind.installment,
+        total: 900000,
+        remaining: 900000,
+      ).copyWith(tenorCount: 3, startDate: DateTime(2026, 11, 5));
+      final c = DebtFormCubit(
+        repo,
+        editing: editing,
+        existingFirstDueDate: DateTime(2026, 12, 5),
+        now: () => today,
+      );
+
+      expect(c.state.firstDueDate, isNull);
+    });
+  });
 }

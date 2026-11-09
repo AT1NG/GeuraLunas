@@ -35,6 +35,14 @@ Map<String, Object?> debtToMap(Debt debt) => {
   if (debt.settledAt != null) 'settledAt': _ts(debt.settledAt!),
 };
 
+/// The fields a name/note edit may change; everything else stays as stored.
+/// A cleared note is removed from the document.
+Map<String, Object?> debtNamePatch(Debt debt) => {
+  'counterpartyName': debt.counterpartyName,
+  'note': debt.note ?? FieldValue.delete(),
+  'updatedAt': _ts(debt.updatedAt),
+};
+
 Debt debtFromMap(String id, Map<String, Object?> m) => Debt(
   id: id,
   direction: DebtDirection.fromWire(m['direction']! as String),

@@ -76,7 +76,9 @@ abstract interface class DebtRepository {
   Future<String> addDebt(NewDebt input);
 
   /// Saves [debt]. With a [schedule], installments are replaced and replayed
-  /// against the existing payments.
+  /// against the existing payments. Without one, only the name, note and
+  /// `updatedAt` are written (merged), so money fields that changed elsewhere
+  /// in the meantime are not overwritten with stale values.
   Future<void> updateDebt(Debt debt, {List<Installment>? schedule});
 
   Future<void> recordPayment({
@@ -204,9 +206,9 @@ class DebtRepositoryImpl implements DebtRepository {
     final now = _now();
     if (schedule == null) {
       _commit([
-        SetOp(
+        MergeOp(
           FirestorePaths.debt(uid, debt.id),
-          debtToMap(debt.copyWith(updatedAt: now)),
+          debtNamePatch(debt.copyWith(updatedAt: now)),
         ),
       ]);
       return;
@@ -266,7 +268,11 @@ class DebtRepositoryImpl implements DebtRepository {
         FirestorePaths.payment(uid, debtId, payment.id),
         paymentToMap(payment),
       ),
-      ..._installmentOps(uid, debtId, result.installments),
+      ..._installmentOps(
+        uid,
+        debtId,
+        _changed(state.installments, result.installments),
+      ),
       SetOp(
         FirestorePaths.debt(uid, debtId),
         debtToMap(result.debt.copyWith(updatedAt: now)),
@@ -293,7 +299,11 @@ class DebtRepositoryImpl implements DebtRepository {
 
     _commit([
       DeleteOp(FirestorePaths.payment(uid, debtId, paymentId)),
-      ..._installmentOps(uid, debtId, result.installments),
+      ..._installmentOps(
+        uid,
+        debtId,
+        _changed(state.installments, result.installments),
+      ),
       SetOp(
         FirestorePaths.debt(uid, debtId),
         debtToMap(result.debt.copyWith(updatedAt: now)),
@@ -349,6 +359,19 @@ class DebtRepositoryImpl implements DebtRepository {
   Future<List<Payment>> _loadPayments(String uid, String debtId) async {
     final raw = await _dataSource.getPayments(uid, debtId);
     return [for (final p in raw) paymentFromMap(p.id, p.data)];
+  }
+
+  /// Only the installments whose stored values differ from [before]; a long
+  /// schedule would otherwise be rewritten in full for every payment.
+  static List<Installment> _changed(
+    List<Installment> before,
+    List<Installment> after,
+  ) {
+    final old = {for (final i in before) i.seq: i};
+    return [
+      for (final i in after)
+        if (old[i.seq] != i) i,
+    ];
   }
 
   List<WriteOp> _installmentOps(

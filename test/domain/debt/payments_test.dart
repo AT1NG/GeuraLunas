@@ -476,4 +476,36 @@ void main() {
       expect(result.debt.settledAt, settledAt);
     });
   });
+
+  group('payments pointing at an installment that no longer exists', () {
+    test('replay falls back to the earliest unpaid installment', () {
+      final s = scheduled();
+      // The schedule used to be longer; seq 9 is gone now.
+      final stale = pay('old', 450000, seq: 9);
+
+      final result = replayPayments(
+        debt: s.debt,
+        installments: s.installments,
+        payments: [stale],
+        now: now,
+      );
+
+      expect(result.installments[0].status, InstallmentStatus.paid);
+      expect(result.installments[1].status, InstallmentStatus.partial);
+      expect(result.debt.paidTotal, const Money(450000));
+      expect(result.debt.remaining, const Money(450000));
+    });
+
+    test('a brand new payment for a missing installment is still refused', () {
+      expect(
+        () => applyPayment(
+          state: scheduled(),
+          existing: const [],
+          payment: pay('p1', 100000, seq: 9),
+          now: now,
+        ),
+        throwsA(isA<UnknownInstallment>()),
+      );
+    });
+  });
 }

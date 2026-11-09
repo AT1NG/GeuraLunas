@@ -646,11 +646,17 @@ abstract class AppLocalizations {
   /// **'Anuitas (menurun)'**
   String get formInterestReducing;
 
-  /// No description provided for @formRate.
+  /// No description provided for @formRateMonthly.
   ///
   /// In id, this message translates to:
-  /// **'Bunga (% per periode)'**
-  String get formRate;
+  /// **'Bunga (% per bulan)'**
+  String get formRateMonthly;
+
+  /// No description provided for @formRateDaily.
+  ///
+  /// In id, this message translates to:
+  /// **'Bunga (% per hari)'**
+  String get formRateDaily;
 
   /// No description provided for @formAdminFee.
   ///
@@ -1185,6 +1191,12 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Belum bisa menyelesaikannya. Coba lagi sebentar lagi.'**
   String get actionFailed;
+
+  /// No description provided for @writeRejected.
+  ///
+  /// In id, this message translates to:
+  /// **'Perubahan terakhir belum bisa disimpan ke server dan dibatalkan. Coba lagi ya.'**
+  String get writeRejected;
 }
 
 class _AppLocalizationsDelegate

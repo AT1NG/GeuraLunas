@@ -17,6 +17,19 @@ class _NeverAnswersDataSource extends DebtDataSource {
   Future<void> write(List<WriteOp> ops) => Completer<void>().future;
 }
 
+/// Remembers every batch that was written.
+class _RecordingDataSource extends DebtDataSource {
+  _RecordingDataSource(super.firestore);
+
+  final batches = <List<WriteOp>>[];
+
+  @override
+  Future<void> write(List<WriteOp> ops) {
+    batches.add(ops);
+    return super.write(ops);
+  }
+}
+
 class _FailingDataSource extends DebtDataSource {
   _FailingDataSource(super.firestore);
 
@@ -582,6 +595,129 @@ void main() {
       await offline()
           .deletePayment(debtId: id, paymentId: paymentId)
           .timeout(const Duration(seconds: 2));
+    });
+  });
+
+  group('schedule dates', () {
+    test(
+      'monthly from 31 Jan keeps the 31st: 28 Feb, 31 Mar, 30 Apr',
+      () async {
+        final id = await add(
+          installmentDebt(
+            principal: 400000,
+            tenor: 4,
+            start: DateTime(2026, 1, 31),
+          ),
+        );
+
+        expect((await installmentsOf(id)).map((i) => i.dueDate), [
+          DateTime(2026, 2, 28),
+          DateTime(2026, 3, 31),
+          DateTime(2026, 4, 30),
+          DateTime(2026, 5, 31),
+        ]);
+        expect((await debtOf(id)).nextDueDate, DateTime(2026, 2, 28));
+      },
+    );
+  });
+
+  group('what gets written', () {
+    late _RecordingDataSource recording;
+    late DebtRepositoryImpl recordingRepo;
+
+    setUp(() {
+      recording = _RecordingDataSource(fake);
+      recordingRepo = DebtRepositoryImpl(
+        recording,
+        currentUid: () => 'u1',
+        now: () => clock,
+      );
+    });
+
+    test('a payment writes only the installments that changed', () async {
+      final id = await recordingRepo.addDebt(
+        installmentDebt(principal: 1000000, tenor: 100),
+      );
+      await pumpEventQueue();
+      recording.batches.clear();
+
+      await recordingRepo.recordPayment(
+        debtId: id,
+        amount: const Money(5000),
+        paidAt: DateTime(2026, 12, 5),
+      );
+      await pumpEventQueue();
+
+      // The payment, the one installment it touched, and the debt.
+      expect(recording.batches.single, hasLength(3));
+    });
+
+    test(
+      'deleting a payment writes only the installments that changed',
+      () async {
+        final id = await recordingRepo.addDebt(
+          installmentDebt(principal: 1000000, tenor: 100),
+        );
+        await pumpEventQueue();
+        await recordingRepo.recordPayment(
+          debtId: id,
+          amount: const Money(5000),
+          paidAt: DateTime(2026, 12, 5),
+        );
+        await pumpEventQueue();
+        final paymentId = (await paymentsOf(id)).single.id;
+        recording.batches.clear();
+
+        await recordingRepo.deletePayment(debtId: id, paymentId: paymentId);
+        await pumpEventQueue();
+
+        expect(recording.batches.single, hasLength(3));
+      },
+    );
+
+    test(
+      'a name-only edit leaves money fields written by someone else alone',
+      () async {
+        final id = await add(installmentDebt());
+        final stale = await debtOf(id);
+
+        // Another device records a payment while the edit form is open.
+        await repo.recordPayment(
+          debtId: id,
+          amount: const Money(300000),
+          paidAt: DateTime(2026, 12, 5),
+        );
+        await pumpEventQueue();
+
+        await repo.updateDebt(stale.copyWith(counterpartyName: 'Nama baru'));
+        await pumpEventQueue();
+
+        final saved = await debtOf(id);
+        expect(saved.counterpartyName, 'Nama baru');
+        expect(saved.paidTotal, const Money(300000));
+        expect(saved.remaining, const Money(600000));
+      },
+    );
+
+    test('a name-only edit can remove the note', () async {
+      final id = await add(
+        NewDebt(
+          direction: DebtDirection.owe,
+          kind: DebtKind.personal,
+          counterpartyName: 'Rani',
+          note: 'catatan lama',
+          principal: const Money(50000),
+          frequency: Frequency.once,
+          startDate: DateTime(2026, 11, 9),
+        ),
+      );
+      final debt = await debtOf(id);
+      expect(debt.note, 'catatan lama');
+
+      await repo.updateDebt(debt.copyWith(clearNote: true));
+      await pumpEventQueue();
+
+      expect((await debtOf(id)).note, isNull);
     });
   });
 
