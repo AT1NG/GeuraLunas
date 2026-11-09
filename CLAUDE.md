@@ -13,6 +13,7 @@ Baca dokumen yang relevan sebelum mengerjakan tugas. Kalau kode dan dokumen bert
 | [docs/PRD.md](docs/PRD.md) | Kebutuhan produk, user story, kriteria terima | Sebelum membuat atau mengubah fitur |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Layer, struktur folder, alur data, dependensi | Sebelum menambah file atau package |
 | [docs/DATABASE.md](docs/DATABASE.md) | Skema Firestore, index, security rules, rumus turunan | Sebelum menyentuh data |
+| [docs/DIAGRAMS.md](docs/DIAGRAMS.md) | Use case, ERD, arsitektur, sitemap, sequence, state, flowchart (Mermaid) | Sebelum mengubah skema/alur; perbarui bila berubah |
 | [docs/UI-UX.md](docs/UI-UX.md) | Peta layar, alur, gaya bahasa, desain | Sebelum membuat UI |
 | [docs/TESTING.md](docs/TESTING.md) | Strategi test, target coverage | Sebelum menulis test |
 | [docs/DECISIONS.md](docs/DECISIONS.md) | Catatan keputusan (ADR) dan alasannya | Sebelum mengubah keputusan teknis |

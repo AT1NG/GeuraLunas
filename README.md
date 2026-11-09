@@ -25,6 +25,7 @@ Flutter (Android dulu), Firebase Auth (Google + email), Cloud Firestore, notifik
 | [docs/PRD.md](docs/PRD.md) | Kebutuhan produk |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Arsitektur |
 | [docs/DATABASE.md](docs/DATABASE.md) | Skema database |
+| [docs/DIAGRAMS.md](docs/DIAGRAMS.md) | ERD, use case, sequence, state, flowchart |
 | [docs/UI-UX.md](docs/UI-UX.md) | Desain dan alur layar |
 | [docs/TESTING.md](docs/TESTING.md) | Strategi pengujian |
 | [docs/DECISIONS.md](docs/DECISIONS.md) | Keputusan teknis |

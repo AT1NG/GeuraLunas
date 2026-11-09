@@ -132,7 +132,7 @@ Lima kemampuan inti: catat hutang/piutang, pengingat, catat pembayaran, budget +
 1. ~~Nama final aplikasi dan package ID~~ — diputuskan 2026-11-09: **GeuraLunas**, package `com.geuralunas.app`.
 2. ~~Denda keterlambatan~~ — diputuskan 2026-11-09: tidak dihitung otomatis. Fokus aplikasi: pengguna mencatat hutangnya sendiri. Bila ada denda, pengguna menyesuaikan sisa/nominal secara manual. Model bunga tetap empat (tanpa bunga, flat bulanan, flat harian, menurun bulanan).
 3. ~~Siklus budget~~ — diputuskan 2026-11-09: pengguna sendiri yang memilih tanggal mulai siklus (1–28) di pengaturan.
-4. Kunci aplikasi (PIN/biometrik): menunggu keputusan user. Fungsinya mengunci aplikasi saat dibuka supaya orang yang meminjam HP tidak bisa melihat data hutang. Usulan: tunda ke versi 2.
+4. ~~Kunci aplikasi (PIN/biometrik)~~ — diputuskan 2026-11-09: ditunda ke versi 2.
 5. ~~Ekspor data (CSV)~~ — diputuskan 2026-11-09: masuk (US-14), dikerjakan di Fase 6.
 
 ## 10. Metrik keberhasilan
