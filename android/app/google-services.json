@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1080588780296",
+    "project_id": "geuralunas-dev",
+    "storage_bucket": "geuralunas-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080588780296:android:19b164aac5aee87d38a2bd",
+        "android_client_info": {
+          "package_name": "com.geuralunas.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBLUyuimvZkG3l9mfV3HiLQzQhgnJlndI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

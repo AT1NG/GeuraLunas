@@ -42,7 +42,16 @@ flutter analyze
 flutter test
 ```
 
-Konfigurasi Firebase ditambahkan di Fase 1 Task 5 (langkah akan dicatat di sini).
+### Setup Firebase (sekali saja)
+
+1. Buat project Firebase `geuralunas-dev` (`firebase projects:create geuralunas-dev`).
+2. Di console: Authentication, aktifkan **Google** dan **Email/Password**; buat database **Firestore** (production, lokasi `asia-southeast2`).
+3. `dart pub global activate flutterfire_cli`, lalu `flutterfire configure --project=geuralunas-dev --platforms=android --android-package-name=com.geuralunas.app --yes`.
+4. Daftarkan SHA-1 debug (untuk Google Sign-In): ambil dengan `keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android`, lalu `firebase apps:android:sha:create <appId> <sha1> --project geuralunas-dev`. Jalankan `flutterfire configure` lagi agar `google-services.json` memuat klien OAuth.
+
+`android/app/google-services.json` dan `lib/firebase_options.dart` di-commit: keduanya konfigurasi publik, bukan rahasia. Perlindungan data ada di security rules Firestore dan pembatasan API key di console.
+
+Catatan build Windows: `android/gradle.properties` mematikan `kotlin.incremental` karena cache Pub (drive C:) dan project (drive D:) berbeda root.
 
 ## Catatan
 
