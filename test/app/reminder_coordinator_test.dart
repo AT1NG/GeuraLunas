@@ -73,6 +73,7 @@ void main() {
   });
 
   test('a burst of debt changes reschedules once', () async {
+    await prefs.setBool('reminderPermissionAsked', true);
     signedIn.add(true);
     await settle();
     reminders.calls.clear();
@@ -106,23 +107,60 @@ void main() {
     expect(reminders.calls, ['reschedule']);
   });
 
-  test('asks for permission once, after reminders exist', () async {
+  test('never asks for permission just because the app opened', () async {
     signedIn.add(true);
+    await settle();
+    debtChanges.add(0); // the first snapshot of existing debts
+    await settle();
+    coordinator.onResumed();
+    await settle();
+
+    expect(reminders.calls, isNot(contains('request')));
+    expect(prefs.getBool('reminderPermissionAsked'), isNull);
+  });
+
+  test('asks once, when a debt changes and reminders exist', () async {
+    signedIn.add(true);
+    await settle();
+    debtChanges.add(0);
+    await settle();
+    reminders.calls.clear();
+
+    debtChanges.add(1);
     await settle();
     expect(reminders.calls, ['reschedule', 'request']);
     expect(prefs.getBool('reminderPermissionAsked'), isTrue);
 
     reminders.calls.clear();
-    coordinator.onResumed();
+    debtChanges.add(2);
     await settle();
     expect(reminders.calls, ['reschedule']);
+  });
+
+  test('is not marked as asked when the request fails', () async {
+    reminders.requestError = StateError('no activity');
+    signedIn.add(true);
+    await settle();
+    debtChanges
+      ..add(0)
+      ..add(1);
+    await settle();
+    debtChanges.add(2);
+    await settle();
+
+    expect(prefs.getBool('reminderPermissionAsked'), isNull);
+    expect(reminders.calls.where((c) => c == 'request'), hasLength(2));
   });
 
   test('does not ask for permission when nothing is planned', () async {
     reminders.planned = 0;
     signedIn.add(true);
     await settle();
-    expect(reminders.calls, ['reschedule']);
+    debtChanges
+      ..add(0)
+      ..add(1);
+    await settle();
+    expect(reminders.calls.where((c) => c == 'request'), isEmpty);
     expect(prefs.getBool('reminderPermissionAsked'), isNull);
   });
 

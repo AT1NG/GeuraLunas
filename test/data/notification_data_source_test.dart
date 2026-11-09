@@ -68,7 +68,7 @@ void main() {
     () async {
       await ds.schedule([
         plan(1, DateTime(2026, 12, 19, 9)),
-      ], timezone: 'Asia/Jakarta');
+      ]);
 
       final call = verify(
         () => platform.schedule(
@@ -81,11 +81,7 @@ void main() {
         ),
       )..called(1);
       final at = call.captured.single as tz.TZDateTime;
-      expect(at.location.name, 'Asia/Jakarta');
-      expect(
-        [at.year, at.month, at.day, at.hour, at.minute],
-        [2026, 12, 19, 9, 0],
-      );
+      expect(at.toUtc(), DateTime(2026, 12, 19, 9).toUtc());
     },
   );
 
@@ -93,7 +89,7 @@ void main() {
     when(platform.canScheduleExact).thenAnswer((_) async => false);
     await ds.schedule([
       plan(1, DateTime(2026, 12, 19, 9)),
-    ], timezone: 'Asia/Jakarta');
+    ]);
     verifySchedule(1, exact: false).called(1);
   });
 
@@ -112,25 +108,35 @@ void main() {
     await ds.schedule([
       plan(1, DateTime(2026, 12, 19, 9)),
       plan(2, DateTime(2026, 12, 20, 9)),
-    ], timezone: 'Asia/Jakarta');
+    ]);
 
     verifySchedule(2).called(1);
   });
 
-  test('an unknown zone name falls back to the device zone', () async {
-    final now = ds.wallClockNow('Zona/Tidakada');
-    expect(now.difference(DateTime.now()).inMinutes.abs(), lessThan(2));
+  test('reminders fire at the time shown on the phone', () async {
+    final at = DateTime(2026, 12, 19, 9);
+    await ds.schedule([plan(1, at)]);
 
-    await ds.schedule([
-      plan(1, DateTime(2026, 12, 19, 9)),
-    ], timezone: 'Zona/Tidakada');
-    verifySchedule(1).called(1);
+    final captured =
+        verify(
+              () => platform.schedule(
+                id: 1,
+                title: any(named: 'title'),
+                body: any(named: 'body'),
+                payload: any(named: 'payload'),
+                at: captureAny(named: 'at'),
+                exact: any(named: 'exact'),
+              ),
+            ).captured.single
+            as tz.TZDateTime;
+    expect(captured.toUtc(), at.toUtc());
   });
 
-  test('wallClockNow reads the clock of the given zone', () {
-    final jakarta = ds.wallClockNow('Asia/Jakarta');
-    final tokyo = ds.wallClockNow('Asia/Tokyo');
-    expect(tokyo.difference(jakarta).inMinutes, closeTo(120, 1));
+  test('wallClockNow is the clock of the phone', () {
+    expect(
+      ds.wallClockNow().difference(DateTime.now()).inSeconds.abs(),
+      lessThan(2),
+    );
   });
 
   test('cancelAll goes to the platform', () async {

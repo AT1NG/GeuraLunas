@@ -90,6 +90,6 @@ Tanggal: 2026-11-09 · Status: diterima
 
 ## ADR-015 — Alarm tepat dengan cadangan alarm tidak tepat
 Tanggal: 2026-11-09 · Status: diterima
-- **Keputusan:** Notifikasi dijadwalkan sebagai alarm tepat (`exactAllowWhileIdle`, izin `SCHEDULE_EXACT_ALARM`). Bila izin tidak diberikan, dipakai `inexactAllowWhileIdle` dan Pengaturan menampilkan catatan "Pengingat bisa meleset beberapa menit" dengan tombol ke pengaturan sistem. Zona waktu dibaca dari `settings.timezone` (bawaan `Asia/Jakarta`); `flutter_timezone` tidak dipakai karena zona sudah ada di profil.
+- **Keputusan:** Notifikasi dijadwalkan sebagai alarm tepat (`exactAllowWhileIdle`, izin `SCHEDULE_EXACT_ALARM`). Bila izin tidak diberikan, dipakai `inexactAllowWhileIdle` dan Pengaturan menampilkan catatan "Pengingat bisa meleset beberapa menit" dengan tombol ke pengaturan sistem. Jam pengingat dibaca pada zona waktu perangkat (jam yang terlihat pengguna di HP), bukan `settings.timezone`; `flutter_timezone` tidak dipakai. Bidang `settings.timezone` tetap ada di profil tetapi tidak memengaruhi penjadwalan.
 - **Alasan:** Pengingat bayar paling berguna bila tepat waktu, tetapi tidak boleh gagal total bila pengguna menolak izin.
 - **Konsekuensi:** Google Play membatasi izin ini untuk app non-alarm. Bila ditolak saat rilis, ganti ke alarm tidak tepat saja tanpa mengubah desain lain. Penghemat baterai pabrikan tertentu bisa menunda notifikasi; Pengaturan memuat tipnya.

@@ -100,10 +100,10 @@ Beranda mendengarkan tiga stream (budget bulan ini, cicilan jatuh tempo bulan in
 ### 4.3 Pengingat (FR-05)
 
 - Sumber kebenaran adalah data cicilan di Firestore. Hanya hutang `owe` berstatus aktif yang dijadwalkan (ADR-014).
-- `planReminders` (domain, Dart murni) menghitung rencana: satu notifikasi per cicilan belum lunas per hari di `reminderDaysBefore`, pada `reminderTime`, dalam 60 hari ke depan dan maksimal 200. Cicilan sebagian memakai sisa.
+- `planReminders` (domain, Dart murni) menghitung rencana: satu notifikasi per cicilan belum lunas per hari di `reminderDaysBefore`, pada `reminderTime` (zona waktu perangkat), dalam 60 hari ke depan dan maksimal 200. Cicilan sebagian memakai sisa.
 - `ReminderRepository.rescheduleAll()` membaca hutang, cicilan, dan pengaturan, memanggil `planReminders`, lalu `cancelAll()` dan menjadwalkan ulang lewat `NotificationDataSource`. Berjalan dalam antrean serial dan tidak pernah melempar; kegagalan dicatat tanpa nama atau nominal.
 - `ReminderCoordinator` (lapisan app) memicunya setelah login, pada setiap perubahan daftar hutang (debounce 500 ms), saat app kembali ke latar depan, dan memanggil `cancelAll()` saat keluar akun. Setelah reboot, receiver bawaan plugin yang menjadwalkan ulang.
-- Izin: `POST_NOTIFICATIONS` (Android 13+) diminta sekali, setelah pengingat pertama ada. `SCHEDULE_EXACT_ALARM` (Android 12+): bila tidak diberikan, pakai alarm tidak tepat dan Pengaturan memberi tahu pengguna (ADR-015).
+- Izin: `POST_NOTIFICATIONS` (Android 13+) diminta sekali, saat pengguna mengubah data hutang dan sudah ada pengingat (bukan saat app dibuka). `SCHEDULE_EXACT_ALARM` (Android 12+): bila tidak diberikan, pakai alarm tidak tepat dan Pengaturan memberi tahu pengguna (ADR-015).
 - ID notifikasi `(fnv1a32(debtId) % 500000) * 4096 + seq * 8 + n` (n = hari sebelum jatuh tempo): stabil antar proses dan di bawah 2^31, sehingga pembatalan dan penjadwalan ulang idempoten.
 - Tap notifikasi membuka `/debts/{id}`. Teks notifikasi dan teks tagih dibuat dari l10n (`lib/shared/reminder_text.dart`, `lib/features/debts/collection_message.dart`), bukan di `lib/domain`, karena memakai l10n dan format rupiah.
 

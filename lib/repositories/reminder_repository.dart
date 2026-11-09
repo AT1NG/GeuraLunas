@@ -82,10 +82,10 @@ class ReminderRepositoryImpl implements ReminderRepository {
       final plans = planReminders(
         debts: states,
         settings: settings,
-        now: _notifications.wallClockNow(settings.timezone),
+        now: _notifications.wallClockNow(),
       );
       await _notifications.cancelAll();
-      await _notifications.schedule(plans, timezone: settings.timezone);
+      await _notifications.schedule(plans);
       return plans.length;
     } on Object catch (e) {
       // Reminders are a convenience: a failure must not reach the user's

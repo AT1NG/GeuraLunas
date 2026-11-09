@@ -40,6 +40,7 @@ class ReminderCoordinator {
   bool _signedIn = false;
   bool? _lastSignedIn;
   String? _pendingLaunch;
+  bool _promptWanted = false;
 
   void start() {
     _pendingLaunch = _reminders.launchDebtId;
@@ -54,7 +55,14 @@ class ReminderCoordinator {
     _lastSignedIn = signedIn;
     _signedIn = signedIn;
     if (signedIn) {
-      _debtSub = _debtChanges().listen((_) => _schedule());
+      // The first snapshot is the debts that already exist; only later ones
+      // are a change the user made, and only those may ask for permission.
+      var first = true;
+      _debtSub = _debtChanges().listen((_) {
+        if (!first) _promptWanted = true;
+        first = false;
+        _schedule();
+      });
       _schedule();
       final launch = _pendingLaunch;
       if (launch != null) {
@@ -80,10 +88,17 @@ class ReminderCoordinator {
   }
 
   Future<void> _run() async {
+    final wantsPrompt = _promptWanted;
+    _promptWanted = false;
     final planned = await _reminders.rescheduleAll();
-    if (planned > 0 && !(_prefs.getBool(_askedKey) ?? false)) {
-      await _prefs.setBool(_askedKey, true);
-      await _reminders.requestPermissions();
+    if (planned > 0 && wantsPrompt && !(_prefs.getBool(_askedKey) ?? false)) {
+      try {
+        await _reminders.requestPermissions();
+        // Only after the request really ran, so a failure asks again later.
+        await _prefs.setBool(_askedKey, true);
+      } on Object {
+        _promptWanted = true;
+      }
     }
   }
 

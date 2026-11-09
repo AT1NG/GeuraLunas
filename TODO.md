@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 3: kode selesai (Task 1-9 kecuali uji manual di emulator dan review akhir cabang). Berikutnya: review akhir, uji manual (butuh akun uji sementara di geuralunas-dev), lalu PR.
+- Fase 3: kode selesai (Task 1-9 kecuali uji manual di emulator dan review akhir cabang). Review akhir selesai (2 temuan Important diperbaiki). Berikutnya: uji manual (butuh akun uji sementara di geuralunas-dev), lalu PR.
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -110,3 +110,4 @@
 | 2026-11-09 | Fase 2 review akhir: perbaikan jadwal bulanan yang melorot ke tanggal 28, bunga bulanan vs jadwal mingguan, jatuh tempo hilang saat ubah nominal, tenor dikurangi di bawah cicilan terbayar, penulisan ditolak server kini dilaporkan, tulis hanya cicilan yang berubah, edit nama tidak menimpa data lain (466 test) |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |
 | 2026-11-10 | Fase 3 (US-06, US-07): domain pengingat, teks, pengaturan profil, NotificationDataSource + konfigurasi Android, ReminderRepository serial, ReminderCoordinator, UI pengaturan, tombol Tagih, ADR-014/015 (558 test hijau, analyze bersih, coverage domain 100% / total 95.6%). Uji manual di emulator belum |
+| 2026-11-10 | Fase 3 review akhir: jam pengingat kini memakai zona waktu perangkat (bukan Asia/Jakarta tetap), izin notifikasi diminta saat pengguna mengubah hutang, bukan saat app dibuka (560 test hijau) |

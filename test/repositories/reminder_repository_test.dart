@@ -34,13 +34,13 @@ void main() {
     profiles = FakeUserProfileRepository();
     notifications = _MockNotifications();
     events = [];
-    when(() => notifications.wallClockNow(any())).thenReturn(now);
+    when(() => notifications.wallClockNow()).thenReturn(now);
     when(notifications.cancelAll).thenAnswer((_) async {
       events.add('C');
       await Future<void>.delayed(const Duration(milliseconds: 5));
     });
     when(
-      () => notifications.schedule(any(), timezone: any(named: 'timezone')),
+      () => notifications.schedule(any()),
     ).thenAnswer((_) async {
       events.add('S');
       await Future<void>.delayed(const Duration(milliseconds: 5));
@@ -70,10 +70,7 @@ void main() {
     expect(events, ['C', 'S']);
     final plans =
         verify(
-              () => notifications.schedule(
-                captureAny(),
-                timezone: 'Asia/Jakarta',
-              ),
+              () => notifications.schedule(captureAny()),
             ).captured.single
             as List<ReminderPlan>;
     expect(plans.map((p) => p.at), [
@@ -102,15 +99,9 @@ void main() {
     );
     final count = await repo.rescheduleAll();
     expect(count, 1);
-    verify(
-      () => notifications.wallClockNow('Asia/Makassar'),
-    ).called(1);
     final plans =
         verify(
-              () => notifications.schedule(
-                captureAny(),
-                timezone: 'Asia/Makassar',
-              ),
+              () => notifications.schedule(captureAny()),
             ).captured.single
             as List<ReminderPlan>;
     expect(plans.single.at, DateTime(2026, 12, 20, 7, 30));
@@ -124,7 +115,7 @@ void main() {
   test('a failure is swallowed and the next call still works', () async {
     var first = true;
     when(
-      () => notifications.schedule(any(), timezone: any(named: 'timezone')),
+      () => notifications.schedule(any()),
     ).thenAnswer((_) async {
       if (first) {
         first = false;

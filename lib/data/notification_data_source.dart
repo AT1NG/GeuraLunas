@@ -83,52 +83,26 @@ class NotificationDataSource {
 
   Future<void> cancelAll() => _platform.cancelAll();
 
-  tz.Location? _location(String name) {
-    try {
-      return tz.getLocation(name);
-    } on Object {
-      return null;
-    }
-  }
+  /// The phone's wall clock. Reminder times are the ones the user sees on the
+  /// phone, so they are read in the phone's zone, not a saved one.
+  DateTime wallClockNow() => DateTime.now();
 
-  /// The wall clock in [timezone]; the device clock when the name is unknown.
-  DateTime wallClockNow(String timezone) {
-    final location = _location(timezone);
-    if (location == null) return DateTime.now();
-    final n = tz.TZDateTime.now(location);
-    return DateTime(n.year, n.month, n.day, n.hour, n.minute, n.second);
-  }
-
-  /// Schedules [plans], whose times are wall-clock times in [timezone].
+  /// Schedules [plans], whose times are wall-clock times on the phone.
   ///
   /// A notification that cannot be scheduled is logged and skipped; the rest
   /// still go out.
-  Future<void> schedule(
-    List<ReminderPlan> plans, {
-    required String timezone,
-  }) async {
-    final location = _location(timezone);
+  Future<void> schedule(List<ReminderPlan> plans) async {
     final exact = await _canScheduleExact();
     final l10n = _l10n;
     for (final p in plans) {
       try {
-        // Without a known zone the time is read on the device clock.
-        final at = location == null
-            ? tz.TZDateTime.from(p.at, tz.UTC)
-            : tz.TZDateTime(
-                location,
-                p.at.year,
-                p.at.month,
-                p.at.day,
-                p.at.hour,
-                p.at.minute,
-              );
         await _platform.schedule(
           id: p.id,
           title: reminderTitle(l10n),
           body: reminderBody(p, l10n),
           payload: p.debtId,
-          at: at,
+          // `p.at` is a device-local DateTime, so this is the right instant.
+          at: tz.TZDateTime.from(p.at, tz.UTC),
           exact: exact,
         );
       } on Object catch (e) {

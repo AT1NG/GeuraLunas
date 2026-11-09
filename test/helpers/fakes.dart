@@ -145,8 +145,13 @@ class FakeReminderRepository implements ReminderRepository {
   @override
   Future<ReminderPermissions> requestPermissions() async {
     calls.add('request');
+    final error = requestError;
+    if (error != null) throw error;
     return state;
   }
+
+  /// Makes `requestPermissions` throw.
+  Error? requestError;
 
   @override
   Future<void> openAlarmSettings() async => calls.add('alarm-settings');
