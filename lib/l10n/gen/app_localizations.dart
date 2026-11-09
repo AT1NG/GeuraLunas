@@ -945,6 +945,168 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Menu'**
   String get detailMenu;
+
+  /// No description provided for @payTitleOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Catat pembayaran'**
+  String get payTitleOwe;
+
+  /// No description provided for @payTitleLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Catat penerimaan'**
+  String get payTitleLent;
+
+  /// No description provided for @payDirectionOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Aku bayar'**
+  String get payDirectionOwe;
+
+  /// No description provided for @payDirectionLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Diterima dari {name}'**
+  String payDirectionLent(String name);
+
+  /// No description provided for @payRemainingNow.
+  ///
+  /// In id, this message translates to:
+  /// **'Sisa sekarang {amount}'**
+  String payRemainingNow(String amount);
+
+  /// No description provided for @payAmount.
+  ///
+  /// In id, this message translates to:
+  /// **'Nominal'**
+  String get payAmount;
+
+  /// No description provided for @payDate.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanggal'**
+  String get payDate;
+
+  /// No description provided for @payInstallment.
+  ///
+  /// In id, this message translates to:
+  /// **'Untuk cicilan'**
+  String get payInstallment;
+
+  /// No description provided for @payInstallmentAuto.
+  ///
+  /// In id, this message translates to:
+  /// **'Otomatis (cicilan terdekat)'**
+  String get payInstallmentAuto;
+
+  /// No description provided for @payInstallmentOption.
+  ///
+  /// In id, this message translates to:
+  /// **'Cicilan {n} · sisa {amount}'**
+  String payInstallmentOption(int n, String amount);
+
+  /// No description provided for @payNote.
+  ///
+  /// In id, this message translates to:
+  /// **'Catatan (opsional)'**
+  String get payNote;
+
+  /// No description provided for @paySubmit.
+  ///
+  /// In id, this message translates to:
+  /// **'Simpan'**
+  String get paySubmit;
+
+  /// No description provided for @payErrorAmount.
+  ///
+  /// In id, this message translates to:
+  /// **'Isi nominal pembayaran.'**
+  String get payErrorAmount;
+
+  /// No description provided for @payErrorExceeds.
+  ///
+  /// In id, this message translates to:
+  /// **'Nominal melebihi sisa hutang ({amount}). Isi paling banyak sebesar sisa.'**
+  String payErrorExceeds(String amount);
+
+  /// No description provided for @payErrorFuture.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanggal tidak boleh di masa depan.'**
+  String get payErrorFuture;
+
+  /// No description provided for @paySaved.
+  ///
+  /// In id, this message translates to:
+  /// **'Tercatat. Sisa sekarang {amount}.'**
+  String paySaved(String amount);
+
+  /// No description provided for @payFailed.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum bisa menyimpan pembayaran. Coba lagi sebentar lagi.'**
+  String get payFailed;
+
+  /// No description provided for @payUnavailable.
+  ///
+  /// In id, this message translates to:
+  /// **'Hutang ini tidak bisa dibayar lagi. Mungkin sudah lunas atau sudah dihapus.'**
+  String get payUnavailable;
+
+  /// No description provided for @celebrationClose.
+  ///
+  /// In id, this message translates to:
+  /// **'Oke'**
+  String get celebrationClose;
+
+  /// No description provided for @pickerTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Pilih hutang'**
+  String get pickerTitle;
+
+  /// No description provided for @pickerEmpty.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada hutang aktif untuk dicatat.'**
+  String get pickerEmpty;
+
+  /// No description provided for @pickerAddDebt.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambah hutang'**
+  String get pickerAddDebt;
+
+  /// No description provided for @paymentDeleteTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus pembayaran?'**
+  String get paymentDeleteTitle;
+
+  /// No description provided for @paymentDeleteBody.
+  ///
+  /// In id, this message translates to:
+  /// **'Sisa hutang akan kembali seperti sebelum pembayaran ini.'**
+  String get paymentDeleteBody;
+
+  /// No description provided for @paymentDeleteConfirm.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus'**
+  String get paymentDeleteConfirm;
+
+  /// No description provided for @paymentDeleteTooltip.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus pembayaran'**
+  String get paymentDeleteTooltip;
+
+  /// No description provided for @paymentDeleteFailed.
+  ///
+  /// In id, this message translates to:
+  /// **'Pembayaran belum bisa dihapus. Coba lagi sebentar lagi.'**
+  String get paymentDeleteFailed;
 }
 
 class _AppLocalizationsDelegate

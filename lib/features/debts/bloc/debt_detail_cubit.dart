@@ -99,6 +99,16 @@ class DebtDetailCubit extends Cubit<DebtDetailState> {
     });
   }
 
+  /// Removes a payment (and restores the debt). Returns `false` on failure.
+  Future<bool> deletePayment(String paymentId) async {
+    try {
+      await _repository.deletePayment(debtId: _debtId, paymentId: paymentId);
+      return true;
+    } on Object {
+      return false;
+    }
+  }
+
   void _onDebt(Debt? debt) {
     if (debt == null) {
       emit(state.copyWith(clearDebt: true, status: DebtDetailStatus.notFound));

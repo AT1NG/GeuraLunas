@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:geuralunas/data/debt_data_source.dart';
@@ -6,6 +8,14 @@ import 'package:geuralunas/domain/debt/debt_enums.dart';
 import 'package:geuralunas/domain/debt/payments.dart';
 import 'package:geuralunas/domain/money.dart';
 import 'package:geuralunas/repositories/debt_repository.dart';
+
+/// A server that never answers, like being offline.
+class _NeverAnswersDataSource extends DebtDataSource {
+  _NeverAnswersDataSource(super.firestore);
+
+  @override
+  Future<void> write(List<WriteOp> ops) => Completer<void>().future;
+}
 
 class _FailingDataSource extends DebtDataSource {
   _FailingDataSource(super.firestore);
@@ -530,6 +540,48 @@ void main() {
 
       expect(await repo.watchDebts().first, hasLength(1));
       expect(await repoFor('u2').watchDebts().first, isEmpty);
+    });
+  });
+
+  group('offline (the server never answers)', () {
+    DebtRepositoryImpl offline() => DebtRepositoryImpl(
+      _NeverAnswersDataSource(fake),
+      currentUid: () => 'u1',
+      now: () => clock,
+    );
+
+    test('addDebt returns without waiting for the server', () async {
+      final id = await offline()
+          .addDebt(installmentDebt())
+          .timeout(const Duration(seconds: 2));
+      expect(id, isNotEmpty);
+    });
+
+    test('recordPayment returns without waiting for the server', () async {
+      final id = await add(installmentDebt());
+
+      await offline()
+          .recordPayment(
+            debtId: id,
+            amount: const Money(100000),
+            paidAt: DateTime(2026, 12, 5),
+          )
+          .timeout(const Duration(seconds: 2));
+    });
+
+    test('deletePayment returns without waiting for the server', () async {
+      final id = await add(installmentDebt());
+      await repo.recordPayment(
+        debtId: id,
+        amount: const Money(100000),
+        paidAt: DateTime(2026, 12, 5),
+      );
+      await pumpEventQueue();
+      final paymentId = (await paymentsOf(id)).single.id;
+
+      await offline()
+          .deletePayment(debtId: id, paymentId: paymentId)
+          .timeout(const Duration(seconds: 2));
     });
   });
 

@@ -37,6 +37,23 @@ Debt makeDebt({
   updatedAt: DateTime(2026, 10),
 );
 
+/// One call to `recordPayment`.
+class RecordedPayment {
+  const RecordedPayment({
+    required this.debtId,
+    required this.amount,
+    required this.paidAt,
+    this.installmentSeq,
+    this.note,
+  });
+
+  final String debtId;
+  final Money amount;
+  final DateTime paidAt;
+  final int? installmentSeq;
+  final String? note;
+}
+
 /// In-memory repository for widget tests. Only `watchDebts` is implemented;
 /// later tasks extend what is needed.
 class FakeDebtRepository implements DebtRepository {
@@ -74,6 +91,18 @@ class FakeDebtRepository implements DebtRepository {
   /// Set to make `addDebt` and `updateDebt` fail.
   Object? addError;
 
+  /// Payments recorded through `recordPayment`.
+  final recorded = <RecordedPayment>[];
+
+  /// Payments removed through `deletePayment`.
+  final deleted = <({String debtId, String paymentId})>[];
+
+  /// Set to make `recordPayment` fail.
+  Object? recordError;
+
+  /// Set to make `deletePayment` fail.
+  Object? deleteError;
+
   NewDebt? added;
   Debt? updated;
   List<Installment>? updatedSchedule;
@@ -92,6 +121,39 @@ class FakeDebtRepository implements DebtRepository {
     if (error != null) return Future<void>.error(error);
     updated = debt;
     updatedSchedule = schedule;
+    return Future.value();
+  }
+
+  @override
+  Future<void> recordPayment({
+    required String debtId,
+    required Money amount,
+    required DateTime paidAt,
+    int? installmentSeq,
+    String? note,
+  }) {
+    final error = recordError;
+    if (error != null) return Future<void>.error(error);
+    recorded.add(
+      RecordedPayment(
+        debtId: debtId,
+        amount: amount,
+        paidAt: paidAt,
+        installmentSeq: installmentSeq,
+        note: note,
+      ),
+    );
+    return Future.value();
+  }
+
+  @override
+  Future<void> deletePayment({
+    required String debtId,
+    required String paymentId,
+  }) {
+    final error = deleteError;
+    if (error != null) return Future<void>.error(error);
+    deleted.add((debtId: debtId, paymentId: paymentId));
     return Future.value();
   }
 

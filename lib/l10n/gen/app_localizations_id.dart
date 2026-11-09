@@ -478,4 +478,99 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get detailMenu => 'Menu';
+
+  @override
+  String get payTitleOwe => 'Catat pembayaran';
+
+  @override
+  String get payTitleLent => 'Catat penerimaan';
+
+  @override
+  String get payDirectionOwe => 'Aku bayar';
+
+  @override
+  String payDirectionLent(String name) {
+    return 'Diterima dari $name';
+  }
+
+  @override
+  String payRemainingNow(String amount) {
+    return 'Sisa sekarang $amount';
+  }
+
+  @override
+  String get payAmount => 'Nominal';
+
+  @override
+  String get payDate => 'Tanggal';
+
+  @override
+  String get payInstallment => 'Untuk cicilan';
+
+  @override
+  String get payInstallmentAuto => 'Otomatis (cicilan terdekat)';
+
+  @override
+  String payInstallmentOption(int n, String amount) {
+    return 'Cicilan $n · sisa $amount';
+  }
+
+  @override
+  String get payNote => 'Catatan (opsional)';
+
+  @override
+  String get paySubmit => 'Simpan';
+
+  @override
+  String get payErrorAmount => 'Isi nominal pembayaran.';
+
+  @override
+  String payErrorExceeds(String amount) {
+    return 'Nominal melebihi sisa hutang ($amount). Isi paling banyak sebesar sisa.';
+  }
+
+  @override
+  String get payErrorFuture => 'Tanggal tidak boleh di masa depan.';
+
+  @override
+  String paySaved(String amount) {
+    return 'Tercatat. Sisa sekarang $amount.';
+  }
+
+  @override
+  String get payFailed =>
+      'Belum bisa menyimpan pembayaran. Coba lagi sebentar lagi.';
+
+  @override
+  String get payUnavailable =>
+      'Hutang ini tidak bisa dibayar lagi. Mungkin sudah lunas atau sudah dihapus.';
+
+  @override
+  String get celebrationClose => 'Oke';
+
+  @override
+  String get pickerTitle => 'Pilih hutang';
+
+  @override
+  String get pickerEmpty => 'Belum ada hutang aktif untuk dicatat.';
+
+  @override
+  String get pickerAddDebt => 'Tambah hutang';
+
+  @override
+  String get paymentDeleteTitle => 'Hapus pembayaran?';
+
+  @override
+  String get paymentDeleteBody =>
+      'Sisa hutang akan kembali seperti sebelum pembayaran ini.';
+
+  @override
+  String get paymentDeleteConfirm => 'Hapus';
+
+  @override
+  String get paymentDeleteTooltip => 'Hapus pembayaran';
+
+  @override
+  String get paymentDeleteFailed =>
+      'Pembayaran belum bisa dihapus. Coba lagi sebentar lagi.';
 }

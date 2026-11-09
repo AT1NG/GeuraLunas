@@ -10,6 +10,7 @@ import 'package:geuralunas/features/debts/widgets/debt_status.dart';
 import 'package:geuralunas/l10n/l10n.dart';
 import 'package:geuralunas/repositories/debt_repository.dart';
 import 'package:geuralunas/shared/formatters/rupiah.dart';
+import 'package:geuralunas/shared/widgets/confirm_dialog.dart';
 import 'package:geuralunas/shared/widgets/money_text.dart';
 import 'package:geuralunas/shared/widgets/progress_bar.dart';
 import 'package:geuralunas/shared/widgets/status_chip.dart';
@@ -89,6 +90,23 @@ class _DebtDetailView extends StatelessWidget {
 }
 
 enum _MenuAction { edit }
+
+Future<void> _confirmDelete(BuildContext context, String paymentId) async {
+  final l10n = context.l10n;
+  final cubit = context.read<DebtDetailCubit>();
+  final messenger = ScaffoldMessenger.of(context);
+  final confirmed = await ConfirmDialog.show(
+    context,
+    title: l10n.paymentDeleteTitle,
+    body: l10n.paymentDeleteBody,
+    confirmLabel: l10n.paymentDeleteConfirm,
+  );
+  if (!confirmed) return;
+  final done = await cubit.deletePayment(paymentId);
+  if (!done) {
+    messenger.showSnackBar(SnackBar(content: Text(l10n.paymentDeleteFailed)));
+  }
+}
 
 class _Message extends StatelessWidget {
   const _Message({required this.text, required this.messageKey});
@@ -216,7 +234,10 @@ class _Content extends StatelessWidget {
           )
         else
           for (final payment in state.payments.reversed)
-            _PaymentTile(payment: payment),
+            _PaymentTile(
+              payment: payment,
+              onDelete: () => _confirmDelete(context, payment.id),
+            ),
       ],
     );
   }
@@ -265,9 +286,10 @@ class _InstallmentTile extends StatelessWidget {
 }
 
 class _PaymentTile extends StatelessWidget {
-  const _PaymentTile({required this.payment});
+  const _PaymentTile({required this.payment, required this.onDelete});
 
   final Payment payment;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -276,6 +298,12 @@ class _PaymentTile extends StatelessWidget {
       key: Key('payment-${payment.id}'),
       contentPadding: EdgeInsets.zero,
       leading: const Icon(Icons.payments_outlined),
+      trailing: IconButton(
+        key: Key('payment-delete-${payment.id}'),
+        tooltip: context.l10n.paymentDeleteTooltip,
+        icon: const Icon(Icons.delete_outline),
+        onPressed: onDelete,
+      ),
       title: MoneyText(payment.amount),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

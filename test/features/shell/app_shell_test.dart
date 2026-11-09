@@ -105,4 +105,17 @@ void main() {
 
     expect(find.byKey(const Key('debt-form-page')), findsOneWidget);
   });
+
+  testWidgets('Catat pembayaran in the menu opens the debt picker', (
+    tester,
+  ) async {
+    await _pumpRouter(tester);
+
+    await tester.tap(_navLabel('Tambah'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Catat pembayaran'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Belum ada hutang aktif untuk dicatat.'), findsOneWidget);
+  });
 }

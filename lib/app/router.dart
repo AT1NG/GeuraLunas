@@ -16,6 +16,7 @@ import 'package:geuralunas/features/home/view/home_page.dart';
 import 'package:geuralunas/features/more/view/more_page.dart';
 import 'package:geuralunas/features/onboarding/bloc/onboarding_cubit.dart';
 import 'package:geuralunas/features/onboarding/view/onboarding_page.dart';
+import 'package:geuralunas/features/payments/view/payment_form_page.dart';
 import 'package:geuralunas/features/settings/view/settings_page.dart';
 import 'package:geuralunas/features/shell/app_shell.dart';
 import 'package:go_router/go_router.dart';
@@ -89,6 +90,11 @@ GoRouter createRouter({
       GoRoute(
         path: '/debts/:id/edit',
         builder: (_, state) => DebtFormPage(debtId: state.pathParameters['id']),
+      ),
+      GoRoute(
+        path: '/debts/:id/pay',
+        builder: (_, state) =>
+            PaymentFormPage(debtId: state.pathParameters['id']!),
       ),
       StatefulShellRoute.indexedStack(
         builder: (_, _, shell) => AppShell(navigationShell: shell),
