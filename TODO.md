@@ -107,4 +107,5 @@
 | 2026-11-09 | Fase 2 Task 7: detail hutang (progres, jadwal dengan status, riwayat terbaru dulu, tombol Bayar, menu Ubah; 382 test) |
 | 2026-11-09 | Fase 2 Task 8: catat pembayaran (form, pemilih hutang dari menu +, perayaan lunas) dan batalkan pembayaran dari detail (422 test) |
 | 2026-11-09 | Fase 2 Task 9: tandai lunas, arsip, hapus dengan konfirmasi; gerbang kualitas Fase 2 (analyze 0 isu, 443 test, coverage domain 100% / bloc 98% / total 96%, 35 test rules, APK debug) |
+| 2026-11-09 | Fase 2 review akhir: perbaikan jadwal bulanan yang melorot ke tanggal 28, bunga bulanan vs jadwal mingguan, jatuh tempo hilang saat ubah nominal, tenor dikurangi di bawah cicilan terbayar, penulisan ditolak server kini dilaporkan, tulis hanya cicilan yang berubah, edit nama tidak menimpa data lain (466 test) |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |
