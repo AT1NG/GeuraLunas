@@ -447,6 +447,756 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Datamu tetap aman dan akan muncul lagi saat kamu masuk.'**
   String get settingsSignOutConfirmBody;
+
+  /// No description provided for @debtsTabOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Aku berutang'**
+  String get debtsTabOwe;
+
+  /// No description provided for @debtsTabLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Piutang'**
+  String get debtsTabLent;
+
+  /// No description provided for @debtsTotalOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Total yang harus kamu bayar'**
+  String get debtsTotalOwe;
+
+  /// No description provided for @debtsTotalLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Total yang akan kamu terima'**
+  String get debtsTotalLent;
+
+  /// No description provided for @debtsFilterActive.
+  ///
+  /// In id, this message translates to:
+  /// **'Aktif'**
+  String get debtsFilterActive;
+
+  /// No description provided for @debtsFilterSettled.
+  ///
+  /// In id, this message translates to:
+  /// **'Lunas'**
+  String get debtsFilterSettled;
+
+  /// No description provided for @debtsEmptyOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada hutang yang tercatat. Mulai dari yang pertama, pelan-pelan saja.'**
+  String get debtsEmptyOwe;
+
+  /// No description provided for @debtsEmptyLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada piutang yang tercatat.'**
+  String get debtsEmptyLent;
+
+  /// No description provided for @debtsEmptySettled.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada yang lunas. Satu per satu pasti sampai.'**
+  String get debtsEmptySettled;
+
+  /// No description provided for @debtsEmptyAction.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambah hutang pertamamu'**
+  String get debtsEmptyAction;
+
+  /// No description provided for @debtsLoadError.
+  ///
+  /// In id, this message translates to:
+  /// **'Datamu belum bisa dimuat. Coba lagi sebentar lagi.'**
+  String get debtsLoadError;
+
+  /// No description provided for @statusOverdue.
+  ///
+  /// In id, this message translates to:
+  /// **'Terlambat'**
+  String get statusOverdue;
+
+  /// No description provided for @statusDueSoon.
+  ///
+  /// In id, this message translates to:
+  /// **'Segera jatuh tempo'**
+  String get statusDueSoon;
+
+  /// No description provided for @statusSettled.
+  ///
+  /// In id, this message translates to:
+  /// **'Lunas'**
+  String get statusSettled;
+
+  /// No description provided for @statusActive.
+  ///
+  /// In id, this message translates to:
+  /// **'Aktif'**
+  String get statusActive;
+
+  /// No description provided for @debtCardRemaining.
+  ///
+  /// In id, this message translates to:
+  /// **'Sisa {amount}'**
+  String debtCardRemaining(String amount);
+
+  /// No description provided for @debtCardDue.
+  ///
+  /// In id, this message translates to:
+  /// **'Jatuh tempo {date}'**
+  String debtCardDue(String date);
+
+  /// No description provided for @debtCardNoDue.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanpa jatuh tempo'**
+  String get debtCardNoDue;
+
+  /// No description provided for @debtCardSemantics.
+  ///
+  /// In id, this message translates to:
+  /// **'{name}, sisa {amount}, {due}'**
+  String debtCardSemantics(String name, String amount, String due);
+
+  /// No description provided for @debtFormNewTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambah hutang'**
+  String get debtFormNewTitle;
+
+  /// No description provided for @debtFormEditTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Ubah hutang'**
+  String get debtFormEditTitle;
+
+  /// No description provided for @formDirectionOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Aku berutang'**
+  String get formDirectionOwe;
+
+  /// No description provided for @formDirectionLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Dia berutang ke aku'**
+  String get formDirectionLent;
+
+  /// No description provided for @formKindPinjol.
+  ///
+  /// In id, this message translates to:
+  /// **'Pinjol'**
+  String get formKindPinjol;
+
+  /// No description provided for @formKindInstallment.
+  ///
+  /// In id, this message translates to:
+  /// **'Cicilan'**
+  String get formKindInstallment;
+
+  /// No description provided for @formKindPersonal.
+  ///
+  /// In id, this message translates to:
+  /// **'Teman'**
+  String get formKindPersonal;
+
+  /// No description provided for @formName.
+  ///
+  /// In id, this message translates to:
+  /// **'Nama pihak (platform, toko, atau teman)'**
+  String get formName;
+
+  /// No description provided for @formPrincipal.
+  ///
+  /// In id, this message translates to:
+  /// **'Pokok pinjaman'**
+  String get formPrincipal;
+
+  /// No description provided for @formInterestTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Bunga'**
+  String get formInterestTitle;
+
+  /// No description provided for @formInterestNone.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanpa bunga'**
+  String get formInterestNone;
+
+  /// No description provided for @formInterestFlatMonthly.
+  ///
+  /// In id, this message translates to:
+  /// **'Flat per bulan'**
+  String get formInterestFlatMonthly;
+
+  /// No description provided for @formInterestFlatDaily.
+  ///
+  /// In id, this message translates to:
+  /// **'Flat per hari'**
+  String get formInterestFlatDaily;
+
+  /// No description provided for @formInterestReducing.
+  ///
+  /// In id, this message translates to:
+  /// **'Anuitas (menurun)'**
+  String get formInterestReducing;
+
+  /// No description provided for @formRateMonthly.
+  ///
+  /// In id, this message translates to:
+  /// **'Bunga (% per bulan)'**
+  String get formRateMonthly;
+
+  /// No description provided for @formRateDaily.
+  ///
+  /// In id, this message translates to:
+  /// **'Bunga (% per hari)'**
+  String get formRateDaily;
+
+  /// No description provided for @formAdminFee.
+  ///
+  /// In id, this message translates to:
+  /// **'Biaya admin (opsional)'**
+  String get formAdminFee;
+
+  /// No description provided for @formTenor.
+  ///
+  /// In id, this message translates to:
+  /// **'Jumlah cicilan'**
+  String get formTenor;
+
+  /// No description provided for @formTenorDays.
+  ///
+  /// In id, this message translates to:
+  /// **'Tenor (hari)'**
+  String get formTenorDays;
+
+  /// No description provided for @formFrequencyTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Cicilan setiap'**
+  String get formFrequencyTitle;
+
+  /// No description provided for @formFrequencyMonthly.
+  ///
+  /// In id, this message translates to:
+  /// **'Bulan'**
+  String get formFrequencyMonthly;
+
+  /// No description provided for @formFrequencyWeekly.
+  ///
+  /// In id, this message translates to:
+  /// **'Minggu'**
+  String get formFrequencyWeekly;
+
+  /// No description provided for @formStartDate.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanggal mulai'**
+  String get formStartDate;
+
+  /// No description provided for @formFirstDue.
+  ///
+  /// In id, this message translates to:
+  /// **'Jatuh tempo pertama'**
+  String get formFirstDue;
+
+  /// No description provided for @formFirstDueAuto.
+  ///
+  /// In id, this message translates to:
+  /// **'Otomatis'**
+  String get formFirstDueAuto;
+
+  /// No description provided for @formFirstDueClear.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus tanggal'**
+  String get formFirstDueClear;
+
+  /// No description provided for @formNote.
+  ///
+  /// In id, this message translates to:
+  /// **'Catatan (opsional)'**
+  String get formNote;
+
+  /// No description provided for @formPreviewTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Pratinjau'**
+  String get formPreviewTitle;
+
+  /// No description provided for @formPreviewTotal.
+  ///
+  /// In id, this message translates to:
+  /// **'Total yang harus dibayar: {amount}'**
+  String formPreviewTotal(String amount);
+
+  /// No description provided for @formPreviewRow.
+  ///
+  /// In id, this message translates to:
+  /// **'Cicilan {n}'**
+  String formPreviewRow(int n);
+
+  /// No description provided for @formPreviewMore.
+  ///
+  /// In id, this message translates to:
+  /// **'dan {count} cicilan lainnya'**
+  String formPreviewMore(int count);
+
+  /// No description provided for @formSubmitNew.
+  ///
+  /// In id, this message translates to:
+  /// **'Simpan'**
+  String get formSubmitNew;
+
+  /// No description provided for @formSubmitEdit.
+  ///
+  /// In id, this message translates to:
+  /// **'Simpan perubahan'**
+  String get formSubmitEdit;
+
+  /// No description provided for @formErrorAmount.
+  ///
+  /// In id, this message translates to:
+  /// **'Isi nominal yang benar, lebih dari Rp0.'**
+  String get formErrorAmount;
+
+  /// No description provided for @formErrorNumber.
+  ///
+  /// In id, this message translates to:
+  /// **'Isi angka yang benar.'**
+  String get formErrorNumber;
+
+  /// No description provided for @formErrorBelowPaid.
+  ///
+  /// In id, this message translates to:
+  /// **'Total tidak boleh kurang dari yang sudah dibayar ({amount}).'**
+  String formErrorBelowPaid(String amount);
+
+  /// No description provided for @formSaveFailed.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum bisa menyimpan. Coba lagi sebentar lagi.'**
+  String get formSaveFailed;
+
+  /// No description provided for @formPaidWarning.
+  ///
+  /// In id, this message translates to:
+  /// **'Hutang ini sudah punya pembayaran. Kalau nominal, bunga, atau tenor diubah, jadwal dihitung ulang dan pembayaran yang ada diterapkan lagi ke cicilan.'**
+  String get formPaidWarning;
+
+  /// No description provided for @formNotFound.
+  ///
+  /// In id, this message translates to:
+  /// **'Hutang ini tidak ditemukan. Mungkin sudah dihapus.'**
+  String get formNotFound;
+
+  /// No description provided for @detailKindPinjol.
+  ///
+  /// In id, this message translates to:
+  /// **'Pinjol'**
+  String get detailKindPinjol;
+
+  /// No description provided for @detailKindInstallment.
+  ///
+  /// In id, this message translates to:
+  /// **'Cicilan'**
+  String get detailKindInstallment;
+
+  /// No description provided for @detailKindPersonal.
+  ///
+  /// In id, this message translates to:
+  /// **'Pinjaman teman'**
+  String get detailKindPersonal;
+
+  /// No description provided for @detailDirectionOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Aku berutang'**
+  String get detailDirectionOwe;
+
+  /// No description provided for @detailDirectionLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Dia berutang ke aku'**
+  String get detailDirectionLent;
+
+  /// No description provided for @detailKindDirection.
+  ///
+  /// In id, this message translates to:
+  /// **'{kind} · {direction}'**
+  String detailKindDirection(String kind, String direction);
+
+  /// No description provided for @detailRemainingOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Sisa yang harus dibayar'**
+  String get detailRemainingOwe;
+
+  /// No description provided for @detailRemainingLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Sisa yang akan diterima'**
+  String get detailRemainingLent;
+
+  /// No description provided for @detailPaidOf.
+  ///
+  /// In id, this message translates to:
+  /// **'{paid} dari {total}'**
+  String detailPaidOf(String paid, String total);
+
+  /// No description provided for @detailProgressSemantics.
+  ///
+  /// In id, this message translates to:
+  /// **'Sudah dibayar {paid} dari {total}'**
+  String detailProgressSemantics(String paid, String total);
+
+  /// No description provided for @detailPayOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Bayar'**
+  String get detailPayOwe;
+
+  /// No description provided for @detailPayLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Catat penerimaan'**
+  String get detailPayLent;
+
+  /// No description provided for @detailSettledOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Lunas! Satu beban berkurang.'**
+  String get detailSettledOwe;
+
+  /// No description provided for @detailSettledLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Lunas! Semuanya sudah kembali.'**
+  String get detailSettledLent;
+
+  /// No description provided for @detailScheduleTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Jadwal cicilan'**
+  String get detailScheduleTitle;
+
+  /// No description provided for @detailNoSchedule.
+  ///
+  /// In id, this message translates to:
+  /// **'Tidak ada jadwal cicilan.'**
+  String get detailNoSchedule;
+
+  /// No description provided for @installmentTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Cicilan {n}'**
+  String installmentTitle(int n);
+
+  /// No description provided for @installmentDue.
+  ///
+  /// In id, this message translates to:
+  /// **'Jatuh tempo {date}'**
+  String installmentDue(String date);
+
+  /// No description provided for @installmentPaid.
+  ///
+  /// In id, this message translates to:
+  /// **'Lunas'**
+  String get installmentPaid;
+
+  /// No description provided for @installmentPartial.
+  ///
+  /// In id, this message translates to:
+  /// **'Sebagian ({paid} dari {total})'**
+  String installmentPartial(String paid, String total);
+
+  /// No description provided for @installmentPending.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum dibayar'**
+  String get installmentPending;
+
+  /// No description provided for @detailPaymentsOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Riwayat pembayaran'**
+  String get detailPaymentsOwe;
+
+  /// No description provided for @detailPaymentsLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Riwayat penerimaan'**
+  String get detailPaymentsLent;
+
+  /// No description provided for @detailNoPayments.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada pembayaran.'**
+  String get detailNoPayments;
+
+  /// No description provided for @detailEdit.
+  ///
+  /// In id, this message translates to:
+  /// **'Ubah'**
+  String get detailEdit;
+
+  /// No description provided for @detailMenu.
+  ///
+  /// In id, this message translates to:
+  /// **'Menu'**
+  String get detailMenu;
+
+  /// No description provided for @payTitleOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Catat pembayaran'**
+  String get payTitleOwe;
+
+  /// No description provided for @payTitleLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Catat penerimaan'**
+  String get payTitleLent;
+
+  /// No description provided for @payDirectionOwe.
+  ///
+  /// In id, this message translates to:
+  /// **'Aku bayar'**
+  String get payDirectionOwe;
+
+  /// No description provided for @payDirectionLent.
+  ///
+  /// In id, this message translates to:
+  /// **'Diterima dari {name}'**
+  String payDirectionLent(String name);
+
+  /// No description provided for @payRemainingNow.
+  ///
+  /// In id, this message translates to:
+  /// **'Sisa sekarang {amount}'**
+  String payRemainingNow(String amount);
+
+  /// No description provided for @payAmount.
+  ///
+  /// In id, this message translates to:
+  /// **'Nominal'**
+  String get payAmount;
+
+  /// No description provided for @payDate.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanggal'**
+  String get payDate;
+
+  /// No description provided for @payInstallment.
+  ///
+  /// In id, this message translates to:
+  /// **'Untuk cicilan'**
+  String get payInstallment;
+
+  /// No description provided for @payInstallmentAuto.
+  ///
+  /// In id, this message translates to:
+  /// **'Otomatis (cicilan terdekat)'**
+  String get payInstallmentAuto;
+
+  /// No description provided for @payInstallmentOption.
+  ///
+  /// In id, this message translates to:
+  /// **'Cicilan {n} · sisa {amount}'**
+  String payInstallmentOption(int n, String amount);
+
+  /// No description provided for @payNote.
+  ///
+  /// In id, this message translates to:
+  /// **'Catatan (opsional)'**
+  String get payNote;
+
+  /// No description provided for @paySubmit.
+  ///
+  /// In id, this message translates to:
+  /// **'Simpan'**
+  String get paySubmit;
+
+  /// No description provided for @payErrorAmount.
+  ///
+  /// In id, this message translates to:
+  /// **'Isi nominal pembayaran.'**
+  String get payErrorAmount;
+
+  /// No description provided for @payErrorExceeds.
+  ///
+  /// In id, this message translates to:
+  /// **'Nominal melebihi sisa hutang ({amount}). Isi paling banyak sebesar sisa.'**
+  String payErrorExceeds(String amount);
+
+  /// No description provided for @payErrorFuture.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanggal tidak boleh di masa depan.'**
+  String get payErrorFuture;
+
+  /// No description provided for @paySaved.
+  ///
+  /// In id, this message translates to:
+  /// **'Tercatat. Sisa sekarang {amount}.'**
+  String paySaved(String amount);
+
+  /// No description provided for @payFailed.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum bisa menyimpan pembayaran. Coba lagi sebentar lagi.'**
+  String get payFailed;
+
+  /// No description provided for @payUnavailable.
+  ///
+  /// In id, this message translates to:
+  /// **'Hutang ini tidak bisa dibayar lagi. Mungkin sudah lunas atau sudah dihapus.'**
+  String get payUnavailable;
+
+  /// No description provided for @celebrationClose.
+  ///
+  /// In id, this message translates to:
+  /// **'Oke'**
+  String get celebrationClose;
+
+  /// No description provided for @pickerTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Pilih hutang'**
+  String get pickerTitle;
+
+  /// No description provided for @pickerEmpty.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada hutang aktif untuk dicatat.'**
+  String get pickerEmpty;
+
+  /// No description provided for @pickerAddDebt.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambah hutang'**
+  String get pickerAddDebt;
+
+  /// No description provided for @paymentDeleteTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus pembayaran?'**
+  String get paymentDeleteTitle;
+
+  /// No description provided for @paymentDeleteBody.
+  ///
+  /// In id, this message translates to:
+  /// **'Sisa hutang akan kembali seperti sebelum pembayaran ini.'**
+  String get paymentDeleteBody;
+
+  /// No description provided for @paymentDeleteConfirm.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus'**
+  String get paymentDeleteConfirm;
+
+  /// No description provided for @paymentDeleteTooltip.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus pembayaran'**
+  String get paymentDeleteTooltip;
+
+  /// No description provided for @paymentDeleteFailed.
+  ///
+  /// In id, this message translates to:
+  /// **'Pembayaran belum bisa dihapus. Coba lagi sebentar lagi.'**
+  String get paymentDeleteFailed;
+
+  /// No description provided for @detailMenuSettle.
+  ///
+  /// In id, this message translates to:
+  /// **'Tandai lunas'**
+  String get detailMenuSettle;
+
+  /// No description provided for @detailMenuArchive.
+  ///
+  /// In id, this message translates to:
+  /// **'Arsipkan'**
+  String get detailMenuArchive;
+
+  /// No description provided for @detailMenuDelete.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus'**
+  String get detailMenuDelete;
+
+  /// No description provided for @actionArchiveTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Arsipkan hutang?'**
+  String get actionArchiveTitle;
+
+  /// No description provided for @actionArchiveBody.
+  ///
+  /// In id, this message translates to:
+  /// **'Hutang tidak tampil lagi di daftar, tetapi datanya tetap tersimpan.'**
+  String get actionArchiveBody;
+
+  /// No description provided for @actionArchiveConfirm.
+  ///
+  /// In id, this message translates to:
+  /// **'Arsipkan'**
+  String get actionArchiveConfirm;
+
+  /// No description provided for @actionDeleteTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus hutang?'**
+  String get actionDeleteTitle;
+
+  /// No description provided for @actionDeleteBody.
+  ///
+  /// In id, this message translates to:
+  /// **'Hutang beserta jadwal dan riwayat pembayarannya akan dihapus dan tidak bisa dikembalikan.'**
+  String get actionDeleteBody;
+
+  /// No description provided for @actionDeleteConfirm.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus'**
+  String get actionDeleteConfirm;
+
+  /// No description provided for @actionSettleTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Tandai lunas?'**
+  String get actionSettleTitle;
+
+  /// No description provided for @actionSettleBody.
+  ///
+  /// In id, this message translates to:
+  /// **'Kami catat satu pembayaran sebesar sisa ({amount}) pada hari ini.'**
+  String actionSettleBody(String amount);
+
+  /// No description provided for @actionSettleConfirm.
+  ///
+  /// In id, this message translates to:
+  /// **'Tandai lunas'**
+  String get actionSettleConfirm;
+
+  /// No description provided for @actionFailed.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum bisa menyelesaikannya. Coba lagi sebentar lagi.'**
+  String get actionFailed;
+
+  /// No description provided for @writeRejected.
+  ///
+  /// In id, this message translates to:
+  /// **'Perubahan terakhir belum bisa disimpan ke server dan dibatalkan. Coba lagi ya.'**
+  String get writeRejected;
 }
 
 class _AppLocalizationsDelegate

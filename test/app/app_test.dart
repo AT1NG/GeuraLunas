@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:geuralunas/app/app.dart';
 import 'package:geuralunas/l10n/l10n.dart';
 
+import '../helpers/debt_fixtures.dart';
 import '../helpers/fakes.dart';
 
 Widget _app({
@@ -12,6 +13,7 @@ Widget _app({
   authRepository: auth ?? FakeAuthRepository(initialUser: testUser),
   onboardingRepository: onboarding ?? FakeOnboardingRepository(),
   userProfileRepository: FakeUserProfileRepository(),
+  debtRepository: FakeDebtRepository(),
 );
 
 void main() {
@@ -99,5 +101,31 @@ void main() {
 
     expect(find.byKey(const Key('login-page')), findsNothing);
     expect(find.byKey(const Key('home-page')), findsOneWidget);
+  });
+
+  testWidgets('a write the server rejected is reported to the user', (
+    tester,
+  ) async {
+    final debts = FakeDebtRepository();
+    await tester.pumpWidget(
+      App(
+        authRepository: FakeAuthRepository(initialUser: testUser),
+        onboardingRepository: FakeOnboardingRepository(),
+        userProfileRepository: FakeUserProfileRepository(),
+        debtRepository: debts,
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    debts.rejectWrite(StateError('permission-denied'));
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text(
+        'Perubahan terakhir belum bisa disimpan ke server dan dibatalkan. '
+        'Coba lagi ya.',
+      ),
+      findsOneWidget,
+    );
   });
 }

@@ -9,11 +9,14 @@ import 'package:geuralunas/features/auth/view/login_page.dart';
 import 'package:geuralunas/features/auth/view/register_page.dart';
 import 'package:geuralunas/features/auth/view/splash_page.dart';
 import 'package:geuralunas/features/budget/view/budget_page.dart';
+import 'package:geuralunas/features/debts/view/debt_detail_page.dart';
+import 'package:geuralunas/features/debts/view/debt_form_page.dart';
 import 'package:geuralunas/features/debts/view/debts_page.dart';
 import 'package:geuralunas/features/home/view/home_page.dart';
 import 'package:geuralunas/features/more/view/more_page.dart';
 import 'package:geuralunas/features/onboarding/bloc/onboarding_cubit.dart';
 import 'package:geuralunas/features/onboarding/view/onboarding_page.dart';
+import 'package:geuralunas/features/payments/view/payment_form_page.dart';
 import 'package:geuralunas/features/settings/view/settings_page.dart';
 import 'package:geuralunas/features/shell/app_shell.dart';
 import 'package:go_router/go_router.dart';
@@ -83,11 +86,31 @@ GoRouter createRouter({
         path: '/forgot-password',
         builder: (_, _) => const ForgotPasswordPage(),
       ),
+      GoRoute(path: '/debts/new', builder: (_, _) => const DebtFormPage()),
+      GoRoute(
+        path: '/debts/:id/edit',
+        builder: (_, state) => DebtFormPage(debtId: state.pathParameters['id']),
+      ),
+      GoRoute(
+        path: '/debts/:id/pay',
+        builder: (_, state) =>
+            PaymentFormPage(debtId: state.pathParameters['id']!),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (_, _, shell) => AppShell(navigationShell: shell),
         branches: [
           _branch('/home', const HomePage()),
-          _branch('/debts', const DebtsPage()),
+          _branch(
+            '/debts',
+            const DebtsPage(),
+            routes: [
+              GoRoute(
+                path: ':id',
+                builder: (_, state) =>
+                    DebtDetailPage(debtId: state.pathParameters['id']!),
+              ),
+            ],
+          ),
           _branch('/budget', const BudgetPage()),
           _branch(
             '/more',

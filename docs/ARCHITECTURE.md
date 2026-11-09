@@ -85,7 +85,7 @@ Keputusan: satu package dengan folder berlapis dulu, bukan monorepo multi-packag
 PaymentForm → DebtDetailBloc.add(PaymentRecorded)
   → DebtRepository.recordPayment(debtId, amount, date, installmentSeq?)
      → validasi domain (tidak melebihi sisa)
-     → Firestore WriteBatch/transaction, atomik:
+     → Firestore WriteBatch (bukan transaksi, agar jalan offline; lihat ADR-013), atomik:
          1. buat payments/{id}
          2. update installments/{seq}.paidAmount & status
          3. update debts/{id}: remaining, nextDueDate, status

@@ -143,10 +143,13 @@ Berkas: [`firestore.rules`](../firestore.rules). Diuji dengan emulator (`firebas
 **Fase 1 (berlaku):**
 - Semua akses ditolak jika belum login atau `request.auth.uid` bukan pemilik `users/{uid}`.
 - Dokumen `users/{uid}` (profil): tulis hanya dengan kunci `displayName` (≤ 100 karakter), `email` (≤ 254), `createdAt`, `settings`. `createdAt` harus waktu server saat dibuat dan tidak boleh diubah sesudahnya. Di `settings`: `reminderTime` berformat `HH:mm`, `reminderDaysBefore` daftar bilangan bulat 0–7 (maksimal 8 isi), `budgetCycleStartDay` bilangan bulat 1–28, `timezone` string (≤ 64).
-- Subkoleksi `users/{uid}/{koleksi}/...`: hanya pemilik; belum divalidasi per field.
+- `users/{uid}/debts/{id}`: hanya pemilik. Tulis hanya dengan kunci pada bagian 3.2; kunci wajib: `direction`, `kind`, `counterpartyName`, `principal`, `interestType`, `interestRate`, `adminFee`, `frequency`, `startDate`, `totalPayable`, `paidTotal`, `remaining`, `status`, `createdAt`, `updatedAt`. Nilai enum harus sah, `principal` dan `totalPayable` bilangan bulat > 0, `adminFee` ≥ 0, `interestRate` angka 0–1000, `paidTotal` dan `remaining` bilangan bulat ≥ 0 dan ≤ `totalPayable`, `counterpartyName` 1–100 karakter, `note` ≤ 500.
+- `debts/{id}/installments/{seq}`: `amount` bilangan bulat > 0, `paidAmount` 0..`amount`, `status` ∈ `pending|partial|paid`.
+- `debts/{id}/payments/{id}`: `amount` bilangan bulat > 0, `paidAt` dan `createdAt` timestamp, `installmentSeq` ≥ 1 bila ada, `note` ≤ 500.
+- Subkoleksi lain (`categories`, `expenses`, `budgets`): hanya pemilik; validasi ditambahkan di fasenya.
 - Dokumen di luar `users/`: ditolak.
 
-**Menyusul per fase:** validasi tiap subkoleksi saat koleksinya dibuat (Fase 2 dst.): tipe field, `amount > 0`, nilai `direction`/`kind`/`status` yang diizinkan, `remaining >= 0`, batas panjang string.
+**Menyusul:** validasi `categories`, `expenses`, dan `budgets` saat koleksinya dibuat (Fase 4).
 
 ## 6. Rumus turunan
 

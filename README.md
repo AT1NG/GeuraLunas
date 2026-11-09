@@ -2,7 +2,7 @@
 
 Aplikasi mobile untuk mengatur hutang dan piutang (pinjol, cicilan, hutang ke/dari teman) sekaligus menjaga jatah jajan harian dan mingguan agar pelunasan tetap aman.
 
-**Status:** Fase 1 (fondasi: navigasi, login, onboarding, pengaturan, rules) selesai di sisi kode. Fase 2 (hutang dan pembayaran) berikutnya. Lihat [TODO.md](TODO.md).
+**Status:** Fase 1 (fondasi) dan Fase 2 (hutang dan pembayaran) selesai di sisi kode. Fase 3 (pengingat) berikutnya. Lihat [TODO.md](TODO.md).
 
 ## Fitur versi pertama
 

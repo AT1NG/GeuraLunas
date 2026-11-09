@@ -4,6 +4,8 @@ import 'package:geuralunas/l10n/l10n.dart';
 import 'package:geuralunas/repositories/auth_failure.dart';
 import 'package:geuralunas/shared/validators.dart';
 
+export 'package:geuralunas/shared/widgets/submit_button.dart';
+
 /// Maps domain errors to localized, non-blaming copy.
 extension AuthMessages on AppLocalizations {
   /// Text for a form field error.
@@ -95,42 +97,6 @@ class _PasswordFieldState extends State<PasswordField> {
           icon: Icon(_obscure ? Icons.visibility : Icons.visibility_off),
           onPressed: () => setState(() => _obscure = !_obscure),
         ),
-      ),
-    );
-  }
-}
-
-/// Filled button that shows a spinner while [busy].
-class SubmitButton extends StatelessWidget {
-  /// Creates a submit button.
-  const SubmitButton({
-    required this.label,
-    required this.busy,
-    required this.onPressed,
-    super.key,
-  });
-
-  /// Button text.
-  final String label;
-
-  /// Whether a request is in flight.
-  final bool busy;
-
-  /// Tap handler; ignored while [busy].
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: FilledButton(
-        onPressed: busy ? null : onPressed,
-        child: busy
-            ? const SizedBox.square(
-                dimension: 20,
-                child: CircularProgressIndicator(strokeWidth: 2),
-              )
-            : Text(label),
       ),
     );
   }

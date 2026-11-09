@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   cloud_firestore: ^7.1.0
-  equatable: ^3.0.0
+  equatable: ^2.0.7
   firebase_auth: ^7.0.1
   firebase_core: ^5.1.0
   flutter:
@@ -24,6 +24,7 @@ dependencies:
 
 dev_dependencies:
   bloc_test: ^10.0.0
+  fake_cloud_firestore: ^4.5.0
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.5

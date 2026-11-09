@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 2: rencana ada di docs/superpowers/plans/2026-11-09-phase2-debts-payments.md (menunggu persetujuan dan pilihan cara eksekusi). Fase 1: tinggal uji manual di perangkat (lihat docs/TESTING.md bagian 5).
+- Fase 3: pengingat jatuh tempo (belum ada rencana implementasi). Menunggu persetujuan user: deploy rules Fase 2 ke geuralunas-dev, lalu uji manual Fase 2 di perangkat (tambah hutang, bayar, batalkan, arsip, hapus, mode pesawat).
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -34,13 +34,13 @@
 
 ## Fase 2 — Hutang & pembayaran (US-01 s.d. US-05)
 
-- [ ] Domain: `Money`, kalkulasi bunga, generator jadwal cicilan (+ unit test)
-- [ ] Repository dan Bloc hutang
-- [ ] Layar daftar hutang (filter: aku berutang / piutang, aktif / lunas)
-- [ ] Form tambah/ubah hutang (pinjol, cicilan, teman)
-- [ ] Detail hutang: jadwal, riwayat, progres
-- [ ] Catat pembayaran (batch atomik: payment + installment + sisa hutang)
-- [ ] Tandai lunas, arsip, hapus
+- [x] Domain: `Money`, kalkulasi bunga, generator jadwal cicilan (+ unit test; selesai)
+- [x] Repository dan Bloc hutang (repository, rules, dan cubit per layar)
+- [x] Layar daftar hutang (filter: aku berutang / piutang, aktif / lunas)
+- [x] Form tambah/ubah hutang (pinjol, cicilan, teman)
+- [x] Detail hutang: jadwal, riwayat, progres
+- [x] Catat pembayaran (batch atomik: payment + installment + sisa hutang)
+- [x] Tandai lunas, arsip, hapus (layar untuk mengembalikan hutang yang diarsipkan menyusul di Fase 6)
 
 ## Fase 3 — Pengingat (US-06, US-07)
 
@@ -97,4 +97,15 @@
 | 2026-11-09 | Fase 1 Task 11: gerbang kualitas (analyze bersih, 113 test, coverage domain 100% / bloc 99% / total 93%), ADR-012, CHANGELOG |
 | 2026-11-09 | Fase 1 review akhir: perbaikan nama hilang setelah daftar, emit pada cubit tertutup, error Google yang membuat spinner macet (124 test hijau) |
 | 2026-11-09 | Fase 1 penutup: rules diperketat (createdAt server, batas panjang) dan di-deploy ke geuralunas-dev; sign-out Google tahan error; splash tak menggantung; test layar HP skala teks 2.0 dan cold start (131 test, 18 test rules) |
+| 2026-11-09 | Fase 1 uji manual di emulator Pixel_API34: onboarding, validasi, pesan salah password, daftar → Beranda, nama di Pengaturan, dokumen profil di Firestore, buka ulang tanpa kilasan login (termasuk mode pesawat), keluar dengan konfirmasi, login ulang. Belum: Google Sign-In sukses |
+| 2026-11-09 | Fase 2 Task 1: model domain hutang (enum, Debt, Installment, Payment) dan rumus total bayar termasuk anuitas; domain 100% |
+| 2026-11-09 | Fase 2 Task 2: generator jadwal cicilan (akhir bulan tidak melorot, sisa pembulatan ke cicilan terakhir, 183 test) |
+| 2026-11-09 | Fase 2 Task 3: penerapan dan pembatalan pembayaran (replay dari nol, pembatalan persis seperti sebelum dibayar; domain 100%, 206 test) |
+| 2026-11-09 | Fase 2 Task 4: DTO, DebtRepository (WriteBatch, offline-aman), rules debts/installments/payments dengan 35 test emulator, ADR-013 (242 test Flutter) |
+| 2026-11-09 | Fase 2 Task 5: daftar hutang (tab Aku berutang/Piutang, filter, total sisa, kartu dengan status+ikon, label semantik) dan komponen bersama (275 test) |
+| 2026-11-09 | Fase 2 Task 6: form tambah/ubah hutang dengan pratinjau jadwal, parseAmount, AmountField, planDebt di domain (356 test) |
+| 2026-11-09 | Fase 2 Task 7: detail hutang (progres, jadwal dengan status, riwayat terbaru dulu, tombol Bayar, menu Ubah; 382 test) |
+| 2026-11-09 | Fase 2 Task 8: catat pembayaran (form, pemilih hutang dari menu +, perayaan lunas) dan batalkan pembayaran dari detail (422 test) |
+| 2026-11-09 | Fase 2 Task 9: tandai lunas, arsip, hapus dengan konfirmasi; gerbang kualitas Fase 2 (analyze 0 isu, 443 test, coverage domain 100% / bloc 98% / total 96%, 35 test rules, APK debug) |
+| 2026-11-09 | Fase 2 review akhir: perbaikan jadwal bulanan yang melorot ke tanggal 28, bunga bulanan vs jadwal mingguan, jatuh tempo hilang saat ubah nominal, tenor dikurangi di bawah cicilan terbayar, penulisan ditolak server kini dilaporkan, tulis hanya cicilan yang berubah, edit nama tidak menimpa data lain (466 test) |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |

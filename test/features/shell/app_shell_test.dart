@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:geuralunas/app/router.dart';
 import 'package:geuralunas/app/theme/app_theme.dart';
 import 'package:geuralunas/l10n/gen/app_localizations.dart';
+import 'package:geuralunas/repositories/debt_repository.dart';
+
+import '../../helpers/debt_fixtures.dart';
 
 Future<void> _pumpRouter(WidgetTester tester) {
   return tester.pumpWidget(
-    MaterialApp.router(
-      theme: AppTheme.light(),
-      locale: const Locale('id'),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      routerConfig: createRouter(),
+    RepositoryProvider<DebtRepository>.value(
+      value: FakeDebtRepository(),
+      child: MaterialApp.router(
+        theme: AppTheme.light(),
+        locale: const Locale('id'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        routerConfig: createRouter(),
+      ),
     ),
   );
 }
@@ -86,5 +93,29 @@ void main() {
       1,
     );
     expect(find.byKey(const Key('debts-page')), findsOneWidget);
+  });
+
+  testWidgets('Tambah hutang in the menu opens the debt form', (tester) async {
+    await _pumpRouter(tester);
+
+    await tester.tap(_navLabel('Tambah'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Tambah hutang'));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('debt-form-page')), findsOneWidget);
+  });
+
+  testWidgets('Catat pembayaran in the menu opens the debt picker', (
+    tester,
+  ) async {
+    await _pumpRouter(tester);
+
+    await tester.tap(_navLabel('Tambah'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Catat pembayaran'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Belum ada hutang aktif untuk dicatat.'), findsOneWidget);
   });
 }

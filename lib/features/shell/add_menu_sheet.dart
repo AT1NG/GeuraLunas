@@ -1,8 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:geuralunas/l10n/l10n.dart';
+import 'dart:async';
 
-/// Shows the quick-add menu. Entries are wired up in later phases; for now
-/// each one just closes the sheet.
+import 'package:flutter/material.dart';
+import 'package:geuralunas/features/payments/view/debt_picker_sheet.dart';
+import 'package:geuralunas/l10n/l10n.dart';
+import 'package:go_router/go_router.dart';
+
+/// Shows the quick-add menu. "Tambah hutang" opens the debt form and
+/// "Catat pembayaran" the debt picker. "Catat pengeluaran" is wired in a later
+/// phase and for now just closes the sheet.
 Future<void> showAddMenu(BuildContext context) {
   return showModalBottomSheet<void>(
     context: context,
@@ -22,12 +27,18 @@ Future<void> showAddMenu(BuildContext context) {
             ListTile(
               leading: const Icon(Icons.payments_outlined),
               title: Text(l10n.addMenuPayment),
-              onTap: close,
+              onTap: () {
+                close();
+                unawaited(showDebtPicker(context));
+              },
             ),
             ListTile(
               leading: const Icon(Icons.request_quote_outlined),
               title: Text(l10n.addMenuDebt),
-              onTap: close,
+              onTap: () {
+                close();
+                unawaited(context.push('/debts/new'));
+              },
             ),
           ],
         ),
