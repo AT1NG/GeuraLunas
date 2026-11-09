@@ -16,7 +16,7 @@ Versi 0.1 · 2026-11-09
 | Unit — repository | Pemetaan DTO ↔ domain, validasi, atomik batch | `mocktail`, fake Firestore | ≥ 90% |
 | Bloc | Transisi state tiap event | `bloc_test` | ≥ 90% |
 | Widget | Layar utama, form, validasi, state kosong/error | `flutter_test` | ≥ 70% |
-| Security rules | Akses lintas pengguna, validasi field | Firebase Emulator | semua aturan |
+| Security rules | Akses lintas pengguna, validasi field | Firebase Emulator + `node:test` (`firebase/`) | semua aturan |
 | Integrasi/E2E | Alur: daftar → tambah hutang → bayar → lunas | `integration_test` | alur kritis |
 | Manual | Notifikasi di perangkat nyata, offline, restart | checklist | sebelum rilis |
 
@@ -61,7 +61,7 @@ Coverage keseluruhan ≥ 80%. File yang dikecualikan dari penyebut harus beralas
 
 ## 4. Security rules
 
-Dengan emulator: pengguna A tidak bisa membaca/menulis data B; pengguna anonim ditolak; `amount ≤ 0` ditolak; nilai enum tidak dikenal ditolak; `remaining < 0` ditolak.
+Dengan emulator Firestore dan runner JavaScript di `firebase/` (bukan `flutter test`): pengguna A tidak bisa membaca/menulis data B; pengguna anonim ditolak; `amount ≤ 0` ditolak; nilai enum tidak dikenal ditolak; `remaining < 0` ditolak.
 
 ## 5. Checklist manual sebelum rilis
 
@@ -79,7 +79,7 @@ Dengan emulator: pengguna A tidak bisa membaca/menulis data B; pengguna anonim d
 ```
 flutter analyze
 flutter test --coverage
-firebase emulators:exec "flutter test test/rules"   # security rules
+cd firebase && npm install && npm test        # security rules (butuh Java 17+)
 ```
 
 Untuk gerbang kualitas penuh gunakan skill `vgv-ai-flutter-plugin:green-gate`.

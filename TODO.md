@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Menunggu user mereview dokumen perencanaan (Fase 0), lalu mulai Fase 1.
+- Fase 2: rencana ada di docs/superpowers/plans/2026-11-09-phase2-debts-payments.md (menunggu persetujuan dan pilihan cara eksekusi). Fase 1: tinggal uji manual di perangkat (lihat docs/TESTING.md bagian 5).
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -23,14 +23,14 @@
 
 ## Fase 1 — Fondasi
 
-- [ ] Scaffold project Flutter (`vgv-ai-flutter-plugin:create-project`), package `com.geuralunas.app`
-- [ ] Setup lint `very_good_analysis`, struktur folder sesuai ARCHITECTURE
-- [ ] Buat project Firebase, daftarkan app Android, pasang `google-services.json`
-- [ ] Tema Material 3 (light/dark), format rupiah, lokalisasi `id`
-- [ ] Routing `go_router` dan kerangka navigasi bawah
-- [ ] Auth: Google Sign-In dan email+password (daftar, masuk, lupa password, keluar)
-- [ ] Firestore security rules awal dan test dengan emulator
-- [ ] Onboarding singkat dan layar pengaturan dasar
+- [x] Scaffold project Flutter (`vgv-ai-flutter-plugin:create-project`), package `com.geuralunas.app`
+- [x] Setup lint `very_good_analysis`, struktur folder sesuai ARCHITECTURE
+- [x] Buat project Firebase, daftarkan app Android, pasang `google-services.json`
+- [x] Tema Material 3 (light/dark), format rupiah, lokalisasi `id`
+- [x] Routing `go_router` dan kerangka navigasi bawah
+- [x] Auth: Google Sign-In dan email+password (daftar, masuk, lupa password, keluar) (kode + test; uji di perangkat belum)
+- [x] Firestore security rules awal dan test dengan emulator (sudah di-deploy ke geuralunas-dev)
+- [x] Onboarding singkat dan layar pengaturan dasar
 
 ## Fase 2 — Hutang & pembayaran (US-01 s.d. US-05)
 
@@ -84,4 +84,17 @@
 | 2026-11-09 | Keputusan: denda manual, siklus budget pilihan user, ekspor CSV masuk (US-14) |
 | 2026-11-09 | `docs/DIAGRAMS.md` dibuat (10 diagram Mermaid) |
 | 2026-11-09 | Diagram dirender ke PNG (`docs/diagrams/`) agar tampil di semua penampil Markdown |
+| 2026-11-09 | Fase 1 Task 1: scaffold Flutter, lint very_good_analysis, smoke test |
+| 2026-11-09 | Fase 1 Task 2: Money dan formatter rupiah/tanggal (12 test) |
+| 2026-11-09 | Fase 1 Task 3: tema Material 3, lokalisasi id, helper pumpApp |
+| 2026-11-09 | Fase 1 Task 4: go_router + shell navigasi bawah 5 tab (6 widget test) |
+| 2026-11-09 | Fase 1 Task 5: project Firebase geuralunas-dev, Auth (Google + email) dan Firestore aktif, google-services.json memuat OAuth client |
+| 2026-11-09 | Fase 1 Task 6: logika auth (validator, AuthRepository, AuthBloc, Login/Register/ForgotPassword cubit; 60 test hijau). UI auth di Task 8 |
+| 2026-11-09 | Fase 1 Task 7: onboarding 3 slide dengan flag tersimpan (shared_preferences), 69 test hijau |
+| 2026-11-09 | Fase 1 Task 8: layar splash/login/daftar/lupa password, redirect berbasis auth+onboarding (102 test hijau). Uji manual di perangkat belum dilakukan; item Auth tetap terbuka sampai tombol keluar (Task 10) |
+| 2026-11-09 | Fase 1 Task 9: firestore.rules v2 (profil tervalidasi, subkoleksi hanya pemilik) + 12 test emulator |
+| 2026-11-09 | Fase 1 Task 10: profil users/{uid} dibuat saat login pertama (gagal tidak memblokir), layar Pengaturan + keluar dengan konfirmasi, tile Lainnya (110 test hijau) |
+| 2026-11-09 | Fase 1 Task 11: gerbang kualitas (analyze bersih, 113 test, coverage domain 100% / bloc 99% / total 93%), ADR-012, CHANGELOG |
+| 2026-11-09 | Fase 1 review akhir: perbaikan nama hilang setelah daftar, emit pada cubit tertutup, error Google yang membuat spinner macet (124 test hijau) |
+| 2026-11-09 | Fase 1 penutup: rules diperketat (createdAt server, batas panjang) dan di-deploy ke geuralunas-dev; sign-out Google tahan error; splash tak menggantung; test layar HP skala teks 2.0 dan cold start (131 test, 18 test rules) |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |

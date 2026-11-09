@@ -1,0 +1,13 @@
+{
+  "name": "geuralunas-rules-tests",
+  "private": true,
+  "description": "Firestore security rules tests (run against the local emulator)",
+  "scripts": {
+    "test": "firebase emulators:exec --only firestore --project geuralunas-dev \"node --test test/*.test.js\""
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^4.0.1",
+    "firebase": "^11.0.0",
+    "firebase-admin": "^13.0.0"
+  }
+}

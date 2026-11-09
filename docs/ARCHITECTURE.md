@@ -125,5 +125,5 @@ Versi 1: tanpa analitik pihak ketiga. Crash reporting (Firebase Crashlytics) dip
 
 - Dev: project Firebase `geuralunas-dev`, emulator untuk test rules.
 - Prod: project Firebase `geuralunas-prod`.
-- Flavor Android `dev` dan `prod`.
+- Flavor Android `dev` dan `prod`: ditunda ke Fase 6 (lihat ADR-012). Fase 1 memakai satu project, `geuralunas-dev`.
 - CI (opsional, Fase 6): `flutter analyze`, `flutter test`, format check.

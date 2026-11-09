@@ -136,20 +136,17 @@ ID = bulan siklus (`2026-11`), mengikuti `budgetCycleStartDay`.
 | expenses | `categoryId` ASC, `spentAt` DESC | per kategori |
 | collectionGroup installments | `status` ASC, `dueDate` ASC | cicilan bulan ini |
 
-## 5. Security rules (draf)
+## 5. Security rules
 
-```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /users/{uid}/{document=**} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
-    }
-  }
-}
-```
+Berkas: [`firestore.rules`](../firestore.rules). Diuji dengan emulator (`firebase/test/rules.test.js`).
 
-Penguatan di Fase 1 (diuji dengan emulator): validasi tipe field, `amount > 0`, `direction`/`kind`/`status` hanya nilai yang diizinkan, `remaining >= 0`, batas panjang string.
+**Fase 1 (berlaku):**
+- Semua akses ditolak jika belum login atau `request.auth.uid` bukan pemilik `users/{uid}`.
+- Dokumen `users/{uid}` (profil): tulis hanya dengan kunci `displayName` (≤ 100 karakter), `email` (≤ 254), `createdAt`, `settings`. `createdAt` harus waktu server saat dibuat dan tidak boleh diubah sesudahnya. Di `settings`: `reminderTime` berformat `HH:mm`, `reminderDaysBefore` daftar bilangan bulat 0–7 (maksimal 8 isi), `budgetCycleStartDay` bilangan bulat 1–28, `timezone` string (≤ 64).
+- Subkoleksi `users/{uid}/{koleksi}/...`: hanya pemilik; belum divalidasi per field.
+- Dokumen di luar `users/`: ditolak.
+
+**Menyusul per fase:** validasi tiap subkoleksi saat koleksinya dibuat (Fase 2 dst.): tipe field, `amount > 0`, nilai `direction`/`kind`/`status` yang diizinkan, `remaining >= 0`, batas panjang string.
 
 ## 6. Rumus turunan
 
