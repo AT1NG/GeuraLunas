@@ -232,6 +232,76 @@ void main() {
     expect(find.textContaining('Lunas!'), findsOneWidget);
   });
 
+  group('Tagih', () {
+    Debt receivable({
+      DebtStatus status = DebtStatus.active,
+      int remaining = 150000,
+    }) => makeDebt(
+      name: 'Budi',
+      direction: DebtDirection.lent,
+      kind: DebtKind.personal,
+      status: status,
+      total: 200000,
+      remaining: remaining,
+      nextDue: DateTime(2099, 12, 31),
+    );
+
+    testWidgets('an active receivable can be collected', (tester) async {
+      await _pump(tester, FakeDebtRepository(debts: [receivable()]));
+      await tester.pumpAndSettle();
+
+      expect(key('debt-collect'), findsOneWidget);
+    });
+
+    testWidgets('the sheet carries the remaining amount and due date', (
+      tester,
+    ) async {
+      await _pump(tester, FakeDebtRepository(debts: [receivable()]));
+      await tester.pumpAndSettle();
+
+      await tester.ensureVisible(key('debt-collect'));
+      await tester.tap(key('debt-collect'));
+      await tester.pumpAndSettle();
+
+      final text = tester
+          .widget<TextField>(key('collection-message'))
+          .controller!
+          .text;
+      expect(text, contains('Rp150.000'));
+      expect(text, isNot(contains('Rp200.000')));
+      expect(text, contains('31 Des 2099'));
+    });
+
+    testWidgets('a debt I owe has no Tagih', (tester) async {
+      await _pump(tester, FakeDebtRepository(debts: [debt600of900()]));
+      await tester.pumpAndSettle();
+
+      expect(key('debt-collect'), findsNothing);
+    });
+
+    testWidgets('a settled receivable has no Tagih', (tester) async {
+      await _pump(
+        tester,
+        FakeDebtRepository(
+          debts: [receivable(status: DebtStatus.settled, remaining: 0)],
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(key('debt-collect'), findsNothing);
+    });
+
+    testWidgets('an archived receivable has no Tagih', (tester) async {
+      await _pump(
+        tester,
+        FakeDebtRepository(debts: [receivable(status: DebtStatus.archived)]),
+      );
+      await tester.pumpAndSettle();
+
+      expect(key('debt-collect'), findsNothing);
+    });
+  });
+
   testWidgets('a debt that does not exist shows a message', (tester) async {
     await _pump(tester, FakeDebtRepository(), id: 'nope');
     await tester.pumpAndSettle();

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geuralunas/app/theme/spacing.dart';
 import 'package:geuralunas/domain/auth/app_user.dart';
 import 'package:geuralunas/features/auth/bloc/auth_bloc.dart';
+import 'package:geuralunas/features/settings/view/reminder_settings_section.dart';
 import 'package:geuralunas/l10n/l10n.dart';
 
 /// Account info and sign-out.
@@ -57,6 +58,10 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: Spacing.md),
+            if (user != null) ...[
+              ReminderSettingsSection(uid: user.uid),
+              const SizedBox(height: Spacing.md),
+            ],
             OutlinedButton.icon(
               key: const Key('settings-sign-out'),
               onPressed: () => _confirmSignOut(context),

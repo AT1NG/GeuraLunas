@@ -20,4 +20,22 @@ class UserProfileDataSource {
   /// Writes the profile document.
   Future<void> create(String uid, Map<String, Object?> data) =>
       _doc(uid).set(data);
+
+  /// The `settings` map of the profile, or null while there is none.
+  Stream<Map<String, Object?>?> watchSettings(String uid) =>
+      _doc(uid).snapshots().map((s) {
+        final settings = s.data()?['settings'];
+        return settings is Map ? Map<String, Object?>.from(settings) : null;
+      });
+
+  /// Changes only the reminder time and days; the rest of the profile and its
+  /// settings stay as they are.
+  Future<void> updateReminderSettings(
+    String uid, {
+    required String time,
+    required List<int> daysBefore,
+  }) => _doc(uid).update({
+    'settings.reminderTime': time,
+    'settings.reminderDaysBefore': daysBefore,
+  });
 }

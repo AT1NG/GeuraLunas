@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:geuralunas/data/user_profile_data_source.dart';
 import 'package:geuralunas/domain/auth/app_user.dart';
+import 'package:geuralunas/domain/reminder/reminder_settings.dart';
 import 'package:geuralunas/repositories/user_profile_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -10,6 +11,7 @@ class _MockDataSource extends Mock implements UserProfileDataSource {}
 const _user = AppUser(uid: 'u1', email: 'rani@mail.com', displayName: 'Rani');
 
 void main() {
+  settingsTests();
   late _MockDataSource ds;
   late UserProfileRepositoryImpl repo;
 
@@ -81,5 +83,113 @@ void main() {
         verify(() => ds.create('u2', captureAny())).captured.single
             as Map<String, Object?>;
     expect(captured.containsKey('displayName'), isFalse);
+  });
+}
+
+class _SettingsHarness {
+  _SettingsHarness() {
+    ds = _MockDataSource();
+    repo = UserProfileRepositoryImpl(ds);
+  }
+
+  late final _MockDataSource ds;
+  late final UserProfileRepositoryImpl repo;
+
+  Future<ReminderSettings> read(Map<String, Object?>? settings) {
+    when(
+      () => ds.watchSettings('u1'),
+    ).thenAnswer((_) => Stream.value(settings));
+    return repo.watchReminderSettings('u1').first;
+  }
+}
+
+void settingsTests() {
+  group('reminder settings', () {
+    test('reads stored time, days and zone', () async {
+      final s = await _SettingsHarness().read({
+        'reminderTime': '07:30',
+        'reminderDaysBefore': [2, 0],
+      });
+      expect(
+        s,
+        const ReminderSettings(
+          hour: 7,
+          minute: 30,
+          daysBefore: [2, 0],
+          timezone: 'Asia/Jakarta',
+        ),
+      );
+    });
+
+    test('reads a stored timezone', () async {
+      final s = await _SettingsHarness().read({
+        'reminderTime': '07:30',
+        'reminderDaysBefore': [2, 0],
+        'timezone': 'Asia/Makassar',
+      });
+      expect(s.timezone, 'Asia/Makassar');
+    });
+
+    test('falls back to defaults when missing or empty', () async {
+      expect(await _SettingsHarness().read(null), ReminderSettings.defaults);
+      expect(await _SettingsHarness().read({}), ReminderSettings.defaults);
+    });
+
+    test('falls back to defaults for a malformed time', () async {
+      final s = await _SettingsHarness().read({
+        'reminderTime': 'xx',
+        'reminderDaysBefore': [2, 0],
+      });
+      expect(s, ReminderSettings.defaults);
+    });
+
+    test('falls back to defaults for invalid days', () async {
+      final s = await _SettingsHarness().read({
+        'reminderTime': '07:30',
+        'reminderDaysBefore': [9],
+      });
+      expect(s, ReminderSettings.defaults);
+    });
+
+    test('saves time as HH:mm', () async {
+      final h = _SettingsHarness();
+      when(
+        () => h.ds.updateReminderSettings(
+          any(),
+          time: any(named: 'time'),
+          daysBefore: any(named: 'daysBefore'),
+        ),
+      ).thenAnswer((_) async {});
+
+      await h.repo.saveReminderSettings(
+        'u1',
+        const ReminderSettings(
+          hour: 7,
+          minute: 5,
+          daysBefore: [1],
+          timezone: 'Asia/Jakarta',
+        ),
+      );
+
+      verify(
+        () => h.ds.updateReminderSettings(
+          'u1',
+          time: '07:05',
+          daysBefore: [1],
+        ),
+      ).called(1);
+    });
+
+    test('refuses invalid days without touching the data source', () {
+      final h = _SettingsHarness();
+      expect(
+        () => h.repo.saveReminderSettings(
+          'u1',
+          ReminderSettings.defaults.copyWith(daysBefore: []),
+        ),
+        throwsArgumentError,
+      );
+      verifyZeroInteractions(h.ds);
+    });
   });
 }

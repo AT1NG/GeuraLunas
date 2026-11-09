@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:geuralunas/features/auth/bloc/auth_bloc.dart';
 import 'package:geuralunas/features/settings/view/settings_page.dart';
+import 'package:geuralunas/repositories/reminder_repository.dart';
+import 'package:geuralunas/repositories/user_profile_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/fakes.dart';
@@ -33,7 +35,22 @@ void main() {
     tester,
     const SettingsPage(),
     providers: [BlocProvider<AuthBloc>.value(value: bloc)],
+    repositories: [
+      RepositoryProvider<UserProfileRepository>.value(
+        value: FakeUserProfileRepository(),
+      ),
+      RepositoryProvider<ReminderRepository>.value(
+        value: FakeReminderRepository(),
+      ),
+    ],
   );
+
+  testWidgets('shows the reminder settings above sign out', (tester) async {
+    await pump(tester);
+
+    expect(find.text('Pengingat bayar'), findsOneWidget);
+    expect(find.byKey(const Key('reminder-day-3')), findsOneWidget);
+  });
 
   testWidgets('shows name and email', (tester) async {
     await pump(tester);

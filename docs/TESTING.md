@@ -65,9 +65,13 @@ Dengan emulator Firestore dan runner JavaScript di `firebase/` (bukan `flutter t
 
 ## 5. Checklist manual sebelum rilis
 
-- [ ] Notifikasi muncul H-3, H-1, hari-H tanpa internet
+- [ ] Notifikasi muncul tepat waktu (jam pengingat dimajukan dua menit ke depan), tanpa internet
 - [ ] Notifikasi tetap terjadwal setelah restart HP
-- [ ] Notifikasi berhenti setelah cicilan dibayar
+- [ ] Notifikasi berikutnya hilang setelah cicilan dibayar
+- [ ] Ketuk notifikasi membuka detail hutang yang benar (app mati dan app berjalan)
+- [ ] Izin notifikasi ditolak lalu diizinkan dari Pengaturan; matikan alarm tepat: catatan "meleset" tampil
+- [ ] Keluar akun: tidak ada notifikasi tersisa; masuk akun lain: hanya hutang akun itu
+- [ ] Piutang aktif: tombol Tagih membuka teks sopan, bisa diedit, dan membuka share sheet
 - [ ] Mode pesawat: tambah hutang & bayar, lalu online → tersinkron
 - [ ] Login Google dan email, reset password
 - [ ] Data muncul setelah masuk di HP lain

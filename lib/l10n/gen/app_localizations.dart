@@ -1197,6 +1197,156 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Perubahan terakhir belum bisa disimpan ke server dan dibatalkan. Coba lagi ya.'**
   String get writeRejected;
+
+  /// No description provided for @reminderTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Cicilan jatuh tempo'**
+  String get reminderTitle;
+
+  /// No description provided for @reminderBody.
+  ///
+  /// In id, this message translates to:
+  /// **'Cicilan {name} {amount} jatuh tempo {when}.'**
+  String reminderBody(String name, String amount, String when);
+
+  /// No description provided for @reminderWhenToday.
+  ///
+  /// In id, this message translates to:
+  /// **'hari ini'**
+  String get reminderWhenToday;
+
+  /// No description provided for @reminderWhenTomorrow.
+  ///
+  /// In id, this message translates to:
+  /// **'besok'**
+  String get reminderWhenTomorrow;
+
+  /// No description provided for @reminderWhenInDays.
+  ///
+  /// In id, this message translates to:
+  /// **'dalam {days} hari'**
+  String reminderWhenInDays(int days);
+
+  /// No description provided for @collectionBeforeDue.
+  ///
+  /// In id, this message translates to:
+  /// **'Halo {name}, mau mengingatkan pinjaman {amount} yang jatuh tempo tanggal {date}. Kapan kira-kira bisa dibayar? Terima kasih ya.'**
+  String collectionBeforeDue(String name, String amount, String date);
+
+  /// No description provided for @collectionAfterDue.
+  ///
+  /// In id, this message translates to:
+  /// **'Halo {name}, mau mengingatkan pinjaman {amount} yang jatuh tempo tanggal {date} lalu. Kapan kira-kira bisa dibayar? Terima kasih ya.'**
+  String collectionAfterDue(String name, String amount, String date);
+
+  /// No description provided for @collectionNoDue.
+  ///
+  /// In id, this message translates to:
+  /// **'Halo {name}, mau mengingatkan soal pinjaman {amount}. Kapan kira-kira bisa dibayar? Terima kasih ya.'**
+  String collectionNoDue(String name, String amount);
+
+  /// No description provided for @settingsReminderTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Pengingat bayar'**
+  String get settingsReminderTitle;
+
+  /// No description provided for @settingsReminderTime.
+  ///
+  /// In id, this message translates to:
+  /// **'Jam pengingat'**
+  String get settingsReminderTime;
+
+  /// No description provided for @settingsReminderDays.
+  ///
+  /// In id, this message translates to:
+  /// **'Ingatkan sebelum jatuh tempo'**
+  String get settingsReminderDays;
+
+  /// No description provided for @settingsReminderDayChip.
+  ///
+  /// In id, this message translates to:
+  /// **'H-{n}'**
+  String settingsReminderDayChip(int n);
+
+  /// No description provided for @settingsReminderDaysHint.
+  ///
+  /// In id, this message translates to:
+  /// **'Pilih satu atau lebih. H-0 berarti di hari jatuh tempo.'**
+  String get settingsReminderDaysHint;
+
+  /// No description provided for @settingsNotificationsOff.
+  ///
+  /// In id, this message translates to:
+  /// **'Notifikasi dimatikan, jadi pengingat belum bisa muncul.'**
+  String get settingsNotificationsOff;
+
+  /// No description provided for @settingsNotificationsAllow.
+  ///
+  /// In id, this message translates to:
+  /// **'Izinkan'**
+  String get settingsNotificationsAllow;
+
+  /// No description provided for @settingsExactAlarmsOff.
+  ///
+  /// In id, this message translates to:
+  /// **'Pengingat bisa meleset beberapa menit.'**
+  String get settingsExactAlarmsOff;
+
+  /// No description provided for @settingsExactAlarmsOpen.
+  ///
+  /// In id, this message translates to:
+  /// **'Buka pengaturan'**
+  String get settingsExactAlarmsOpen;
+
+  /// No description provided for @settingsBatteryHelp.
+  ///
+  /// In id, this message translates to:
+  /// **'Kalau notifikasi tidak muncul, matikan penghemat baterai untuk GeuraLunas.'**
+  String get settingsBatteryHelp;
+
+  /// No description provided for @detailCollect.
+  ///
+  /// In id, this message translates to:
+  /// **'Tagih'**
+  String get detailCollect;
+
+  /// No description provided for @collectionSheetTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Tagih dengan sopan'**
+  String get collectionSheetTitle;
+
+  /// No description provided for @collectionSheetHint.
+  ///
+  /// In id, this message translates to:
+  /// **'Kamu bisa ubah pesannya sebelum dibagikan.'**
+  String get collectionSheetHint;
+
+  /// No description provided for @collectionMessageLabel.
+  ///
+  /// In id, this message translates to:
+  /// **'Pesan'**
+  String get collectionMessageLabel;
+
+  /// No description provided for @collectionShare.
+  ///
+  /// In id, this message translates to:
+  /// **'Bagikan'**
+  String get collectionShare;
+
+  /// No description provided for @collectionCopy.
+  ///
+  /// In id, this message translates to:
+  /// **'Salin'**
+  String get collectionCopy;
+
+  /// No description provided for @collectionCopied.
+  ///
+  /// In id, this message translates to:
+  /// **'Pesan disalin'**
+  String get collectionCopied;
 }
 
 class _AppLocalizationsDelegate

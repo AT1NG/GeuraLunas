@@ -9,6 +9,7 @@ Future<void> pumpApp(
   WidgetTester tester,
   Widget child, {
   List<BlocProvider<dynamic>> providers = const [],
+  List<RepositoryProvider<dynamic>> repositories = const [],
 }) {
   final app = MaterialApp(
     theme: AppTheme.light(),
@@ -18,9 +19,12 @@ Future<void> pumpApp(
     supportedLocales: AppLocalizations.supportedLocales,
     home: child,
   );
+  final withBlocs = providers.isEmpty
+      ? app
+      : MultiBlocProvider(providers: providers, child: app);
   return tester.pumpWidget(
-    providers.isEmpty
-        ? app
-        : MultiBlocProvider(providers: providers, child: app),
+    repositories.isEmpty
+        ? withBlocs
+        : MultiRepositoryProvider(providers: repositories, child: withBlocs),
   );
 }

@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:geuralunas/app/app.dart';
 import 'package:geuralunas/l10n/l10n.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helpers/debt_fixtures.dart';
 import '../helpers/fakes.dart';
+
+late SharedPreferences prefs;
 
 Widget _app({
   FakeAuthRepository? auth,
@@ -14,9 +17,16 @@ Widget _app({
   onboardingRepository: onboarding ?? FakeOnboardingRepository(),
   userProfileRepository: FakeUserProfileRepository(),
   debtRepository: FakeDebtRepository(),
+  reminderRepository: FakeReminderRepository(),
+  prefs: prefs,
 );
 
 void main() {
+  setUp(() async {
+    SharedPreferences.setMockInitialValues({});
+    prefs = await SharedPreferences.getInstance();
+  });
+
   testWidgets('App builds a MaterialApp', (tester) async {
     await tester.pumpWidget(_app());
 
@@ -86,6 +96,28 @@ void main() {
     expect(find.byKey(const Key('login-page')), findsOneWidget);
   });
 
+  testWidgets('signing out cancels every scheduled reminder', (tester) async {
+    final auth = FakeAuthRepository(initialUser: testUser);
+    final reminders = FakeReminderRepository();
+    await tester.pumpWidget(
+      App(
+        authRepository: auth,
+        onboardingRepository: FakeOnboardingRepository(),
+        userProfileRepository: FakeUserProfileRepository(),
+        debtRepository: FakeDebtRepository(),
+        reminderRepository: reminders,
+        prefs: prefs,
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(reminders.calls, isNot(contains('cancel')));
+
+    auth.emit(null);
+    await tester.pumpAndSettle();
+
+    expect(reminders.calls, contains('cancel'));
+  });
+
   testWidgets('cold start shows splash, never login, until auth is known', (
     tester,
   ) async {
@@ -113,6 +145,8 @@ void main() {
         onboardingRepository: FakeOnboardingRepository(),
         userProfileRepository: FakeUserProfileRepository(),
         debtRepository: debts,
+        reminderRepository: FakeReminderRepository(),
+        prefs: prefs,
       ),
     );
     await tester.pumpAndSettle();
