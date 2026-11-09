@@ -41,15 +41,20 @@ class ReminderRepositoryImpl implements ReminderRepository {
     required UserProfileRepository profiles,
     required NotificationDataSource notifications,
     required String? Function() currentUid,
+    Duration timeout = const Duration(seconds: 20),
   }) : _debts = debts,
        _profiles = profiles,
        _notifications = notifications,
-       _currentUid = currentUid;
+       _currentUid = currentUid,
+       _timeout = timeout;
 
   final DebtRepository _debts;
   final UserProfileRepository _profiles;
   final NotificationDataSource _notifications;
   final String? Function() _currentUid;
+
+  // A stream that never answers would block every later reschedule behind it.
+  final Duration _timeout;
 
   // Cancel-then-schedule must never interleave with another run, or a stale
   // plan could land after a fresh one.
@@ -68,15 +73,21 @@ class ReminderRepositoryImpl implements ReminderRepository {
     final uid = _currentUid();
     if (uid == null) return 0;
     try {
-      final settings = await _profiles.watchReminderSettings(uid).first;
-      final debts = await _debts.watchDebts().first;
+      final settings = await _profiles
+          .watchReminderSettings(uid)
+          .first
+          .timeout(_timeout);
+      final debts = await _debts.watchDebts().first.timeout(_timeout);
       final states = <DebtState>[];
       for (final debt in debts) {
         if (debt.direction != DebtDirection.owe ||
             debt.status != DebtStatus.active) {
           continue;
         }
-        final installments = await _debts.watchInstallments(debt.id).first;
+        final installments = await _debts
+            .watchInstallments(debt.id)
+            .first
+            .timeout(_timeout);
         states.add(DebtState(debt: debt, installments: installments));
       }
       final plans = planReminders(

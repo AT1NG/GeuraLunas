@@ -136,6 +136,28 @@ void main() {
     expect(await repo.rescheduleAll(), 0);
   });
 
+  test(
+    'a stream that never answers gives up and the next call works',
+    () async {
+      var hang = true;
+      when(() => debts.watchDebts()).thenAnswer(
+        (_) => hang ? const Stream<List<Debt>>.empty() : Stream.value(<Debt>[]),
+      );
+      final impatient = ReminderRepositoryImpl(
+        debts: debts,
+        profiles: profiles,
+        notifications: notifications,
+        currentUid: () => 'u1',
+        timeout: const Duration(milliseconds: 50),
+      );
+
+      expect(await impatient.rescheduleAll(), 0);
+      hang = false;
+      expect(await impatient.rescheduleAll(), 0);
+      expect(events, ['C', 'S']);
+    },
+  );
+
   test('does nothing without a signed in user', () async {
     final signedOut = ReminderRepositoryImpl(
       debts: debts,

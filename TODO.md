@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 3: kode dan uji manual di emulator selesai. Berikutnya: push `phase-3-reminders`, buka PR (atas permintaan user).
+- Fase 3 sudah di-merge (PR #3). Menunggu merge: PR #4 (fix `ensureProfile`) dan cabang `fix-phase-3-minors` (minor M3, M4). Sisa uji manual: Google Sign-In sukses (perlu akun Google di emulator).
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -112,3 +112,5 @@
 | 2026-11-10 | Fase 3 (US-06, US-07): domain pengingat, teks, pengaturan profil, NotificationDataSource + konfigurasi Android, ReminderRepository serial, ReminderCoordinator, UI pengaturan, tombol Tagih, ADR-014/015 (558 test hijau, analyze bersih, coverage domain 100% / total 95.6%). Uji manual di emulator belum |
 | 2026-11-10 | Fase 3 review akhir: jam pengingat kini memakai zona waktu perangkat (bukan Asia/Jakarta tetap), izin notifikasi diminta saat pengguna mengubah hutang, bukan saat app dibuka (560 test hijau) |
 | 2026-11-10 | Fase 3 uji manual di emulator Pixel_API34 (akun uji sementara, sudah dihapus dari Auth dan Firestore): izin ditolak lalu diizinkan, alarm tepat muncul pas 01:37 dengan app di latar, ketuk membuka detail, ubah jam menjadwalkan ulang, bayar menghapus alarm dan batalkan bayar memulihkannya, alarm bertahan setelah reboot (mode inexact), keluar akun membersihkan alarm, Tagih membuka teks sopan dan share sheet. Catatan: izin alarm tepat via appops kembali default setelah reboot emulator, jadwal exact lama tidak pulih sampai app dibuka |
+| 2026-11-10 | Fase 3 uji manual tambahan di emulator Pixel_API34 (akun uji sementara, sudah dihapus dari Auth dan Firestore): ketuk notifikasi saat proses app mati (kill -9, alarm tetap) membuka detail yang benar (cold start murni), alarm tepat berbunyi tanpa app berjalan, Tandai lunas (dialog, status Lunas, riwayat Ditandai lunas, alarm tertunda jadi 0), Arsipkan (hilang dari daftar Aktif dan Lunas) |
+| 2026-11-10 | Fase 3 minor dari review: error pada stream hutang di coordinator tidak lagi crash (M4), pembacaan data pengingat punya batas waktu 20 detik agar antrean tidak macet (M3). 562 test hijau, analyze bersih |

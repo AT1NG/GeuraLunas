@@ -94,6 +94,20 @@ void main() {
     expect(debtSubscriptions, 0);
   });
 
+  test('an error on the debt stream does not stop later reschedules', () async {
+    await prefs.setBool('reminderPermissionAsked', true);
+    signedIn.add(true);
+    await settle();
+    reminders.calls.clear();
+
+    debtChanges.addError(Exception('offline'));
+    await settle();
+    debtChanges.add(1);
+    await settle();
+
+    expect(reminders.calls, ['reschedule']);
+  });
+
   test('onResumed reschedules only when signed in', () async {
     coordinator.onResumed();
     await settle();
