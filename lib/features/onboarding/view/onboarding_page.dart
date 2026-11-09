@@ -34,8 +34,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
     }
     unawaited(
       _controller.nextPage(
-      duration: const Duration(milliseconds: 250),
-      curve: Curves.easeOut,
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeOut,
+      ),
     );
   }
 
