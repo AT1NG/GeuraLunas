@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Menunggu user mereview dokumen perencanaan (Fase 0), lalu mulai Fase 1.
+- Fase 1 Task 2: `Money` dan formatter (lihat docs/superpowers/plans/2026-11-09-phase1-foundation.md).
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -23,8 +23,8 @@
 
 ## Fase 1 — Fondasi
 
-- [ ] Scaffold project Flutter (`vgv-ai-flutter-plugin:create-project`), package `com.geuralunas.app`
-- [ ] Setup lint `very_good_analysis`, struktur folder sesuai ARCHITECTURE
+- [x] Scaffold project Flutter (`vgv-ai-flutter-plugin:create-project`), package `com.geuralunas.app`
+- [x] Setup lint `very_good_analysis`, struktur folder sesuai ARCHITECTURE
 - [ ] Buat project Firebase, daftarkan app Android, pasang `google-services.json`
 - [ ] Tema Material 3 (light/dark), format rupiah, lokalisasi `id`
 - [ ] Routing `go_router` dan kerangka navigasi bawah
@@ -84,4 +84,5 @@
 | 2026-11-09 | Keputusan: denda manual, siklus budget pilihan user, ekspor CSV masuk (US-14) |
 | 2026-11-09 | `docs/DIAGRAMS.md` dibuat (10 diagram Mermaid) |
 | 2026-11-09 | Diagram dirender ke PNG (`docs/diagrams/`) agar tampil di semua penampil Markdown |
+| 2026-11-09 | Fase 1 Task 1: scaffold Flutter, lint very_good_analysis, smoke test |
 | 2026-11-09 | Nama final ditetapkan: GeuraLunas (`com.geuralunas.app`), dokumen diperbarui |

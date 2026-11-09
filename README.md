@@ -31,9 +31,18 @@ Flutter (Android dulu), Firebase Auth (Google + email), Cloud Firestore, notifik
 | [docs/DECISIONS.md](docs/DECISIONS.md) | Keputusan teknis |
 | [CHANGELOG.md](CHANGELOG.md) | Riwayat perubahan |
 
-## Menjalankan (setelah Fase 1)
+## Menjalankan
 
-Langkah akan diisi saat scaffold project dibuat. Prasyarat yang sudah pasti: Flutter SDK, Android Studio/emulator, project Firebase, dan `google-services.json`.
+Prasyarat: Flutter 3.41+ (Dart 3.11+), Android SDK dengan lisensi diterima (`flutter doctor --android-licenses`), emulator atau HP Android.
+
+```
+flutter pub get
+flutter run
+flutter analyze
+flutter test
+```
+
+Konfigurasi Firebase ditambahkan di Fase 1 Task 5 (langkah akan dicatat di sini).
 
 ## Catatan
 
