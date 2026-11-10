@@ -1461,6 +1461,78 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Tanpa kategori'**
   String get budgetUncategorized;
+
+  /// No description provided for @categoriesTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Kategori'**
+  String get categoriesTitle;
+
+  /// No description provided for @categoriesAdd.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambah kategori'**
+  String get categoriesAdd;
+
+  /// No description provided for @categoriesRename.
+  ///
+  /// In id, this message translates to:
+  /// **'Ubah nama'**
+  String get categoriesRename;
+
+  /// No description provided for @categoriesNameLabel.
+  ///
+  /// In id, this message translates to:
+  /// **'Nama kategori'**
+  String get categoriesNameLabel;
+
+  /// No description provided for @categoriesNameEmpty.
+  ///
+  /// In id, this message translates to:
+  /// **'Isi nama kategorinya dulu ya.'**
+  String get categoriesNameEmpty;
+
+  /// No description provided for @categoriesNameTooLong.
+  ///
+  /// In id, this message translates to:
+  /// **'Nama kategori paling panjang 50 huruf.'**
+  String get categoriesNameTooLong;
+
+  /// No description provided for @categoriesIcon.
+  ///
+  /// In id, this message translates to:
+  /// **'Ikon'**
+  String get categoriesIcon;
+
+  /// No description provided for @categoriesColor.
+  ///
+  /// In id, this message translates to:
+  /// **'Warna'**
+  String get categoriesColor;
+
+  /// No description provided for @categoriesArchive.
+  ///
+  /// In id, this message translates to:
+  /// **'Arsipkan'**
+  String get categoriesArchive;
+
+  /// No description provided for @categoriesRestore.
+  ///
+  /// In id, this message translates to:
+  /// **'Pulihkan'**
+  String get categoriesRestore;
+
+  /// No description provided for @categoriesArchivedSection.
+  ///
+  /// In id, this message translates to:
+  /// **'Diarsipkan'**
+  String get categoriesArchivedSection;
+
+  /// No description provided for @categoriesSave.
+  ///
+  /// In id, this message translates to:
+  /// **'Simpan'**
+  String get categoriesSave;
 }
 
 class _AppLocalizationsDelegate

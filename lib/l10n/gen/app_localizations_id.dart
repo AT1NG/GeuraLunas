@@ -775,4 +775,40 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get budgetUncategorized => 'Tanpa kategori';
+
+  @override
+  String get categoriesTitle => 'Kategori';
+
+  @override
+  String get categoriesAdd => 'Tambah kategori';
+
+  @override
+  String get categoriesRename => 'Ubah nama';
+
+  @override
+  String get categoriesNameLabel => 'Nama kategori';
+
+  @override
+  String get categoriesNameEmpty => 'Isi nama kategorinya dulu ya.';
+
+  @override
+  String get categoriesNameTooLong => 'Nama kategori paling panjang 50 huruf.';
+
+  @override
+  String get categoriesIcon => 'Ikon';
+
+  @override
+  String get categoriesColor => 'Warna';
+
+  @override
+  String get categoriesArchive => 'Arsipkan';
+
+  @override
+  String get categoriesRestore => 'Pulihkan';
+
+  @override
+  String get categoriesArchivedSection => 'Diarsipkan';
+
+  @override
+  String get categoriesSave => 'Simpan';
 }

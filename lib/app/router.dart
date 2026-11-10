@@ -9,6 +9,7 @@ import 'package:geuralunas/features/auth/view/login_page.dart';
 import 'package:geuralunas/features/auth/view/register_page.dart';
 import 'package:geuralunas/features/auth/view/splash_page.dart';
 import 'package:geuralunas/features/budget/view/budget_page.dart';
+import 'package:geuralunas/features/budget/view/categories_page.dart';
 import 'package:geuralunas/features/debts/view/debt_detail_page.dart';
 import 'package:geuralunas/features/debts/view/debt_form_page.dart';
 import 'package:geuralunas/features/debts/view/debts_page.dart';
@@ -111,7 +112,16 @@ GoRouter createRouter({
               ),
             ],
           ),
-          _branch('/budget', const BudgetPage()),
+          _branch(
+            '/budget',
+            const BudgetPage(),
+            routes: [
+              GoRoute(
+                path: 'categories',
+                builder: (_, _) => const CategoriesPage(),
+              ),
+            ],
+          ),
           _branch(
             '/more',
             const MorePage(),

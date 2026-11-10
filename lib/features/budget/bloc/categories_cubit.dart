@@ -8,6 +8,12 @@ import 'package:geuralunas/repositories/category_repository.dart';
 /// Loading state of the category list.
 enum CategoriesStatus { loading, loaded, failure }
 
+/// Why a category name is not acceptable.
+enum CategoryNameError { empty, tooLong }
+
+/// The longest category name, in characters.
+const maxCategoryNameLength = 50;
+
 final class CategoriesState extends Equatable {
   const CategoriesState({
     this.status = CategoriesStatus.loading,
@@ -66,13 +72,33 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     );
   }
 
-  Future<void> add({
+  /// Adds a category; returns why the name was refused, or null when saved.
+  Future<CategoryNameError?> add({
     required String name,
     required String icon,
     required String colorHex,
-  }) => _repository.add(name: name, icon: icon, colorHex: colorHex);
+  }) async {
+    final clean = name.trim();
+    final error = _check(clean);
+    if (error != null) return error;
+    await _repository.add(name: clean, icon: icon, colorHex: colorHex);
+    return null;
+  }
 
-  Future<void> rename(String id, String name) => _repository.rename(id, name);
+  /// Renames a category; returns why the name was refused, or null when saved.
+  Future<CategoryNameError?> rename(String id, String name) async {
+    final clean = name.trim();
+    final error = _check(clean);
+    if (error != null) return error;
+    await _repository.rename(id, clean);
+    return null;
+  }
+
+  static CategoryNameError? _check(String name) {
+    if (name.isEmpty) return CategoryNameError.empty;
+    if (name.length > maxCategoryNameLength) return CategoryNameError.tooLong;
+    return null;
+  }
 
   Future<void> setArchived(String id, {required bool archived}) =>
       _repository.setArchived(id, archived: archived);

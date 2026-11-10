@@ -62,6 +62,49 @@ void main() {
       ]);
     },
   );
+
+  group('name validation', () {
+    test('a blank name is refused and nothing is written', () async {
+      final cubit = CategoriesCubit(repository);
+      final error = await cubit.add(
+        name: '   ',
+        icon: 'cake',
+        colorHex: '#112233',
+      );
+      expect(error, CategoryNameError.empty);
+      expect(await cubit.rename('makan', ''), CategoryNameError.empty);
+      expect(repository.calls, isEmpty);
+      await cubit.close();
+    });
+
+    test('a name over 50 characters is refused', () async {
+      final cubit = CategoriesCubit(repository);
+      final long = 'a' * 51;
+      expect(
+        await cubit.add(name: long, icon: 'cake', colorHex: '#112233'),
+        CategoryNameError.tooLong,
+      );
+      expect(await cubit.rename('makan', long), CategoryNameError.tooLong);
+      expect(repository.calls, isEmpty);
+      await cubit.close();
+    });
+
+    test('exactly 50 characters is fine and the name is trimmed', () async {
+      final fifty = 'a' * 50;
+      final cubit = CategoriesCubit(repository);
+      expect(
+        await cubit.add(
+          name: '  $fifty ',
+          icon: 'cake',
+          colorHex: '#112233',
+        ),
+        isNull,
+      );
+      expect(await cubit.rename('makan', ' Jajan '), isNull);
+      expect(repository.calls, ['add:$fifty', 'rename:makan:Jajan']);
+      await cubit.close();
+    });
+  });
 }
 
 class _FailingSeed extends FakeCategoryRepository {

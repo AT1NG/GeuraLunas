@@ -252,5 +252,17 @@
   "budgetDeleteBody": "Pengeluaran ini dihapus dari catatanmu.",
   "budgetDeleteConfirm": "Hapus",
   "budgetManageCategories": "Kelola kategori",
-  "budgetUncategorized": "Tanpa kategori"
+  "budgetUncategorized": "Tanpa kategori",
+  "categoriesTitle": "Kategori",
+  "categoriesAdd": "Tambah kategori",
+  "categoriesRename": "Ubah nama",
+  "categoriesNameLabel": "Nama kategori",
+  "categoriesNameEmpty": "Isi nama kategorinya dulu ya.",
+  "categoriesNameTooLong": "Nama kategori paling panjang 50 huruf.",
+  "categoriesIcon": "Ikon",
+  "categoriesColor": "Warna",
+  "categoriesArchive": "Arsipkan",
+  "categoriesRestore": "Pulihkan",
+  "categoriesArchivedSection": "Diarsipkan",
+  "categoriesSave": "Simpan"
 }
