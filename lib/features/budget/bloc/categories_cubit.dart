@@ -55,6 +55,9 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     } on Object {
       // Offline or rejected: show whatever the stream has.
     }
+    // The screen may have gone while the first read was pending; subscribing
+    // now would leak a listener that emits into a closed cubit.
+    if (isClosed) return;
     await _subscription?.cancel();
     _subscription = _repository.watchCategories().listen(
       (categories) => emit(

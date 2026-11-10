@@ -43,8 +43,34 @@ class BudgetPage extends StatelessWidget {
   }
 }
 
-class _BudgetView extends StatelessWidget {
+class _BudgetView extends StatefulWidget {
   const _BudgetView();
+
+  @override
+  State<_BudgetView> createState() => _BudgetViewState();
+}
+
+class _BudgetViewState extends State<_BudgetView> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  // The tab keeps its state while the app sleeps, so a new day (or month)
+  // would otherwise leave the list on the cycle it first opened with.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      context.read<ExpensesCubit>().refresh();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

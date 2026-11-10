@@ -78,6 +78,19 @@ void main() {
     expect(find.byKey(const Key('budget-page')), findsOneWidget);
   });
 
+  testWidgets('coming back to the app keeps the list working', (tester) async {
+    expenses = FakeExpenseRepository(initial: [expense('e1')]);
+    await pump(tester);
+
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('expense-row-e1')), findsOneWidget);
+    // Same day, same cycle: no second subscription.
+    expect(expenses.watched, hasLength(1));
+  });
+
   testWidgets('an empty cycle shows a friendly message', (tester) async {
     await pump(tester);
     expect(

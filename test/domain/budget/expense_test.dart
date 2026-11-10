@@ -13,13 +13,13 @@ Expense make({Money amount = const Money(25000), String? note}) => Expense(
 
 void main() {
   test('a zero amount is rejected', () {
-    expect(() => make(amount: Money.zero), throwsA(isA<AssertionError>()));
+    expect(() => make(amount: Money.zero), throwsArgumentError);
   });
 
   test('a negative amount is rejected', () {
     expect(
       () => make(amount: const Money(-5)),
-      throwsA(isA<AssertionError>()),
+      throwsArgumentError,
     );
   });
 

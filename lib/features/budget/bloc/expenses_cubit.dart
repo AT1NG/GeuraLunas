@@ -58,6 +58,13 @@ class ExpensesCubit extends Cubit<ExpensesState> {
   final int startDay;
   StreamSubscription<List<Expense>>? _subscription;
 
+  /// Follows a new cycle when the day has rolled over since [start]; does
+  /// nothing while the cycle is the same. Call it when the app comes back.
+  void refresh() {
+    if (BudgetCycle.of(_now(), startDay: startDay) == state.cycle) return;
+    start();
+  }
+
   void start() {
     final cycle = BudgetCycle.of(_now(), startDay: startDay);
     unawaited(_subscription?.cancel());

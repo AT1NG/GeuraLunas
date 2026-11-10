@@ -62,4 +62,30 @@ void main() {
     expect(repository.deleted, ['x1']);
     await cubit.close();
   });
+
+  group('refresh', () {
+    test('follows a new cycle when the day rolls over', () async {
+      var clock = DateTime(2026, 11, 30, 23, 50);
+      final cubit = ExpensesCubit(repository, now: () => clock)..start();
+      await Future<void>.delayed(Duration.zero);
+      expect(cubit.state.cycle?.id, '2026-11');
+
+      clock = DateTime(2026, 12, 1, 9);
+      cubit.refresh();
+      await Future<void>.delayed(Duration.zero);
+
+      expect(cubit.state.cycle?.id, '2026-12');
+      expect(repository.watched.map((c) => c.id), ['2026-11', '2026-12']);
+      await cubit.close();
+    });
+
+    test('does nothing while the cycle is the same', () async {
+      final cubit = ExpensesCubit(repository, now: () => now)..start();
+      await Future<void>.delayed(Duration.zero);
+      cubit.refresh();
+      await Future<void>.delayed(Duration.zero);
+      expect(repository.watched, hasLength(1));
+      await cubit.close();
+    });
+  });
 }

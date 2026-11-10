@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:geuralunas/domain/budget/category.dart';
@@ -63,6 +65,23 @@ void main() {
     },
   );
 
+  test(
+    'closing while the first read is pending leaves nothing running',
+    () async {
+      final slow = _SlowSeed();
+      final cubit = CategoriesCubit(slow);
+      final started = cubit.start();
+      await cubit.close();
+      slow.finish();
+      await started;
+
+      // A change after close must not reach the closed cubit or throw.
+      slow.emit([defaultCategories.first]);
+      await Future<void>.delayed(Duration.zero);
+      expect(slow.watching, isFalse);
+    },
+  );
+
   group('name validation', () {
     test('a blank name is refused and nothing is written', () async {
       final cubit = CategoriesCubit(repository);
@@ -105,6 +124,22 @@ void main() {
       await cubit.close();
     });
   });
+}
+
+class _SlowSeed extends FakeCategoryRepository {
+  final _done = Completer<void>();
+  bool watching = false;
+
+  void finish() => _done.complete();
+
+  @override
+  Future<void> ensureDefaults() => _done.future;
+
+  @override
+  Stream<List<Category>> watchCategories() {
+    watching = true;
+    return super.watchCategories();
+  }
 }
 
 class _FailingSeed extends FakeCategoryRepository {
