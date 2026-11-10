@@ -9,7 +9,9 @@ import 'package:geuralunas/features/auth/bloc/auth_bloc.dart';
 import 'package:geuralunas/features/onboarding/bloc/onboarding_cubit.dart';
 import 'package:geuralunas/l10n/l10n.dart';
 import 'package:geuralunas/repositories/auth_repository.dart';
+import 'package:geuralunas/repositories/category_repository.dart';
 import 'package:geuralunas/repositories/debt_repository.dart';
+import 'package:geuralunas/repositories/expense_repository.dart';
 import 'package:geuralunas/repositories/onboarding_repository.dart';
 import 'package:geuralunas/repositories/reminder_repository.dart';
 import 'package:geuralunas/repositories/user_profile_repository.dart';
@@ -25,6 +27,8 @@ class App extends StatefulWidget {
     required this.userProfileRepository,
     required this.debtRepository,
     required this.reminderRepository,
+    required this.categoryRepository,
+    required this.expenseRepository,
     required this.prefs,
     super.key,
   });
@@ -44,6 +48,12 @@ class App extends StatefulWidget {
   /// Schedules payment reminders and reports notification taps.
   final ReminderRepository reminderRepository;
 
+  /// Spending categories of the signed-in user.
+  final CategoryRepository categoryRepository;
+
+  /// Expenses of the signed-in user.
+  final ExpenseRepository expenseRepository;
+
   /// Local flags such as "permission already asked".
   final SharedPreferences prefs;
 
@@ -53,7 +63,7 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> with WidgetsBindingObserver {
   final _messengerKey = GlobalKey<ScaffoldMessengerState>();
-  StreamSubscription<Object>? _writeErrors;
+  final _writeErrors = <StreamSubscription<Object>>[];
   late final ReminderCoordinator _reminders;
 
   late final AuthBloc _authBloc = AuthBloc(
@@ -78,7 +88,13 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     super.initState();
     _authBloc.add(const AuthStarted());
     unawaited(_onboardingCubit.load());
-    _writeErrors = widget.debtRepository.writeErrors.listen(_onWriteRejected);
+    for (final errors in [
+      widget.debtRepository.writeErrors,
+      widget.categoryRepository.writeErrors,
+      widget.expenseRepository.writeErrors,
+    ]) {
+      _writeErrors.add(errors.listen(_onWriteRejected));
+    }
     _reminders = ReminderCoordinator(
       reminders: widget.reminderRepository,
       signedIn: _authBloc.stream.map(
@@ -115,7 +131,9 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     unawaited(_reminders.dispose());
-    unawaited(_writeErrors?.cancel());
+    for (final subscription in _writeErrors) {
+      unawaited(subscription.cancel());
+    }
     _router.dispose();
     _refresh.dispose();
     unawaited(_authBloc.close());
@@ -131,6 +149,12 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         RepositoryProvider<DebtRepository>.value(value: widget.debtRepository),
         RepositoryProvider<ReminderRepository>.value(
           value: widget.reminderRepository,
+        ),
+        RepositoryProvider<CategoryRepository>.value(
+          value: widget.categoryRepository,
+        ),
+        RepositoryProvider<ExpenseRepository>.value(
+          value: widget.expenseRepository,
         ),
         RepositoryProvider<UserProfileRepository>.value(
           value: widget.userProfileRepository,

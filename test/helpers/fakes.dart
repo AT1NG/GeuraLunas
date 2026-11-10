@@ -1,8 +1,14 @@
 import 'dart:async';
 
 import 'package:geuralunas/domain/auth/app_user.dart';
+import 'package:geuralunas/domain/budget/budget_cycle.dart';
+import 'package:geuralunas/domain/budget/category.dart';
+import 'package:geuralunas/domain/budget/expense.dart';
+import 'package:geuralunas/domain/money.dart';
 import 'package:geuralunas/domain/reminder/reminder_settings.dart';
 import 'package:geuralunas/repositories/auth_repository.dart';
+import 'package:geuralunas/repositories/category_repository.dart';
+import 'package:geuralunas/repositories/expense_repository.dart';
 import 'package:geuralunas/repositories/onboarding_repository.dart';
 import 'package:geuralunas/repositories/reminder_repository.dart';
 import 'package:geuralunas/repositories/user_profile_repository.dart';
@@ -155,4 +161,150 @@ class FakeReminderRepository implements ReminderRepository {
 
   @override
   Future<void> openAlarmSettings() async => calls.add('alarm-settings');
+}
+
+/// In-memory categories for widget tests; every change updates the stream.
+class FakeCategoryRepository implements CategoryRepository {
+  FakeCategoryRepository({List<Category>? initial})
+    : _categories = initial ?? defaultCategories;
+
+  /// Calls in order, such as `ensureDefaults`, `add:Jajan`, `rename:makan:Ojek`
+  /// and `archive:makan:true`.
+  final calls = <String>[];
+
+  List<Category> _categories;
+  final _controller = StreamController<List<Category>>.broadcast();
+  final _errors = StreamController<Object>.broadcast();
+
+  void emit(List<Category> categories) {
+    _categories = categories;
+    _controller.add(categories);
+  }
+
+  void rejectWrite(Object error) => _errors.add(error);
+
+  @override
+  Stream<Object> get writeErrors => _errors.stream;
+
+  @override
+  Stream<List<Category>> watchCategories() async* {
+    yield _categories;
+    yield* _controller.stream;
+  }
+
+  @override
+  Future<void> ensureDefaults() async => calls.add('ensureDefaults');
+
+  @override
+  Future<String> add({
+    required String name,
+    required String icon,
+    required String colorHex,
+  }) async {
+    calls.add('add:$name');
+    final id = 'new-${_categories.length}';
+    emit([
+      ..._categories,
+      Category(
+        id: id,
+        name: name,
+        icon: icon,
+        colorHex: colorHex,
+        sortOrder: _categories.length,
+      ),
+    ]);
+    return id;
+  }
+
+  @override
+  Future<void> rename(String id, String name) async {
+    calls.add('rename:$id:$name');
+    emit([
+      for (final c in _categories) c.id == id ? c.copyWith(name: name) : c,
+    ]);
+  }
+
+  @override
+  Future<void> setArchived(String id, {required bool archived}) async {
+    calls.add('archive:$id:$archived');
+    emit([
+      for (final c in _categories)
+        c.id == id ? c.copyWith(archived: archived) : c,
+    ]);
+  }
+}
+
+/// One call to `addExpense`.
+class AddedExpense {
+  const AddedExpense({
+    required this.amount,
+    required this.categoryId,
+    required this.spentAt,
+    this.note,
+  });
+
+  final Money amount;
+  final String categoryId;
+  final DateTime spentAt;
+  final String? note;
+}
+
+/// In-memory expenses for widget tests.
+class FakeExpenseRepository implements ExpenseRepository {
+  FakeExpenseRepository({List<Expense>? initial})
+    : _expenses = initial ?? const [];
+
+  final added = <AddedExpense>[];
+  final deleted = <String>[];
+
+  /// Cycles passed to `watchExpenses`.
+  final watched = <BudgetCycle>[];
+
+  List<Expense> _expenses;
+  final _controller = StreamController<List<Expense>>.broadcast();
+  final _errors = StreamController<Object>.broadcast();
+
+  void emit(List<Expense> expenses) {
+    _expenses = expenses;
+    _controller.add(expenses);
+  }
+
+  void rejectWrite(Object error) => _errors.add(error);
+
+  @override
+  Stream<Object> get writeErrors => _errors.stream;
+
+  @override
+  Stream<List<Expense>> watchExpenses(BudgetCycle cycle) async* {
+    watched.add(cycle);
+    yield _expenses;
+    yield* _controller.stream;
+  }
+
+  @override
+  Future<String> addExpense({
+    required Money amount,
+    required String categoryId,
+    required DateTime spentAt,
+    String? note,
+  }) async {
+    added.add(
+      AddedExpense(
+        amount: amount,
+        categoryId: categoryId,
+        spentAt: spentAt,
+        note: note,
+      ),
+    );
+    return 'e${added.length}';
+  }
+
+  @override
+  Future<void> deleteExpense(String id) async {
+    deleted.add(id);
+    emit([
+      for (final e in _expenses)
+        if (e.id != id) e,
+    ]);
+  }
 }

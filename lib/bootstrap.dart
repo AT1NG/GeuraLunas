@@ -4,12 +4,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geuralunas/app/app.dart';
 import 'package:geuralunas/data/auth_data_source.dart';
+import 'package:geuralunas/data/budget_data_source.dart';
 import 'package:geuralunas/data/debt_data_source.dart';
 import 'package:geuralunas/data/notification_data_source.dart';
 import 'package:geuralunas/data/user_profile_data_source.dart';
 import 'package:geuralunas/firebase_options.dart';
 import 'package:geuralunas/repositories/auth_repository.dart';
+import 'package:geuralunas/repositories/category_repository.dart';
 import 'package:geuralunas/repositories/debt_repository.dart';
+import 'package:geuralunas/repositories/expense_repository.dart';
 import 'package:geuralunas/repositories/onboarding_repository.dart';
 import 'package:geuralunas/repositories/reminder_repository.dart';
 import 'package:geuralunas/repositories/user_profile_repository.dart';
@@ -29,6 +32,8 @@ Future<Widget> bootstrap() async {
   final profiles = UserProfileRepositoryImpl(
     UserProfileDataSource(FirebaseFirestore.instance),
   );
+  final budget = BudgetDataSource(FirebaseFirestore.instance);
+  String currentUid() => FirebaseAuth.instance.currentUser!.uid;
   final notifications = NotificationDataSource(PluginNotificationsPlatform());
   await notifications.init();
   return App(
@@ -42,6 +47,11 @@ Future<Widget> bootstrap() async {
       notifications: notifications,
       currentUid: () => FirebaseAuth.instance.currentUser?.uid,
     ),
+    categoryRepository: CategoryRepositoryImpl(
+      budget,
+      currentUid: currentUid,
+    ),
+    expenseRepository: ExpenseRepositoryImpl(budget, currentUid: currentUid),
     prefs: prefs,
   );
 }
