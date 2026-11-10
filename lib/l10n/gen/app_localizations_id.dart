@@ -715,4 +715,100 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get collectionCopied => 'Pesan disalin';
+
+  @override
+  String get addExpenseTitle => 'Catat pengeluaran';
+
+  @override
+  String get addExpenseAmountLabel => 'Nominal';
+
+  @override
+  String get addExpenseCategory => 'Kategori';
+
+  @override
+  String get addExpenseMore => 'Lainnya';
+
+  @override
+  String get addExpenseDate => 'Tanggal';
+
+  @override
+  String get addExpenseNote => 'Catatan (opsional)';
+
+  @override
+  String get addExpenseSave => 'Simpan';
+
+  @override
+  String get addExpenseSaved => 'Pengeluaran dicatat';
+
+  @override
+  String get addExpenseAmountRequired => 'Isi nominalnya dulu ya.';
+
+  @override
+  String get addExpenseAmountInvalid =>
+      'Nominalnya belum pas. Pakai angka saja, contoh 25.000.';
+
+  @override
+  String get addExpenseCategoryRequired => 'Pilih kategorinya dulu ya.';
+
+  @override
+  String get addExpenseFailed =>
+      'Belum bisa disimpan. Coba lagi sebentar lagi.';
+
+  @override
+  String get budgetExpensesTitle => 'Pengeluaran bulan ini';
+
+  @override
+  String get budgetExpensesEmpty =>
+      'Belum ada pengeluaran bulan ini. Catat yang pertama lewat tombol Tambah.';
+
+  @override
+  String get budgetDeleteTitle => 'Hapus pengeluaran?';
+
+  @override
+  String get budgetDeleteBody => 'Pengeluaran ini dihapus dari catatanmu.';
+
+  @override
+  String get budgetDeleteConfirm => 'Hapus';
+
+  @override
+  String get budgetManageCategories => 'Kelola kategori';
+
+  @override
+  String get budgetUncategorized => 'Tanpa kategori';
+
+  @override
+  String get categoriesTitle => 'Kategori';
+
+  @override
+  String get categoriesAdd => 'Tambah kategori';
+
+  @override
+  String get categoriesRename => 'Ubah nama';
+
+  @override
+  String get categoriesNameLabel => 'Nama kategori';
+
+  @override
+  String get categoriesNameEmpty => 'Isi nama kategorinya dulu ya.';
+
+  @override
+  String get categoriesNameTooLong => 'Nama kategori paling panjang 50 huruf.';
+
+  @override
+  String get categoriesIcon => 'Ikon';
+
+  @override
+  String get categoriesColor => 'Warna';
+
+  @override
+  String get categoriesArchive => 'Arsipkan';
+
+  @override
+  String get categoriesRestore => 'Pulihkan';
+
+  @override
+  String get categoriesArchivedSection => 'Diarsipkan';
+
+  @override
+  String get categoriesSave => 'Simpan';
 }

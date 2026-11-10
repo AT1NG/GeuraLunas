@@ -80,31 +80,33 @@ class DebtDataSource {
   Future<List<RawDoc>> getPayments(String uid, String debtId) async =>
       _docs(await _collection(FirestorePaths.payments(uid, debtId)).get());
 
-  /// Applies [ops] in batches of at most [maxBatchSize] writes.
-  ///
-  /// All batches are started before any is awaited, so nothing queues behind
-  /// a server acknowledgement that cannot arrive while offline. The returned
-  /// future completes when the server has acknowledged every batch.
-  Future<void> write(List<WriteOp> ops) {
-    final commits = <Future<void>>[];
-    for (var start = 0; start < ops.length; start += maxBatchSize) {
-      final batch = _firestore.batch();
-      final end = start + maxBatchSize < ops.length
-          ? start + maxBatchSize
-          : ops.length;
-      for (final op in ops.sublist(start, end)) {
-        final ref = _firestore.doc(op.path);
-        switch (op) {
-          case SetOp(:final data):
-            batch.set(ref, data);
-          case MergeOp(:final data):
-            batch.set(ref, data, SetOptions(merge: true));
-          case DeleteOp():
-            batch.delete(ref);
-        }
+  /// Applies [ops]; see [writeBatches].
+  Future<void> write(List<WriteOp> ops) => writeBatches(_firestore, ops);
+}
+
+/// Applies [ops] in batches of at most [DebtDataSource.maxBatchSize] writes.
+///
+/// All batches are started before any is awaited, so nothing queues behind
+/// a server acknowledgement that cannot arrive while offline. The returned
+/// future completes when the server has acknowledged every batch.
+Future<void> writeBatches(FirebaseFirestore firestore, List<WriteOp> ops) {
+  const size = DebtDataSource.maxBatchSize;
+  final commits = <Future<void>>[];
+  for (var start = 0; start < ops.length; start += size) {
+    final batch = firestore.batch();
+    final end = start + size < ops.length ? start + size : ops.length;
+    for (final op in ops.sublist(start, end)) {
+      final ref = firestore.doc(op.path);
+      switch (op) {
+        case SetOp(:final data):
+          batch.set(ref, data);
+        case MergeOp(:final data):
+          batch.set(ref, data, SetOptions(merge: true));
+        case DeleteOp():
+          batch.delete(ref);
       }
-      commits.add(batch.commit());
     }
-    return Future.wait(commits);
+    commits.add(batch.commit());
   }
+  return Future.wait(commits);
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:geuralunas/app/app.dart';
 import 'package:geuralunas/l10n/l10n.dart';
+import 'package:geuralunas/repositories/category_repository.dart';
+import 'package:geuralunas/repositories/expense_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helpers/debt_fixtures.dart';
@@ -18,6 +21,8 @@ Widget _app({
   userProfileRepository: FakeUserProfileRepository(),
   debtRepository: FakeDebtRepository(),
   reminderRepository: FakeReminderRepository(),
+  categoryRepository: FakeCategoryRepository(),
+  expenseRepository: FakeExpenseRepository(),
   prefs: prefs,
 );
 
@@ -106,6 +111,8 @@ void main() {
         userProfileRepository: FakeUserProfileRepository(),
         debtRepository: FakeDebtRepository(),
         reminderRepository: reminders,
+        categoryRepository: FakeCategoryRepository(),
+        expenseRepository: FakeExpenseRepository(),
         prefs: prefs,
       ),
     );
@@ -146,6 +153,8 @@ void main() {
         userProfileRepository: FakeUserProfileRepository(),
         debtRepository: debts,
         reminderRepository: FakeReminderRepository(),
+        categoryRepository: FakeCategoryRepository(),
+        expenseRepository: FakeExpenseRepository(),
         prefs: prefs,
       ),
     );
@@ -162,4 +171,64 @@ void main() {
       findsOneWidget,
     );
   });
+
+  testWidgets('category and expense repositories are provided', (tester) async {
+    final categories = FakeCategoryRepository();
+    final expenses = FakeExpenseRepository();
+    await tester.pumpWidget(
+      App(
+        authRepository: FakeAuthRepository(initialUser: testUser),
+        onboardingRepository: FakeOnboardingRepository(),
+        userProfileRepository: FakeUserProfileRepository(),
+        debtRepository: FakeDebtRepository(),
+        reminderRepository: FakeReminderRepository(),
+        categoryRepository: categories,
+        expenseRepository: expenses,
+        prefs: prefs,
+      ),
+    );
+    await tester.pumpAndSettle();
+    final context = tester.element(find.byType(NavigationBar));
+
+    expect(context.read<CategoryRepository>(), same(categories));
+    expect(context.read<ExpenseRepository>(), same(expenses));
+  });
+
+  for (final source in ['category', 'expense']) {
+    testWidgets('a rejected $source write is reported to the user', (
+      tester,
+    ) async {
+      final categories = FakeCategoryRepository();
+      final expenses = FakeExpenseRepository();
+      await tester.pumpWidget(
+        App(
+          authRepository: FakeAuthRepository(initialUser: testUser),
+          onboardingRepository: FakeOnboardingRepository(),
+          userProfileRepository: FakeUserProfileRepository(),
+          debtRepository: FakeDebtRepository(),
+          reminderRepository: FakeReminderRepository(),
+          categoryRepository: categories,
+          expenseRepository: expenses,
+          prefs: prefs,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final error = StateError('permission-denied');
+      if (source == 'category') {
+        categories.rejectWrite(error);
+      } else {
+        expenses.rejectWrite(error);
+      }
+      await tester.pumpAndSettle();
+
+      expect(
+        find.text(
+          'Perubahan terakhir belum bisa disimpan ke server dan dibatalkan. '
+          'Coba lagi ya.',
+        ),
+        findsOneWidget,
+      );
+    });
+  }
 }

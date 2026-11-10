@@ -18,4 +18,14 @@ abstract final class FirestorePaths {
 
   static String payment(String uid, String debtId, String paymentId) =>
       '${payments(uid, debtId)}/$paymentId';
+
+  static String categories(String uid) => 'users/$uid/categories';
+
+  static String category(String uid, String categoryId) =>
+      '${categories(uid)}/$categoryId';
+
+  static String expenses(String uid) => 'users/$uid/expenses';
+
+  static String expense(String uid, String expenseId) =>
+      '${expenses(uid)}/$expenseId';
 }

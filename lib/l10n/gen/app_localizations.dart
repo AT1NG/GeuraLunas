@@ -1347,6 +1347,192 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Pesan disalin'**
   String get collectionCopied;
+
+  /// No description provided for @addExpenseTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Catat pengeluaran'**
+  String get addExpenseTitle;
+
+  /// No description provided for @addExpenseAmountLabel.
+  ///
+  /// In id, this message translates to:
+  /// **'Nominal'**
+  String get addExpenseAmountLabel;
+
+  /// No description provided for @addExpenseCategory.
+  ///
+  /// In id, this message translates to:
+  /// **'Kategori'**
+  String get addExpenseCategory;
+
+  /// No description provided for @addExpenseMore.
+  ///
+  /// In id, this message translates to:
+  /// **'Lainnya'**
+  String get addExpenseMore;
+
+  /// No description provided for @addExpenseDate.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanggal'**
+  String get addExpenseDate;
+
+  /// No description provided for @addExpenseNote.
+  ///
+  /// In id, this message translates to:
+  /// **'Catatan (opsional)'**
+  String get addExpenseNote;
+
+  /// No description provided for @addExpenseSave.
+  ///
+  /// In id, this message translates to:
+  /// **'Simpan'**
+  String get addExpenseSave;
+
+  /// No description provided for @addExpenseSaved.
+  ///
+  /// In id, this message translates to:
+  /// **'Pengeluaran dicatat'**
+  String get addExpenseSaved;
+
+  /// No description provided for @addExpenseAmountRequired.
+  ///
+  /// In id, this message translates to:
+  /// **'Isi nominalnya dulu ya.'**
+  String get addExpenseAmountRequired;
+
+  /// No description provided for @addExpenseAmountInvalid.
+  ///
+  /// In id, this message translates to:
+  /// **'Nominalnya belum pas. Pakai angka saja, contoh 25.000.'**
+  String get addExpenseAmountInvalid;
+
+  /// No description provided for @addExpenseCategoryRequired.
+  ///
+  /// In id, this message translates to:
+  /// **'Pilih kategorinya dulu ya.'**
+  String get addExpenseCategoryRequired;
+
+  /// No description provided for @addExpenseFailed.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum bisa disimpan. Coba lagi sebentar lagi.'**
+  String get addExpenseFailed;
+
+  /// No description provided for @budgetExpensesTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Pengeluaran bulan ini'**
+  String get budgetExpensesTitle;
+
+  /// No description provided for @budgetExpensesEmpty.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada pengeluaran bulan ini. Catat yang pertama lewat tombol Tambah.'**
+  String get budgetExpensesEmpty;
+
+  /// No description provided for @budgetDeleteTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus pengeluaran?'**
+  String get budgetDeleteTitle;
+
+  /// No description provided for @budgetDeleteBody.
+  ///
+  /// In id, this message translates to:
+  /// **'Pengeluaran ini dihapus dari catatanmu.'**
+  String get budgetDeleteBody;
+
+  /// No description provided for @budgetDeleteConfirm.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus'**
+  String get budgetDeleteConfirm;
+
+  /// No description provided for @budgetManageCategories.
+  ///
+  /// In id, this message translates to:
+  /// **'Kelola kategori'**
+  String get budgetManageCategories;
+
+  /// No description provided for @budgetUncategorized.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanpa kategori'**
+  String get budgetUncategorized;
+
+  /// No description provided for @categoriesTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Kategori'**
+  String get categoriesTitle;
+
+  /// No description provided for @categoriesAdd.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambah kategori'**
+  String get categoriesAdd;
+
+  /// No description provided for @categoriesRename.
+  ///
+  /// In id, this message translates to:
+  /// **'Ubah nama'**
+  String get categoriesRename;
+
+  /// No description provided for @categoriesNameLabel.
+  ///
+  /// In id, this message translates to:
+  /// **'Nama kategori'**
+  String get categoriesNameLabel;
+
+  /// No description provided for @categoriesNameEmpty.
+  ///
+  /// In id, this message translates to:
+  /// **'Isi nama kategorinya dulu ya.'**
+  String get categoriesNameEmpty;
+
+  /// No description provided for @categoriesNameTooLong.
+  ///
+  /// In id, this message translates to:
+  /// **'Nama kategori paling panjang 50 huruf.'**
+  String get categoriesNameTooLong;
+
+  /// No description provided for @categoriesIcon.
+  ///
+  /// In id, this message translates to:
+  /// **'Ikon'**
+  String get categoriesIcon;
+
+  /// No description provided for @categoriesColor.
+  ///
+  /// In id, this message translates to:
+  /// **'Warna'**
+  String get categoriesColor;
+
+  /// No description provided for @categoriesArchive.
+  ///
+  /// In id, this message translates to:
+  /// **'Arsipkan'**
+  String get categoriesArchive;
+
+  /// No description provided for @categoriesRestore.
+  ///
+  /// In id, this message translates to:
+  /// **'Pulihkan'**
+  String get categoriesRestore;
+
+  /// No description provided for @categoriesArchivedSection.
+  ///
+  /// In id, this message translates to:
+  /// **'Diarsipkan'**
+  String get categoriesArchivedSection;
+
+  /// No description provided for @categoriesSave.
+  ///
+  /// In id, this message translates to:
+  /// **'Simpan'**
+  String get categoriesSave;
 }
 
 class _AppLocalizationsDelegate

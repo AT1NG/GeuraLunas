@@ -30,6 +30,7 @@ class AmountField extends StatelessWidget {
     this.errorText,
     this.helperText,
     this.fieldKey,
+    this.autofocus = false,
     super.key,
   });
 
@@ -51,10 +52,14 @@ class AmountField extends StatelessWidget {
   /// Key set on the inner text field (for tests).
   final Key? fieldKey;
 
+  /// Whether the field takes focus as soon as it appears.
+  final bool autofocus;
+
   @override
   Widget build(BuildContext context) {
     return TextField(
       key: fieldKey,
+      autofocus: autofocus,
       controller: controller,
       keyboardType: TextInputType.number,
       inputFormatters: const [ThousandsFormatter()],
