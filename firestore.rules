@@ -100,6 +100,29 @@ service cloud.firestore {
         && d.createdAt is timestamp;
     }
 
+    function validCategory(d) {
+      return d.keys().hasOnly(['name', 'icon', 'colorHex', 'sortOrder', 'isDefault', 'archived'])
+        && d.keys().hasAll(['name', 'icon', 'colorHex', 'sortOrder', 'isDefault', 'archived'])
+        && d.name is string
+        && d.name.size() >= 1 && d.name.size() <= 50
+        && d.name.matches('.*\\S.*')
+        && d.icon is string && d.icon.size() <= 50
+        && d.colorHex is string && d.colorHex.size() <= 9
+        && isInt(d.sortOrder)
+        && d.isDefault is bool
+        && d.archived is bool;
+    }
+
+    function validExpense(d) {
+      return d.keys().hasOnly(['amount', 'categoryId', 'spentAt', 'note', 'createdAt'])
+        && d.keys().hasAll(['amount', 'categoryId', 'spentAt', 'createdAt'])
+        && isInt(d.amount) && d.amount > 0
+        && d.categoryId is string && d.categoryId.size() >= 1 && d.categoryId.size() <= 100
+        && d.spentAt is timestamp
+        && optString(d, 'note', 500)
+        && d.createdAt is timestamp;
+    }
+
     // Profile document: owner only, with field validation on writes.
     match /users/{uid} {
       allow read, delete: if isOwner(uid);
@@ -129,11 +152,25 @@ service cloud.firestore {
         }
       }
 
-      // Other subcollections (categories, expenses, budgets): owner only until
-      // the phase that introduces each one adds its validation. `debts` has
-      // its own rules above and must not fall through to this looser one.
+      match /categories/{categoryId} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && validCategory(request.resource.data);
+      }
+
+      match /expenses/{expenseId} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && validExpense(request.resource.data);
+      }
+
+      // Other subcollections (budgets): owner only until the phase that
+      // introduces each one adds its validation. Rules are combined with OR,
+      // so every subcollection that has its own rules above must be left out
+      // here, or this looser rule would let unvalidated writes through.
       match /{sub}/{docId=**} {
-        allow read, write: if isOwner(uid) && sub != 'debts';
+        allow read, write: if isOwner(uid)
+          && sub != 'debts' && sub != 'categories' && sub != 'expenses';
       }
     }
   }

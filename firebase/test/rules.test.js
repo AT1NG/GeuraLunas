@@ -82,16 +82,16 @@ test('unauthenticated cannot read or write', async () => {
   await seed('users/a', validProfile());
   await assertFails(getDoc(doc(anon(), 'users/a')));
   await assertFails(setDoc(doc(anon(), 'users/a'), validProfile()));
-  await assertFails(setDoc(doc(anon(), 'users/a/categories/c1'), { x: 1 }));
+  await assertFails(setDoc(doc(anon(), 'users/a/budgets/c1'), { x: 1 }));
 });
 
 test('owner can write to a subcollection doc', async () => {
-  await assertSucceeds(setDoc(doc(as('a'), 'users/a/categories/c1'), { x: 1 }));
+  await assertSucceeds(setDoc(doc(as('a'), 'users/a/budgets/c1'), { x: 1 }));
 });
 
 test('other user cannot read subcollection doc', async () => {
-  await seed('users/a/categories/c1', { x: 1 });
-  await assertFails(getDoc(doc(as('b'), 'users/a/categories/c1')));
+  await seed('users/a/budgets/c1', { x: 1 });
+  await assertFails(getDoc(doc(as('b'), 'users/a/budgets/c1')));
 });
 
 test('profile with unknown field is denied', async () => {
@@ -175,8 +175,8 @@ test('reminderDaysBefore with more than 8 entries is denied', async () => {
 });
 
 test('owner can write a deep path, other user cannot', async () => {
-  await assertSucceeds(setDoc(doc(as('a'), 'users/a/categories/c1/x/y'), { x: 1 }));
-  await assertFails(setDoc(doc(as('b'), 'users/a/categories/c1/x/y'), { x: 1 }));
+  await assertSucceeds(setDoc(doc(as('a'), 'users/a/budgets/c1/x/y'), { x: 1 }));
+  await assertFails(setDoc(doc(as('b'), 'users/a/budgets/c1/x/y'), { x: 1 }));
 });
 
 // ---- debts, installments, payments (Phase 2) ----
@@ -333,4 +333,92 @@ test('a payment cannot be read by another user', async () => {
   await seed('users/a/debts/d1/payments/p1', validPayment());
   await assertFails(getDoc(doc(as('b'), 'users/a/debts/d1/payments/p1')));
   await assertSucceeds(getDoc(doc(as('a'), 'users/a/debts/d1/payments/p1')));
+});
+
+// ---- categories and expenses (Phase 4a) ----
+
+const validCategory = (overrides = {}) => ({
+  name: 'Makan',
+  icon: 'restaurant',
+  colorHex: '#E57373',
+  sortOrder: 0,
+  isDefault: true,
+  archived: false,
+  ...overrides,
+});
+
+const validExpense = (overrides = {}) => ({
+  amount: 25000,
+  categoryId: 'makan',
+  spentAt: ts('2026-11-10T05:00:00Z'),
+  createdAt: ts('2026-11-10T05:01:00Z'),
+  ...overrides,
+});
+
+const categoryRef = (db, uid = 'a', id = 'makan') =>
+  doc(db, `users/${uid}/categories/${id}`);
+const expenseRef = (db, uid = 'a', id = 'e1') =>
+  doc(db, `users/${uid}/expenses/${id}`);
+
+test('category rules', async () => {
+  await assertSucceeds(setDoc(categoryRef(as('a')), validCategory()));
+  await assertSucceeds(
+    setDoc(categoryRef(as('a'), 'a', 'jajan'), validCategory({ name: 'Jajan', isDefault: false, sortOrder: 7 })),
+  );
+  await assertFails(setDoc(categoryRef(as('b')), validCategory()));
+  await assertFails(setDoc(categoryRef(anon()), validCategory()));
+  await assertFails(setDoc(categoryRef(as('a')), validCategory({ name: '' })));
+  await assertFails(setDoc(categoryRef(as('a')), validCategory({ name: 'x'.repeat(51) })));
+  await assertSucceeds(setDoc(categoryRef(as('a'), 'a', 'long'), validCategory({ name: 'x'.repeat(50) })));
+  await assertFails(setDoc(categoryRef(as('a')), validCategory({ name: 5 })));
+  await assertFails(setDoc(categoryRef(as('a')), validCategory({ sortOrder: '1' })));
+  await assertFails(setDoc(categoryRef(as('a')), validCategory({ archived: 'no' })));
+  await assertFails(setDoc(categoryRef(as('a')), validCategory({ extra: 1 })));
+});
+
+test('a category can be read and deleted by its owner only', async () => {
+  await seed('users/a/categories/makan', validCategory());
+  await assertFails(getDoc(categoryRef(as('b'))));
+  await assertSucceeds(getDoc(categoryRef(as('a'))));
+  await assertFails(deleteDoc(categoryRef(as('b'))));
+  await assertSucceeds(deleteDoc(categoryRef(as('a'))));
+});
+
+test('expense rules', async () => {
+  await assertSucceeds(setDoc(expenseRef(as('a')), validExpense()));
+  await assertSucceeds(
+    setDoc(expenseRef(as('a'), 'a', 'e2'), validExpense({ note: 'bakso' })),
+  );
+  await assertFails(setDoc(expenseRef(as('b')), validExpense()));
+  await assertFails(setDoc(expenseRef(anon()), validExpense()));
+  await assertFails(setDoc(expenseRef(as('a')), validExpense({ amount: 0 })));
+  await assertFails(setDoc(expenseRef(as('a')), validExpense({ amount: -1 })));
+  await assertFails(setDoc(expenseRef(as('a')), validExpense({ amount: '25000' })));
+  await assertFails(setDoc(expenseRef(as('a')), validExpense({ amount: 25000.5 })));
+  await assertFails(setDoc(expenseRef(as('a')), validExpense({ categoryId: 5 })));
+  await assertFails(setDoc(expenseRef(as('a')), validExpense({ spentAt: '2026-11-10' })));
+  await assertFails(setDoc(expenseRef(as('a')), validExpense({ createdAt: 'now' })));
+  await assertFails(setDoc(expenseRef(as('a')), validExpense({ extra: 1 })));
+  await assertFails(setDoc(expenseRef(as('a')), validExpense({ note: 'x'.repeat(501) })));
+  await assertSucceeds(setDoc(expenseRef(as('a'), 'a', 'e3'), validExpense({ note: 'x'.repeat(500) })));
+});
+
+test('an expense can be read and deleted by its owner only', async () => {
+  await seed('users/a/expenses/e1', validExpense());
+  await assertFails(getDoc(expenseRef(as('b'))));
+  await assertSucceeds(getDoc(expenseRef(as('a'))));
+  await assertFails(deleteDoc(expenseRef(as('b'))));
+  await assertSucceeds(deleteDoc(expenseRef(as('a'))));
+});
+
+test('invalid category and expense writes do not slip through the catch-all', async () => {
+  await assertFails(setDoc(doc(as('a'), 'users/a/expenses/x'), { x: 1 }));
+  await assertFails(setDoc(doc(as('a'), 'users/a/categories/x'), { x: 1 }));
+  // Documents nested below them are not validated documents either.
+  await assertFails(setDoc(doc(as('a'), 'users/a/expenses/e1/notes/n1'), { x: 1 }));
+});
+
+test('a category name of only spaces is refused', async () => {
+  await assertFails(setDoc(categoryRef(as('a')), validCategory({ name: '   ' })));
+  await assertSucceeds(setDoc(categoryRef(as('a')), validCategory({ name: ' Jajan ' })));
 });
