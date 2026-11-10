@@ -1419,6 +1419,48 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Belum bisa disimpan. Coba lagi sebentar lagi.'**
   String get addExpenseFailed;
+
+  /// No description provided for @budgetExpensesTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Pengeluaran bulan ini'**
+  String get budgetExpensesTitle;
+
+  /// No description provided for @budgetExpensesEmpty.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada pengeluaran bulan ini. Catat yang pertama lewat tombol Tambah.'**
+  String get budgetExpensesEmpty;
+
+  /// No description provided for @budgetDeleteTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus pengeluaran?'**
+  String get budgetDeleteTitle;
+
+  /// No description provided for @budgetDeleteBody.
+  ///
+  /// In id, this message translates to:
+  /// **'Pengeluaran ini dihapus dari catatanmu.'**
+  String get budgetDeleteBody;
+
+  /// No description provided for @budgetDeleteConfirm.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus'**
+  String get budgetDeleteConfirm;
+
+  /// No description provided for @budgetManageCategories.
+  ///
+  /// In id, this message translates to:
+  /// **'Kelola kategori'**
+  String get budgetManageCategories;
+
+  /// No description provided for @budgetUncategorized.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanpa kategori'**
+  String get budgetUncategorized;
 }
 
 class _AppLocalizationsDelegate

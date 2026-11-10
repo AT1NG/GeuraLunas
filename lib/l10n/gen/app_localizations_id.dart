@@ -753,4 +753,26 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get addExpenseFailed =>
       'Belum bisa disimpan. Coba lagi sebentar lagi.';
+
+  @override
+  String get budgetExpensesTitle => 'Pengeluaran bulan ini';
+
+  @override
+  String get budgetExpensesEmpty =>
+      'Belum ada pengeluaran bulan ini. Catat yang pertama lewat tombol Tambah.';
+
+  @override
+  String get budgetDeleteTitle => 'Hapus pengeluaran?';
+
+  @override
+  String get budgetDeleteBody => 'Pengeluaran ini dihapus dari catatanmu.';
+
+  @override
+  String get budgetDeleteConfirm => 'Hapus';
+
+  @override
+  String get budgetManageCategories => 'Kelola kategori';
+
+  @override
+  String get budgetUncategorized => 'Tanpa kategori';
 }

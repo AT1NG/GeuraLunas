@@ -245,5 +245,12 @@
   "addExpenseAmountRequired": "Isi nominalnya dulu ya.",
   "addExpenseAmountInvalid": "Nominalnya belum pas. Pakai angka saja, contoh 25.000.",
   "addExpenseCategoryRequired": "Pilih kategorinya dulu ya.",
-  "addExpenseFailed": "Belum bisa disimpan. Coba lagi sebentar lagi."
+  "addExpenseFailed": "Belum bisa disimpan. Coba lagi sebentar lagi.",
+  "budgetExpensesTitle": "Pengeluaran bulan ini",
+  "budgetExpensesEmpty": "Belum ada pengeluaran bulan ini. Catat yang pertama lewat tombol Tambah.",
+  "budgetDeleteTitle": "Hapus pengeluaran?",
+  "budgetDeleteBody": "Pengeluaran ini dihapus dari catatanmu.",
+  "budgetDeleteConfirm": "Hapus",
+  "budgetManageCategories": "Kelola kategori",
+  "budgetUncategorized": "Tanpa kategori"
 }
