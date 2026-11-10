@@ -233,5 +233,17 @@
   "collectionMessageLabel": "Pesan",
   "collectionShare": "Bagikan",
   "collectionCopy": "Salin",
-  "collectionCopied": "Pesan disalin"
+  "collectionCopied": "Pesan disalin",
+  "addExpenseTitle": "Catat pengeluaran",
+  "addExpenseAmountLabel": "Nominal",
+  "addExpenseCategory": "Kategori",
+  "addExpenseMore": "Lainnya",
+  "addExpenseDate": "Tanggal",
+  "addExpenseNote": "Catatan (opsional)",
+  "addExpenseSave": "Simpan",
+  "addExpenseSaved": "Pengeluaran dicatat",
+  "addExpenseAmountRequired": "Isi nominalnya dulu ya.",
+  "addExpenseAmountInvalid": "Nominalnya belum pas. Pakai angka saja, contoh 25.000.",
+  "addExpenseCategoryRequired": "Pilih kategorinya dulu ya.",
+  "addExpenseFailed": "Belum bisa disimpan. Coba lagi sebentar lagi."
 }

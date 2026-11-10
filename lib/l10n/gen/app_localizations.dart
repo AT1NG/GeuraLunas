@@ -1347,6 +1347,78 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Pesan disalin'**
   String get collectionCopied;
+
+  /// No description provided for @addExpenseTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Catat pengeluaran'**
+  String get addExpenseTitle;
+
+  /// No description provided for @addExpenseAmountLabel.
+  ///
+  /// In id, this message translates to:
+  /// **'Nominal'**
+  String get addExpenseAmountLabel;
+
+  /// No description provided for @addExpenseCategory.
+  ///
+  /// In id, this message translates to:
+  /// **'Kategori'**
+  String get addExpenseCategory;
+
+  /// No description provided for @addExpenseMore.
+  ///
+  /// In id, this message translates to:
+  /// **'Lainnya'**
+  String get addExpenseMore;
+
+  /// No description provided for @addExpenseDate.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanggal'**
+  String get addExpenseDate;
+
+  /// No description provided for @addExpenseNote.
+  ///
+  /// In id, this message translates to:
+  /// **'Catatan (opsional)'**
+  String get addExpenseNote;
+
+  /// No description provided for @addExpenseSave.
+  ///
+  /// In id, this message translates to:
+  /// **'Simpan'**
+  String get addExpenseSave;
+
+  /// No description provided for @addExpenseSaved.
+  ///
+  /// In id, this message translates to:
+  /// **'Pengeluaran dicatat'**
+  String get addExpenseSaved;
+
+  /// No description provided for @addExpenseAmountRequired.
+  ///
+  /// In id, this message translates to:
+  /// **'Isi nominalnya dulu ya.'**
+  String get addExpenseAmountRequired;
+
+  /// No description provided for @addExpenseAmountInvalid.
+  ///
+  /// In id, this message translates to:
+  /// **'Nominalnya belum pas. Pakai angka saja, contoh 25.000.'**
+  String get addExpenseAmountInvalid;
+
+  /// No description provided for @addExpenseCategoryRequired.
+  ///
+  /// In id, this message translates to:
+  /// **'Pilih kategorinya dulu ya.'**
+  String get addExpenseCategoryRequired;
+
+  /// No description provided for @addExpenseFailed.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum bisa disimpan. Coba lagi sebentar lagi.'**
+  String get addExpenseFailed;
 }
 
 class _AppLocalizationsDelegate

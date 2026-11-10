@@ -4,14 +4,26 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:geuralunas/app/router.dart';
 import 'package:geuralunas/app/theme/app_theme.dart';
 import 'package:geuralunas/l10n/gen/app_localizations.dart';
+import 'package:geuralunas/repositories/category_repository.dart';
 import 'package:geuralunas/repositories/debt_repository.dart';
+import 'package:geuralunas/repositories/expense_repository.dart';
+import 'package:geuralunas/shared/formatters/rupiah.dart';
 
 import '../../helpers/debt_fixtures.dart';
+import '../../helpers/fakes.dart';
 
 Future<void> _pumpRouter(WidgetTester tester) {
   return tester.pumpWidget(
-    RepositoryProvider<DebtRepository>.value(
-      value: FakeDebtRepository(),
+    MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<DebtRepository>.value(value: FakeDebtRepository()),
+        RepositoryProvider<CategoryRepository>.value(
+          value: FakeCategoryRepository(),
+        ),
+        RepositoryProvider<ExpenseRepository>.value(
+          value: FakeExpenseRepository(),
+        ),
+      ],
       child: MaterialApp.router(
         theme: AppTheme.light(),
         locale: const Locale('id'),
@@ -29,6 +41,8 @@ Finder _navLabel(String label) => find.descendant(
 );
 
 void main() {
+  setUpAll(initializeFormatting);
+
   testWidgets('shows five destinations', (tester) async {
     await _pumpRouter(tester);
 
@@ -86,8 +100,13 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Catat pengeluaran'));
     await tester.pumpAndSettle();
+    expect(find.byKey(const Key('expense-save')), findsOneWidget);
 
-    expect(find.byType(ListTile), findsNothing);
+    // Dismiss the expense sheet by tapping outside it.
+    await tester.tapAt(const Offset(20, 20));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('expense-save')), findsNothing);
     expect(
       tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
       1,

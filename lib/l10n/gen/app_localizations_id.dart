@@ -715,4 +715,42 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get collectionCopied => 'Pesan disalin';
+
+  @override
+  String get addExpenseTitle => 'Catat pengeluaran';
+
+  @override
+  String get addExpenseAmountLabel => 'Nominal';
+
+  @override
+  String get addExpenseCategory => 'Kategori';
+
+  @override
+  String get addExpenseMore => 'Lainnya';
+
+  @override
+  String get addExpenseDate => 'Tanggal';
+
+  @override
+  String get addExpenseNote => 'Catatan (opsional)';
+
+  @override
+  String get addExpenseSave => 'Simpan';
+
+  @override
+  String get addExpenseSaved => 'Pengeluaran dicatat';
+
+  @override
+  String get addExpenseAmountRequired => 'Isi nominalnya dulu ya.';
+
+  @override
+  String get addExpenseAmountInvalid =>
+      'Nominalnya belum pas. Pakai angka saja, contoh 25.000.';
+
+  @override
+  String get addExpenseCategoryRequired => 'Pilih kategorinya dulu ya.';
+
+  @override
+  String get addExpenseFailed =>
+      'Belum bisa disimpan. Coba lagi sebentar lagi.';
 }
