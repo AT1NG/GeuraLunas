@@ -101,6 +101,8 @@ Untuk `direction = lent`, payment berarti "diterima dari peminjam".
 
 Default awal: Makan, Transport, Belanja, Tagihan, Hiburan, Kesehatan, Lainnya.
 
+Kategori default memakai ID tetap (`makan`, `transport`, `belanja`, `tagihan`, `hiburan`, `kesehatan`, `lainnya`) supaya menulisnya dua kali menghasilkan dokumen yang sama (ADR-017). Nama kategori 1 sampai 50 karakter dan tidak hanya spasi.
+
 ### 3.6 `users/{uid}/expenses/{expenseId}`
 
 | Field | Tipe | Keterangan |
@@ -177,6 +179,13 @@ jatahMingguIni   = jatahHariIni × sisaHariDalamMinggu (dibatasi sisaBulanan)
 ```
 
 Jika `batasBulanan < 0`, tampilkan status "cicilan melebihi pemasukan" alih-alih angka negatif.
+
+**Definisi yang melengkapi rumus di atas** (ADR-016):
+- **Siklus** dimulai pada `budgetCycleStartDay` dan berakhir sehari sebelum hari itu bulan berikutnya. ID siklus adalah bulan awalnya: siklus 25 Nov sampai 24 Des bernama `2026-11`.
+- **`sisaHariTermasukHariIni`** menghitung hari ini sampai hari terakhir siklus, minimal 1.
+- **Minggu** berjalan Senin sampai Minggu. `jatahMingguIni = jatahHariIni × hariTersisaMingguIni`, dengan `hariTersisaMingguIni` dari hari ini sampai Minggu (Senin = 7, Minggu = 1) dan dipotong oleh `sisaHariTermasukHariIni`.
+- **`jatahHariIni`** dihitung dari `sisaBulanan` setelah pengeluaran hari ini, jadi angkanya turun saat pengeluaran dicatat. Tidak ada angka "terpakai hari ini" terpisah.
+- Cicilan yang sudah `paid` tidak lagi memotong; cicilan jatuh tempo yang belum dibayar tetap memotong. Pengeluaran bertanggal di luar siklus diabaikan.
 
 **Simulasi:** setiap bulan, bayar minimum (cicilan terjadwal) ke semua hutang, dana ekstra ke hutang prioritas (snowball: sisa terkecil; avalanche: bunga efektif tertinggi), hutang lunas membebaskan cicilannya ke prioritas berikutnya. Output: bulan lunas, total bunga, serial sisa per bulan.
 

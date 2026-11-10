@@ -93,3 +93,15 @@ Tanggal: 2026-11-09 · Status: diterima
 - **Keputusan:** Notifikasi dijadwalkan sebagai alarm tepat (`exactAllowWhileIdle`, izin `SCHEDULE_EXACT_ALARM`). Bila izin tidak diberikan, dipakai `inexactAllowWhileIdle` dan Pengaturan menampilkan catatan "Pengingat bisa meleset beberapa menit" dengan tombol ke pengaturan sistem. Jam pengingat dibaca pada zona waktu perangkat (jam yang terlihat pengguna di HP), bukan `settings.timezone`; `flutter_timezone` tidak dipakai. Bidang `settings.timezone` tetap ada di profil tetapi tidak memengaruhi penjadwalan.
 - **Alasan:** Pengingat bayar paling berguna bila tepat waktu, tetapi tidak boleh gagal total bila pengguna menolak izin.
 - **Konsekuensi:** Google Play membatasi izin ini untuk app non-alarm. Bila ditolak saat rilis, ganti ke alarm tidak tepat saja tanpa mengubah desain lain. Penghemat baterai pabrikan tertentu bisa menunda notifikasi; Pengaturan memuat tipnya.
+
+## ADR-016 — Jatah aman: rumus apa adanya, minggu Senin sampai Minggu, siklus dinamai bulan awal
+Tanggal: 2026-11-10 · Status: diterima
+- **Keputusan:** `jatahHariIni = floor(sisaBulanan / sisaHariTermasukHariIni)` dengan `sisaBulanan` sudah dikurangi pengeluaran hari ini. Minggu berjalan Senin sampai Minggu dan dipotong akhir siklus. Siklus dinamai bulan awalnya (`2026-11` untuk 25 Nov sampai 24 Des). Jatah tidak pernah negatif; cicilan melebihi pemasukan memberi status `installmentsExceedIncome` dan jatah 0. Kalkulasi hidup di `lib/domain/budget/` (Dart murni, 100% tercakup test).
+- **Alasan:** Satu rumus yang mudah dijelaskan dan diuji. Pilihan menampilkan "jatah tetap + terpakai hari ini" ditolak pengguna untuk saat ini.
+- **Konsekuensi:** Setelah jajan, "jatah hari ini" langsung turun dan bisa menjadi 0. Teks Beranda di Fase 4b harus menjaga nada suportif (US-11). Mengubah ke jatah tetap nanti hanya mengubah satu fungsi domain dan test-nya.
+
+## ADR-017 — Kategori default ber-ID tetap, seeding idempoten dan diserialkan
+Tanggal: 2026-11-10 · Status: diterima
+- **Keputusan:** Tujuh kategori default ditulis dengan ID tetap lewat satu `WriteBatch` bila koleksi kosong. `CategoryRepository.ensureDefaults()` berjalan dalam antrean serial dan mengingat keberhasilannya per akun. Kategori tidak pernah dihapus, hanya diarsipkan. Pemilik state (`CategoriesCubit`) memanggilnya saat mulai.
+- **Alasan:** Dua pemanggilan bersamaan (pelajaran bug profil ganda) menulis dokumen yang sama sehingga tidak ada duplikat, dan pengeluaran lama selalu punya nama kategori.
+- **Konsekuensi:** Pengguna yang membuka app di perangkat baru dalam keadaan offline sebelum sempat sinkron melihat koleksi kosong dan menulis ulang default; saat sinkron, nama default yang pernah ia ubah di perangkat lain bisa kembali ke nama awal. Risiko ini kecil dan hanya memengaruhi nama, bukan nominal.

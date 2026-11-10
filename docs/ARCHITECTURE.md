@@ -54,17 +54,20 @@ lib/
     debt/                     # entitas Debt, Installment, Payment + enum
     interest/                 # kalkulator bunga
     schedule/                 # generator jadwal cicilan
-    budget/                   # kalkulator jatah aman
+    budget/                   # BudgetCycle, Category, Expense, computeSafeAllowance
     simulation/               # snowball, avalanche
   data/                       # akses sumber data mentah
     auth_data_source.dart
     firestore_paths.dart
     debt_dto.dart             # model Firestore ↔ Map
     notification_data_source.dart
+    budget_data_source.dart   # kategori dan pengeluaran
+    budget_dtos.dart          # Category, Expense ↔ Map
   repositories/               # kontrak (abstract) + implementasi
     auth_repository.dart
     debt_repository.dart
-    budget_repository.dart
+    category_repository.dart  # seeding default idempoten, arsip
+    expense_repository.dart
     reminder_repository.dart
   features/                   # satu folder per fitur: bloc + view
     auth/ onboarding/ home/ debts/ payments/ budget/ simulation/ settings/
@@ -106,6 +109,17 @@ Beranda mendengarkan tiga stream (budget bulan ini, cicilan jatuh tempo bulan in
 - Izin: `POST_NOTIFICATIONS` (Android 13+) diminta sekali, saat pengguna mengubah data hutang dan sudah ada pengingat (bukan saat app dibuka). `SCHEDULE_EXACT_ALARM` (Android 12+): bila tidak diberikan, pakai alarm tidak tepat dan Pengaturan memberi tahu pengguna (ADR-015).
 - ID notifikasi `(fnv1a32(debtId) % 500000) * 4096 + seq * 8 + n` (n = hari sebelum jatuh tempo): stabil antar proses dan di bawah 2^31, sehingga pembatalan dan penjadwalan ulang idempoten.
 - Tap notifikasi membuka `/debts/{id}`. Teks notifikasi dan teks tagih dibuat dari l10n (`lib/shared/reminder_text.dart`, `lib/features/debts/collection_message.dart`), bukan di `lib/domain`, karena memakai l10n dan format rupiah.
+
+### 4.4 Catat pengeluaran (FR-06, US-09)
+
+```
+Menu Tambah → showAddExpenseSheet → AddExpenseCubit.submit()
+  → parseAmount + validasi (nominal, kategori)
+  → ExpenseRepository.addExpense(...)  # WriteBatch dimulai, tidak ditunggu (ADR-013)
+  → stream pengeluaran siklus memancarkan data baru → ExpensesCubit → tab Budget
+```
+
+Kategori diambil dari `CategoriesCubit`, yang memanggil `CategoryRepository.ensureDefaults()` saat mulai (ADR-017). Tab Budget memakai siklus yang memuat hari ini dengan tanggal mulai 1 sampai pengaturan `budgetCycleStartDay` punya layar di Fase 4b. `computeSafeAllowance` belum dipakai UI di Fase 4a.
 
 ## 5. Penanganan error
 

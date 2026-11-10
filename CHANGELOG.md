@@ -17,3 +17,5 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/) dan
 - Rules Firestore untuk hutang, cicilan, dan pembayaran dengan 35 test emulator.
 - Pengingat jatuh tempo (US-06): notifikasi lokal tepat waktu untuk cicilan hutang "aku berutang" (bawaan H-3, H-1, hari-H pukul 09:00), dijadwalkan ulang saat data berubah, saat app dibuka, dan setelah restart; pengaturan jam dan hari di layar Pengaturan, dengan status izin notifikasi dan alarm tepat.
 - Tagih teman (US-07): tombol Tagih di detail piutang aktif membuka teks sopan yang bisa diedit lalu dibagikan lewat share sheet.
+- Pengeluaran: catat dalam tiga ketukan dari menu Tambah, daftar pengeluaran siklus berjalan di tab Budget, kategori default dan kelola kategori (tambah, ubah nama, arsipkan).
+- Kalkulasi jatah aman di domain (belum tampil di Beranda): siklus budget, sisa bulanan, jatah hari ini dan minggu ini.

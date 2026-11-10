@@ -75,6 +75,11 @@ void main() {
     expect(result.weekAllowance, const Money(1114284));
   });
 
+  test('the same inputs give an equal result, other inputs do not', () {
+    expect(compute(income: 1000000), compute(income: 1000000));
+    expect(compute(income: 1000000), isNot(compute(income: 1000001)));
+  });
+
   group('installments', () {
     test('a partly paid installment counts what is left', () {
       final result = compute(

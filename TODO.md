@@ -4,7 +4,7 @@
 
 ## Sedang dikerjakan
 
-- Fase 3: kode dan uji manual di emulator selesai. Berikutnya: push `phase-3-reminders`, buka PR (atas permintaan user).
+- Fase 4a selesai (kategori, catat pengeluaran, domain jatah aman). Berikutnya: Fase 4b (budget bulanan, Beranda jatah, peringatan, dampak ke pelunasan), mulai dari brainstorming.
 
 ## Fase 0 — Perencanaan (dokumen)
 
@@ -52,10 +52,10 @@
 
 ## Fase 4 — Budget & jatah aman (US-08 s.d. US-11)
 
-- [ ] Kategori default dan kelola kategori
-- [ ] Catat pengeluaran (cepat dari beranda)
+- [x] Kategori default dan kelola kategori
+- [x] Catat pengeluaran (tiga ketukan dari menu Tambah; pintasan di Beranda menyusul di 4b)
 - [ ] Budget bulanan: pemasukan dan batas per kategori
-- [ ] Domain: kalkulasi jatah aman (+ unit test)
+- [x] Domain: kalkulasi jatah aman (+ unit test)
 - [ ] Beranda: jatah hari ini, sisa minggu/bulan, peringatan
 - [ ] Dampak pengeluaran berlebih ke pelunasan
 
@@ -112,3 +112,4 @@
 | 2026-11-10 | Fase 3 (US-06, US-07): domain pengingat, teks, pengaturan profil, NotificationDataSource + konfigurasi Android, ReminderRepository serial, ReminderCoordinator, UI pengaturan, tombol Tagih, ADR-014/015 (558 test hijau, analyze bersih, coverage domain 100% / total 95.6%). Uji manual di emulator belum |
 | 2026-11-10 | Fase 3 review akhir: jam pengingat kini memakai zona waktu perangkat (bukan Asia/Jakarta tetap), izin notifikasi diminta saat pengguna mengubah hutang, bukan saat app dibuka (560 test hijau) |
 | 2026-11-10 | Fase 3 uji manual di emulator Pixel_API34 (akun uji sementara, sudah dihapus dari Auth dan Firestore): izin ditolak lalu diizinkan, alarm tepat muncul pas 01:37 dengan app di latar, ketuk membuka detail, ubah jam menjadwalkan ulang, bayar menghapus alarm dan batalkan bayar memulihkannya, alarm bertahan setelah reboot (mode inexact), keluar akun membersihkan alarm, Tagih membuka teks sopan dan share sheet. Catatan: izin alarm tepat via appops kembali default setelah reboot emulator, jadwal exact lama tidak pulih sampai app dibuka |
+| 2026-11-10 | Fase 4a (US-09, dasar US-10): domain `BudgetCycle`, `Category`, `Expense`, `computeSafeAllowance` (coverage domain 100%), `BudgetDataSource`, `CategoryRepository` (seeding default idempoten) dan `ExpenseRepository`, sheet catat pengeluaran tiga ketukan, tab Budget berisi daftar pengeluaran siklus, kelola kategori, rules dan tes emulator (41 tes rules); ADR-016 dan ADR-017. 682 test hijau, analyze bersih, coverage total 95,7%. Uji manual di emulator belum |

@@ -51,6 +51,10 @@ Coverage keseluruhan ≥ 80%. File yang dikecualikan dari penyebut harus beralas
 - Hari terakhir siklus: jatah = sisa penuh.
 - Piutang tidak menambah pemasukan.
 - Pergantian bulan dan siklus tanggal gajian ≠ 1.
+- Minggu berjalan Senin sampai Minggu: hari Selasa memberi 6 hari tersisa, hari Minggu 1, hari Senin 7; dipotong akhir siklus.
+- Cicilan sebagian dihitung sisanya; cicilan `paid`, hutang `lent`, `settled`, `archived`, dan cicilan di luar siklus diabaikan.
+- Pengeluaran jam 23:59 hari terakhir siklus masuk siklus itu; 00:00 hari berikutnya tidak.
+- Siklus melintasi tahun baru, tanggal mulai 28 pada Februari biasa dan kabisat.
 
 **Simulasi**
 - Satu hutang: snowball = avalanche.
@@ -72,6 +76,11 @@ Dengan emulator Firestore dan runner JavaScript di `firebase/` (bukan `flutter t
 - [ ] Izin notifikasi ditolak lalu diizinkan dari Pengaturan; matikan alarm tepat: catatan "meleset" tampil
 - [ ] Keluar akun: tidak ada notifikasi tersisa; masuk akun lain: hanya hutang akun itu
 - [ ] Piutang aktif: tombol Tagih membuka teks sopan, bisa diedit, dan membuka share sheet
+- [ ] Catat pengeluaran dalam tiga ketukan dari menu Tambah; nominal tempelan `Rp 1.500.000` diterima, `0` ditolak dengan pesan ramah
+- [ ] Catat pengeluaran dalam mode pesawat, lalu online: tersinkron dan muncul di tab Budget
+- [ ] Arsipkan kategori yang sudah dipakai: baris pengeluaran lama tetap menampilkan nama kategorinya, kategori tidak muncul di pilihan
+- [ ] Hapus pengeluaran meminta konfirmasi; batal tidak menghapus
+- [ ] Masuk ulang atau di HP lain: tujuh kategori default muncul sekali, tanpa duplikat
 - [ ] Mode pesawat: tambah hutang & bayar, lalu online → tersinkron
 - [ ] Login Google dan email, reset password
 - [ ] Data muncul setelah masuk di HP lain
